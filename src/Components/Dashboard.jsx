@@ -1,6 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 
 import SideBar from "./SideBar";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -12,7 +13,7 @@ const Dashboard = () => {
             <SideBar />
           </Col>
           <Col md={10} className="dashboard-wrapper bg-dark">
-            World
+        <Outlet/>
           </Col>
         </Row>
       </Container>

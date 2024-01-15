@@ -8,7 +8,7 @@ const SideBar = () => {
           {" "}
           <li>Dashboard</li>
         </Link>
-        <Link to="/report">
+        <Link to="report">
           {" "}
           <li>Report</li>
         </Link>
