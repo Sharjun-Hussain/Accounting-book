@@ -21,7 +21,7 @@ const SideBar = () => {
         </Link>
         <Link to="/Transaction">
           {" "}
-          <li>RepTransactionort</li>
+          <li>Transaction</li>
         </Link>
         <Link to="/Settings">
           {" "}

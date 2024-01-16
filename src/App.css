@@ -73,3 +73,20 @@ Front page */
 .card{
   cursor: pointer;
 }
+
+.btn{
+  background-color: black !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn:hover{
+  background-color: rgb(54, 51, 51) !important;
+}
+
+.modal-header .btn-close{
+
+ 
+  padding: 20px !important;
+  
+}
