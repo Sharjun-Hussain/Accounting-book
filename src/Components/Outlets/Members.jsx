@@ -3,23 +3,8 @@ import { useState } from "react";
 import MemberAddModal from "../Modals/MemberAdd";
 
 const Members = () => {
-
-   const [ModalShow, setModalShow] = useState(false);
-  const members = ["Member 1", "Member 2", "Member 3"]; // Replace with your actual member data
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const [ModalShow, setModalShow] = useState(false);
+  
 
   return (
     <Container fluid className="mt-3">
@@ -33,8 +18,11 @@ const Members = () => {
               </h3>
               <div className="py-3">
                 {" "}
-                <Button onClick={() =>setModalShow(true)}>Add Members</Button>
-                <MemberAddModal show={ModalShow} onHide = {() => setModalShow(false)} />
+                <Button onClick={() => setModalShow(true)}>Add Members</Button>
+                <MemberAddModal
+                  show={ModalShow}
+                  onHide={() => setModalShow(false)}
+                />
               </div>
             </div>
             <Table hover striped variant="dark" bordered>
