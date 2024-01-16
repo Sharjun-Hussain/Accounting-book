@@ -88,7 +88,7 @@ const Frontpage = () => {
       </Container>
       <Container className="mt-3">
         <Row>
-          <Col md={8} className="pe-5 m-0 ps-0">
+          <Col md={8} className="   ps-0">
             <div className="Front-cards-Background-card rounded-3 p-3">
               {" "}
               <Sandha />
@@ -96,7 +96,7 @@ const Frontpage = () => {
           </Col>
 
           <Col md={4} className="ps-0 pe-0">
-            <div className="Front-cards-Background-card rounded-3 ">
+            <div className="Front-cards-Background-card rounded-3 p-3 ">
               {" "}
               <RecentPurchase />{" "}
             </div>
@@ -141,13 +141,23 @@ const Sandha = () => {
 const RecentPurchase = () => {
   return (
     <>
-      <Container>
-        <Row>
-          <Col>
-            <Card>Hello</Card>
-          </Col>
-        </Row>
-      </Container>
+     <h4 className="text-center text-white mb-3">Recent Purchase</h4>
+            <Table striped hover bordered variant="dark">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Amount</th>
+                </tr>
+                <tr>
+                  <td>Sharjun</td>
+                  <td>Month</td>
+                </tr>
+                <tr>
+                  <td>Sharjun</td>
+                  <td>Month</td>
+                </tr>
+              </thead>
+            </Table>
     </>
   );
 };
