@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
 
 const Frontpage = () => {
