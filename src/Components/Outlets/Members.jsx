@@ -30,21 +30,26 @@ const Members = () => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid className="mt-3">
       <Row>
         {/* Members with Monthly Buttons */}
-        <Table>
+       <Col md={12} xs={12} className="ps-0 pe-0">
+       <div className="Front-cards-Background-card">
+<h3 className="text-center text-white py-3">Masjidhul Haadhi Sandha Providers List</h3>
+        <Table hover striped variant="dark" bordered>
           <thead>
             <tr>
-                <td colSpan={10}>Memebrts</td>
-                <td>Month</td>
+              <th>Memebers</th>
+              <th>Month</th>
             </tr>
             <tr>
-                <td>Memebrts</td>
-                <td>Month</td>
+              <td>Memebrts</td>
+              <td>Month</td>
             </tr>
           </thead>
         </Table>
+       </div>
+       </Col>
       </Row>
     </Container>
   );

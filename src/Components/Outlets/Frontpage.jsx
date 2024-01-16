@@ -5,7 +5,7 @@ const Frontpage = () => {
     <>
       <Container>
         <Row>
-          <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card rounded-3 py-3  ">
+          <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
             <Col md={4} xs={12} xl={3} className="">
               <Card className="d-flex flex-column mx-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
@@ -89,14 +89,14 @@ const Frontpage = () => {
       <Container className="mt-3">
         <Row>
           <Col md={8} className="   ps-0">
-            <div className="Front-cards-Background-card rounded-3 p-3">
+            <div className="Front-cards-Background-card ">
               {" "}
               <Sandha />
             </div>
           </Col>
 
           <Col md={4} className="ps-0 pe-0">
-            <div className="Front-cards-Background-card rounded-3 p-3 ">
+            <div className="Front-cards-Background-card  ">
               {" "}
               <RecentPurchase />{" "}
             </div>
