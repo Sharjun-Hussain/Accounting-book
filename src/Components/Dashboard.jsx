@@ -12,7 +12,7 @@ const Dashboard = () => {
           <Col md={2} className="sidebar p-0">
             <SideBar />
           </Col>
-          <Col md={10} className="dashboard-wrapper bg-dark">
+          <Col md={10} className="dashboard-wrapper ">
         <Outlet/>
           </Col>
         </Row>

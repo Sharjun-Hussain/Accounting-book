@@ -1,8 +1,12 @@
 * {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   padding: 0;
   margin: 0;
-  background-color: white !;
+  
+}
+
+body{
+  background-color: aliceblue;
 }
 
 .sidebar {
@@ -13,7 +17,8 @@
 
 .dashboard-wrapper {
   height: 100vh;
-  background: #0770e1 !important; /* fallback for old browsers */
+  background-color: #06294d;
+  border-left: 2px solid white;
 
 }
 
@@ -58,5 +63,11 @@ Front page */
 
 
 .Front-cards-Background-card{
-  background-color: black;
+  background-color: transparent;
+  border: white 2px solid;
+}
+
+
+.card{
+  cursor: pointer;
 }
