@@ -118,8 +118,9 @@ const Sandha = () => {
             <Table striped hover bordered variant="dark">
               <thead>
                 <tr>
-                  <th>Memebrts</th>
+                  <th>Memebers</th>
                   <th>Month</th>
+                  
                 </tr>
                 <tr>
                   <td>Sharjun</td>
