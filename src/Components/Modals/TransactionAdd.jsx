@@ -1,8 +1,11 @@
-import { Col, Container, Row, Form } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 
 const TransactionAddModal = (props) => {
+  const currentDate = new Date().toISOString().split("T")[0];
   return (
     <Container>
       <Row>
@@ -15,34 +18,69 @@ const TransactionAddModal = (props) => {
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Create Transaction
+                Add Transaction
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form>
                 <Row className="mb-3">
-                  <Form.Group as={Col} controlId="formGridName">
-                    <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="text" placeholder="Sharjun-Hussain" />
+                  <Form.Group as={Col} controlId="formGridEmail">
+                    <Form.Label>From Account</Form.Label>
+                    <Form.Select aria-label="Default select example">
+                      <option>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </Form.Select>
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Label>To Account</Form.Label>
+                    <Form.Select aria-label="Default select example">
+                      <option>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </Form.Select>
                   </Form.Group>
                 </Row>
 
-                <Form.Group className="mb-3" controlId="formGridAddress1">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control placeholder="1234 Main St" />
-                </Form.Group>
+                <Row className="mb-3">
+                  <Form.Group
+                    as={Col}
+                    className=""
+                    controlId="formGridAddress1"
+                  >
+                    <Form.Label>Date</Form.Label>
+                    <Form.Control type="date" defaultValue={currentDate} />
+                  </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formGridPhone">
-                  <Form.Label>Phone</Form.Label>
-                  <Form.Control type="number" placeholder="075 74 74 744" />
-                </Form.Group>
+                  <Form.Group as={Col} controlId="formGridAddress2">
+                    <Form.Label>Amount</Form.Label>
+                    <Form.Control type="number"  />
+                  </Form.Group>
+                </Row>
 
-                <Button
-                  style={{ alignSelf: "end",width:"100%"  }}
-                  variant="primary"
-                  type="submit"
-                >
-                  Submit
+                <Col>
+                  <Form.Group
+                    as={Col}
+                    className="mb-3"
+                    controlId="formGridAddress2"
+                  >
+                    <Form.Label>Notes</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      style={{ height: "100px" }}
+                    />
+                  </Form.Group>
+                </Col>
+                <Form.Group controlId="formFileMultiple" className="mb-3">
+                  <Form.Label>Upload Files</Form.Label>
+                  <Form.Control type="file" multiple />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Create
                 </Button>
               </Form>
             </Modal.Body>
