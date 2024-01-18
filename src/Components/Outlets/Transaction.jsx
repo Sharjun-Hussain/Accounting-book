@@ -1,12 +1,19 @@
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState , useRef } from "react";
 import TransactionAddModal from "../Modals/TransactionAdd";
+import { useReactToPrint } from 'react-to-print';
 
 const Transactions = () => {
   const [ModalShow, setModalShow] = useState(false);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   
 
   return (
+
     <Container fluid className="mt-3">
       <Row>
         {/* Members with Monthly Buttons */}
@@ -18,31 +25,20 @@ const Transactions = () => {
               </h3>
               <div className="py-3">
                 {" "}
-                <Button className="me-3" onClick={() => window.print()}>Print Transaction</Button>
                 
-                <Button onClick={() => setModalShow(true)}>Add Transaction</Button>
+                <Button className="me-3" onClick={handlePrint}>
+                  Print Transaction
+                </Button>
+                <Button onClick={() => setModalShow(true)}>
+                  Add Transaction
+                </Button>
                 <TransactionAddModal
                   show={ModalShow}
                   onHide={() => setModalShow(false)}
                 />
               </div>
             </div>
-            <Table hover striped variant="dark" bordered>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th className="text-center">Memebers</th>
-                  <th className="text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Memebrts</td>
-                  <td>Month</td>
-                </tr>
-              </tbody>
-            </Table>
+            <TransactionTable ref={componentRef} />
           </div>
         </Col>
       </Row>
@@ -51,3 +47,26 @@ const Transactions = () => {
 };
 
 export default Transactions;
+
+const TransactionTable = () => {
+  return (
+    <Table hover striped variant="dark" bordered className="print-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th className="text-center">Memebers</th>
+          <th className="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Memebrts</td>
+          <td>Month</td>
+        </tr>
+      </tbody>
+    </Table>
+  );
+};
+
+
