@@ -18,6 +18,8 @@ const Transactions = () => {
               </h3>
               <div className="py-3">
                 {" "}
+                <Button className="me-3" onClick={() => window.print()}>Print Transaction</Button>
+                
                 <Button onClick={() => setModalShow(true)}>Add Transaction</Button>
                 <TransactionAddModal
                   show={ModalShow}
