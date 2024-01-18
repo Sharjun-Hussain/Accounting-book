@@ -23,6 +23,10 @@ const SideBar = () => {
           {" "}
           <li>Transaction</li>
         </Link>
+        <Link to="/Sandha">
+          {" "}
+          <li>Sandha</li>
+        </Link>
         <Link to="/Settings">
           {" "}
           <li>Settings</li>
