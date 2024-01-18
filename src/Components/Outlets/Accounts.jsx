@@ -19,14 +19,14 @@ const Accounts = () => {
           <div className="Front-cards-Background-card">
             <div className="d-flex justify-content-between ">
               <h3 className="text-start text-white py-3">
-                Recent Transactions
+                Accounts
               </h3>
               <div className="py-3">
                 {" "}
                 
                 
                 <Button onClick={() => setModalShow(true)}>
-                  Add Transaction
+                  Add Account
                 </Button>
                 <AccountAddModal
                   show={ModalShow}
@@ -50,7 +50,9 @@ const AccountsTable = () => {
       <thead>
         <tr>
           <th>#</th>
-          <th className="text-center">Memebers</th>
+          <th className="text-center">Account</th>
+          <th className="text-center">Current Balance</th>
+          <th className="text-center">Status</th>
           <th className="text-center">Actions</th>
         </tr>
       </thead>
@@ -58,6 +60,7 @@ const AccountsTable = () => {
         <tr>
           <td>1</td>
           <td>Memebrts</td>
+          <td>Month</td>
           <td>Month</td>
         </tr>
       </tbody>

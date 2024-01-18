@@ -28,7 +28,7 @@ const AccountAddModal = (props) => {
                
 
                 <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                <Form.Label>To Account</Form.Label>
+                <Form.Label>Account Type</Form.Label>
                     <Form.Select aria-label="Default select example">
                       <option>Open this select menu</option>
                       <option value="1">Income</option>
