@@ -87,16 +87,16 @@ const Frontpage = () => {
           </div>
         </Row>
       </Container>
-      <Container className="mt-3">
+      <Container className="">
         <Row>
-          <Col md={8} className="   ps-0">
+          <Col md={8} className=" my-3  ps-0  pe-0 pe-md-3">
             <div className="Front-cards-Background-card ">
               {" "}
               <Sandha />
             </div>
           </Col>
 
-          <Col md={4} className="ps-0 pe-0">
+          <Col md={4} className="ps-0 pe-0 my-3">
             <div className="Front-cards-Background-card  ">
               {" "}
               <RecentPurchase />{" "}

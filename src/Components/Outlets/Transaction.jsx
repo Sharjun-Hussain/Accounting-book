@@ -1,6 +1,6 @@
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import { useState } from "react";
-import MemberAddModal from "../Modals/MemberAdd";
+import TransactionAddModal from "../Modals/TransactionAdd";
 
 const Transactions = () => {
   const [ModalShow, setModalShow] = useState(false);
@@ -14,12 +14,12 @@ const Transactions = () => {
           <div className="Front-cards-Background-card">
             <div className="d-flex justify-content-between ">
               <h3 className="text-start text-white py-3">
-                Masjidhul Haadhi Sandha Providers List
+                Recent Transactions
               </h3>
               <div className="py-3">
                 {" "}
-                <Button onClick={() => setModalShow(true)}>Add Members</Button>
-                <MemberAddModal
+                <Button onClick={() => setModalShow(true)}>Add Transaction</Button>
+                <TransactionAddModal
                   show={ModalShow}
                   onHide={() => setModalShow(false)}
                 />
