@@ -2,7 +2,7 @@ import { Col, Container, Row, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const MemberAddModal = (props) => {
+const SandhaAddModal = (props) => {
   return (
     <Container>
       <Row>
@@ -15,36 +15,41 @@ const MemberAddModal = (props) => {
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Add Member
+                Add Sandha
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form>
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridName">
-                    <Form.Label>Full Name</Form.Label>
+                    <Form.Label>Member Name</Form.Label>
                     <Form.Control type="text" placeholder="Sharjun-Hussain" />
                   </Form.Group>
                 </Row>
 
-                <Form.Group className="mb-3" controlId="formGridAddress1">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control placeholder="1234 Main St" />
-                </Form.Group>
-
                 <Row>
-                <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
-                  <Form.Label>Phone</Form.Label>
-                  <Form.Control type="number" placeholder="075 74 74 744" />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
-                  <Form.Label>Sandha Amount</Form.Label>
-                  <Form.Control type="number" placeholder="" />
-                </Form.Group>
+                  
+                  <Form.Group
+                    as={Col}
+                    className="mb-3"
+                    controlId="formGridPhone"
+                  >
+                    <Form.Label>Sandha Amount</Form.Label>
+                    <Form.Control type="number" placeholder="" />
+                  </Form.Group>
+
+                  <Form.Group
+                    as={Col}
+                    className="mb-3"
+                    controlId="formGridPhone"
+                  >
+                    <Form.Label>Status</Form.Label>
+                    
+                  </Form.Group>
                 </Row>
 
                 <Button
-                  style={{ alignSelf: "end",width:"100%"  }}
+                  style={{ alignSelf: "end", width: "100%" }}
                   variant="primary"
                   type="submit"
                 >
@@ -59,4 +64,4 @@ const MemberAddModal = (props) => {
   );
 };
 
-export default MemberAddModal;
+export default SandhaAddModal;

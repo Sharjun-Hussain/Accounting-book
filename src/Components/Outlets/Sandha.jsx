@@ -1,15 +1,34 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
+import SandhaAddModal from "../Modals/SandhaAdd";
+import { useState } from "react";
+
 
 const SandhaMainPage = () => {
+  const [ModalShow, setModalShow] = useState(false);
   return (
     <>
       <Container>
         <Row>
+          <div className="Front-cards-Background-card  mt-3 ">
+            <Col className="d-flex"> 
+              <h3 className="text-white">Sandha Details</h3>
+
+              <div className="ms-auto">
+                <Button onClick={() => setModalShow(true)}>
+                  Add Sandha
+                </Button>
+                <SandhaAddModal
+                  show={ModalShow}
+                  onHide={() => setModalShow(false)} />
+              </div>
+            </Col>
+          </div>
+        </Row>
+        <Row>
           <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
-           
-              <Col md={4} xs={12} xl={3} className="">
+            <Col md={4} xs={12} xl={3} className="">
               <Link to="this-month">
                 <Card className="d-flex flex-column mx-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between  ">
@@ -21,9 +40,8 @@ const SandhaMainPage = () => {
                     <span>Icon</span>
                   </Card.Body>
                 </Card>
-                </Link>
-              </Col>
-            
+              </Link>
+            </Col>
 
             <Col md={4} xs={12} xl={3} className="">
               <Card className="d-flex flex-column mx-1 my-2">
