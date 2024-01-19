@@ -2,7 +2,7 @@
 
 import { Form } from "react-bootstrap";
 
-const CheckBox = ({name, value = false, updateValue = ()=>{} , children }) => {
+const CheckBox = ({name, value, updateValue = ()=>{} , children }) => {
   
     // handle checkbox change
   const handleChange = () => {
