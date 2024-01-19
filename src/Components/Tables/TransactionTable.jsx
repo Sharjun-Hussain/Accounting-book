@@ -1,11 +1,34 @@
+import { useState } from "react";
 import {  Table } from "react-bootstrap";
+import CheckBox from "../Utilities/CheckBox";
 
 const TransactionTable = () => {
+    const [selected, setSelected] = useState([]);
+    const listOptions = [ "apple", "banana", "cherry", "date", "elderberry", "fig", "honeydew melon"];
+
+function handleSelect(value, name) {
+    if (value) {
+      setSelected([...selected, name]);
+    } else {
+      setSelected(selected.filter((item) => item !== name));
+    }
+  }
+  
+  function selectAll(value) {
+    if (value) { // if true
+     setSelected(listOptions); // select all
+    } else { // if false
+      setSelected([]); // unselect all
+    }
+  }
+
+
+
     return (
       <Table hover striped variant="dark" bordered className="print-table">
         <thead>
           <tr>
-            <th></th>
+            <th><CheckBox name="all" value={selected.length === listOptions.length} updateValue={selectAll}>Select All</CheckBox></th>
   
             <th>#</th>
             <th className="text-center"> Memebers</th>
@@ -13,11 +36,11 @@ const TransactionTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Memebrts</td>
-            <td>Month</td>
-          </tr>
+        { listOptions.map((item, key) => {
+        return <div key={key}>
+             <CheckBox name={item} value={selected.includes(item)} updateValue={handleSelect}>{item}</CheckBox>
+        </div>
+      }) }
         </tbody>
       </Table>
     );

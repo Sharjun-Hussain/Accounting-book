@@ -10,10 +10,10 @@ const Transactions = () => {
   // const [CheckedValue, setCheckedValue] = useState([]); //CheckBox Data
 
   //Print Fucntion Start
-  const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const componentRef = useRef();
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
 
   //Print Fucntion End
 
@@ -28,7 +28,7 @@ const Transactions = () => {
               </h3>
               <div className="py-3">
                 {" "}
-                <Button className="me-3" onClick={handlePrint}>
+                <Button className="me-3">
                   Print Transaction
                 </Button>
                 <Button onClick={() => setModalShow(true)}>
@@ -40,7 +40,7 @@ const Transactions = () => {
                 />
               </div>
             </div>
-            <TransactionTable ref={componentRef} />
+            <TransactionTable />
           </div>
         </Col>
       </Row>
