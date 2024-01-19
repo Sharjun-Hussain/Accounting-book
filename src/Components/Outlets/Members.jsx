@@ -1,6 +1,7 @@
-import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useState } from "react";
 import MemberAddModal from "../Modals/MemberAdd";
+import MembersTable from "../Tables/MembersTable";
 
 const Members = () => {
   const [ModalShow, setModalShow] = useState(false);
@@ -25,22 +26,7 @@ const Members = () => {
                 />
               </div>
             </div>
-            <Table hover striped variant="dark" bordered>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th className="text-center">Memebers</th>
-                  <th className="text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Memebrts</td>
-                  <td>Month</td>
-                </tr>
-              </tbody>
-            </Table>
+            <MembersTable/>
           </div>
         </Col>
       </Row>
