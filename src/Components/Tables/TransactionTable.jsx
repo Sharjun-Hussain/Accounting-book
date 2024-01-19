@@ -109,7 +109,7 @@ const TransactionTable = () => {
               ref={rowCheckbox}
               name="" // name={item}  format
               value="" // value={item}  format
-              checked={checked}
+              defaultChecked={checked}
             />
           </td>
           <td>1</td>
