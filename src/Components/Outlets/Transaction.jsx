@@ -1,7 +1,7 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import TransactionAddModal from "../Modals/TransactionAdd";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import TransactionTable from "../Tables/TransactionTable";
 
 const Transactions = () => {
