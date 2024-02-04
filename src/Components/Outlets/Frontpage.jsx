@@ -6,9 +6,9 @@ const Frontpage = () => {
     <>
       <Container>
         <Row>
-          <div className="d-flex flex-wrap     ">
+          <div className="d-flex flex-wrap ">
             <Col md={4} xs={12} xl={3} className="">
-              <Card className="d-flex flex-column mx-1 my-2">
+              <Card className="d-flex flex-column me-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
@@ -47,7 +47,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={4} xs={12} xl={3} className="">
-              <Card className="d-flex flex-column mx-1 my-2">
+              <Card className="d-flex flex-column ms-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
@@ -60,7 +60,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={4} xs={12} xl={3} className="">
-              <Card className="d-flex flex-column mx-1 my-2">
+              <Card className="d-flex flex-column me-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
