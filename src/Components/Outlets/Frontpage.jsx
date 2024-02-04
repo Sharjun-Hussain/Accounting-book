@@ -6,7 +6,7 @@ const Frontpage = () => {
     <>
       <Container>
         <Row>
-          <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
+          <div className="d-flex flex-wrap     ">
             <Col md={4} xs={12} xl={3} className="">
               <Card className="d-flex flex-column mx-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
@@ -89,14 +89,14 @@ const Frontpage = () => {
       </Container>
       <Container className="">
         <Row>
-          <Col md={8} className=" my-3  ps-0  pe-0 pe-md-3">
+          <Col md={8} className=" my-3   pe-md-3">
             <div className="Front-cards-Background-card ">
               {" "}
               <Sandha />
             </div>
           </Col>
 
-          <Col md={4} className="ps-0 pe-0 my-3">
+          <Col md={4} className=" my-3">
             <div className="Front-cards-Background-card  ">
               {" "}
               <RecentPurchase />{" "}
@@ -115,7 +115,7 @@ export default Frontpage;
 const Sandha = () => {
   return (
     <>
-      <h4 className="text-center text-white mb-3">This Month's Sandha Providers</h4>
+      <h5 className="text-start text-white mb-3">This Month's Sandha Providers</h5>
             <Table striped hover bordered variant="dark">
               <thead>
                 <tr>
@@ -143,7 +143,7 @@ const Sandha = () => {
 const RecentPurchase = () => {
   return (
     <>
-     <h4 className="text-center text-white mb-3">Recent Purchase</h4>
+     <h5 className="text-start text-white mb-3">Recent Purchase</h5>
             <Table striped hover bordered variant="dark">
               <thead>
                 <tr>

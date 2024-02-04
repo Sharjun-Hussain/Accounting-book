@@ -6,19 +6,19 @@
 }
 
 body{
-  background-color: aliceblue;
+  background-color:  #222222!important;
 }
 
 .sidebar {
   height: 100vh;
-  background: #06294d; /* fallback for old browsers */
+  background: #222222; /* fallback for old browsers */
 
 }
 
 .dashboard-wrapper {
   
-  background-color: #06294d;
-  border-left: 2px solid white;
+  background-color: #222222;
+  /* border-left: 2px solid white; */
 
 }
 
@@ -63,15 +63,24 @@ Front page */
 
 
 .Front-cards-Background-card{
-  background-color: transparent;
-  border: white 2px solid;
+
+  border:  1px solid rgba(255, 255, 255, 0.5);
+  
   border-radius: 0.5rem;
   padding: 1rem ;
-}
+}y
 
 
 .card{
   cursor: pointer;
+  background-color:  #3d3d3d !important;
+  color: white !important;
+}
+
+.card:hover{
+  background-color:  #99a1d4 !important;
+  color: black !important;
+
 }
 
 .btn{
