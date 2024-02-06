@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Container, Col } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 

@@ -26,7 +26,7 @@ const SandhaMainPage = () => {
             </Col>
           </div>
         </>
-        <Row>
+        <>
           <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
             <Col md={4} xs={12} xl={3} className="">
               <Link to="this-month">
@@ -108,14 +108,14 @@ const SandhaMainPage = () => {
               </Card>
             </Col>
           </div>
-        </Row>
+        </>
       </Container>
       <Container className="">
-        <Row>
+        <>
           <Col md={12} className=" my-3  ps-0  pe-0 pe-md-3">
             <Outlet />
           </Col>
-        </Row>
+        </>
       </Container>
     </>
   );
