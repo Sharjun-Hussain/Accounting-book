@@ -3,22 +3,26 @@
   padding: 0;
   margin: 0;
   
+  
 }
 
 body{
   /* background-color:  #222222!important; */
   background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
 }
+.dashboard{
+  background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+}
 
 .sidebar {
   height: 100vh;
-  background: #222222; /* fallback for old browsers */
+  /* background: #222222; fallback for old browsers */
 
 }
 
 .dashboard-wrapper {
   
-  background-color: #222222;
+  /* background-color: #222222; */
   /* border-left: 2px solid white; */
 
 }

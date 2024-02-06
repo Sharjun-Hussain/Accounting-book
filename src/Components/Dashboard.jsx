@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Container fluid>
+      <Container fluid className="dashboard">
         <Row>
           <Col>
             <div className="pt-4 mb-4 text-white d-flex my-auto topBar ">

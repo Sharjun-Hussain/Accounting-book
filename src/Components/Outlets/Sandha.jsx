@@ -9,7 +9,7 @@ const SandhaMainPage = () => {
   const [ModalShow, setModalShow] = useState(false);
   return (
     <>
-      <Container>
+      <Container fluid>
         <>
           <div className="Front-cards-Background-card  mt-3 ">
             <Col className="d-flex"> 
