@@ -34,7 +34,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column mx-md-1 my-2">
+              <Card className="d-flex flex-column  me-md-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
@@ -47,7 +47,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column me-md-1 my-2">
+              <Card className="d-flex flex-column mx-md-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
