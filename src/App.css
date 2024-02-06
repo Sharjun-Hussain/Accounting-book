@@ -20,12 +20,7 @@ body{
 
 }
 
-.dashboard-wrapper {
-  
-  /* background-color: #222222; */
-  /* border-left: 2px solid white; */
 
-}
 
 
 .userIcon{
@@ -51,8 +46,9 @@ ul li {
 }
 
 ul li:hover {
-  background: #4ca1af;
-  color: black;
+  background: rgb(81, 81, 81);
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
 }
 
 a {
@@ -82,14 +78,16 @@ Front page */
 
 
 .card{
-  cursor: pointer;
+  cursor: pointer !important;
   background-color:  #3d3d3d !important;
   color: white !important;
+  height: 600px !important;
 }
 
 .card:hover{
   background-color:  #99a1d4 !important;
   color: black !important;
+  cursor: pointer;
 
 }
 
