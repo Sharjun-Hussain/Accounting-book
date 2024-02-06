@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Dashboard = () => {
   const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
- 
+
   return (
     <>
       <Container fluid>
@@ -18,18 +18,8 @@ const Dashboard = () => {
           <Col md={2} className="sidebar p-0">
             <SideBar />
           </Col>
-          <Col md={10} className="dashboard-wrapper ">
-            <div className="d-flex justify-content-between ">
-              <h5 className="text-white  ">DASHBOARD</h5>
-              <Form.Control
-                className="w-25"
-                type="date"
-                name="datepic"
-                defaultValue={date}
-                
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
+          <Col md={10} className="dashboard-wrapper  ">
+            
             <Outlet />
           </Col>
         </Row>
