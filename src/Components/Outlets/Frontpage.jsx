@@ -5,11 +5,11 @@ const Frontpage = () => {
   return (
     <>
       <Container>
-        <Row>
-          <div className="d-flex flex-wrap ">
+       
+          <div className="d-flex flex-wrap  ">
             <Col md={4} xs={12} xl={3} className="">
               <Card className="d-flex flex-column me-1 my-2">
-                <Card.Body className="d-flex flex-row justify-content-between  ">
+                <Card.Body className="d-flex flex-row justify-content-between">
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
@@ -84,8 +84,8 @@ const Frontpage = () => {
                 </Card.Body>
               </Card>
             </Col>
-          </div>
-        </Row>
+         
+        </div>
       </Container>
       <Container className="">
         <Row>
