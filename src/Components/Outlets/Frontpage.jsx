@@ -4,7 +4,7 @@ import { Card, Col, Container, Row, Table } from "react-bootstrap";
 const Frontpage = () => {
   return (
     <>
-      <Container>
+      <Container fluid>
        
           <div className="d-flex flex-wrap  ">
             <Col md={4} xs={12} xl={3} className="">
@@ -86,8 +86,8 @@ const Frontpage = () => {
             </Col>
          
         </div>
-      </Container>
-      <Container className="">
+      </Container >
+      <Container fluid className="">
         <Row>
           <Col md={8} className=" my-3   pe-md-3">
             <div className="Front-cards-Background-card ">

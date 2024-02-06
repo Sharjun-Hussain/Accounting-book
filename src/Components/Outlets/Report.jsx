@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 
 const Report = () => {
   return (
-    <Container>
+    <Container fluid>
       <>
         <Col md={12} xs={12} className="ps-0 pe-0">
           <div className="Front-cards-Background-card mt-3">
