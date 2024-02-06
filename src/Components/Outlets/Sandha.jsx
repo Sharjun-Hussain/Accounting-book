@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import SandhaAddModal from "../Modals/SandhaAdd";
 import { useState } from "react";
@@ -10,7 +10,7 @@ const SandhaMainPage = () => {
   return (
     <>
       <Container>
-        <Row>
+        <>
           <div className="Front-cards-Background-card  mt-3 ">
             <Col className="d-flex"> 
               <h3 className="text-white">Sandha Details</h3>
@@ -25,7 +25,7 @@ const SandhaMainPage = () => {
               </div>
             </Col>
           </div>
-        </Row>
+        </>
         <Row>
           <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
             <Col md={4} xs={12} xl={3} className="">

@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Col, Button } from "react-bootstrap";
 import { useState } from "react";
 import MemberAddModal from "../Modals/MemberAdd";
 import MembersTable from "../Tables/MembersTable";
@@ -9,7 +9,7 @@ const Members = () => {
 
   return (
     <Container fluid className="mt-3">
-      <Row>
+      <>
         {/* Members with Monthly Buttons */}
         <Col md={12} xs={12} className="ps-0 pe-0">
           <div className="Front-cards-Background-card">
@@ -29,7 +29,7 @@ const Members = () => {
             <MembersTable/>
           </div>
         </Col>
-      </Row>
+      </>
     </Container>
   );
 };

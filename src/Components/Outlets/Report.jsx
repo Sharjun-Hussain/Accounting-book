@@ -1,10 +1,10 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
 const Report = () => {
   return (
     <Container>
-      <Row>
+      <>
         <Col md={12} xs={12} className="ps-0 pe-0">
           <div className="Front-cards-Background-card mt-3">
             <h3 className="text-center text-white my-3">This Month's Kanakkarikkai</h3>
@@ -44,7 +44,7 @@ const Report = () => {
             </Table>
           </div>
         </Col>
-      </Row>
+      </>
     </Container>
   );
 };

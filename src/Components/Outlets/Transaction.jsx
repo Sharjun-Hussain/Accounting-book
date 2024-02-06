@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Col, Button } from "react-bootstrap";
 import { useState } from "react";
 import TransactionAddModal from "../Modals/TransactionAdd";
 // import { useReactToPrint } from "react-to-print";
@@ -19,7 +19,7 @@ const Transactions = () => {
 
   return (
     <Container fluid className="mt-3">
-      <Row>
+      <>
         <Col md={12} xs={12} className="ps-0 pe-0">
           <div className="Front-cards-Background-card">
             <div className="d-flex justify-content-between ">
@@ -43,7 +43,7 @@ const Transactions = () => {
             <TransactionTable />
           </div>
         </Col>
-      </Row>
+      </>
     </Container>
   );
 };
