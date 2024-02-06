@@ -26,7 +26,7 @@ const Frontpage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>Vangi iruppu</Card.Title>
+                    <Card.Title className="align-content-end">Vangi iruppu</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
@@ -47,7 +47,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column mx-md-1 my-2">
+              <Card className="d-flex flex-column mx-md-1 my-2  ">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}

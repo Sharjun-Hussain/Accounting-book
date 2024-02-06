@@ -64,14 +64,16 @@ a:hover {
   
   border-radius: 0.5rem;
   padding: 1rem ;
-}y
+}
 
+.Caard{
+  
+}
 
 .card{
-  cursor: pointer !important;
   background-color:  #3d3d3d !important;
   color: white !important;
-  height: 600px !important;
+  min-height: 130px;
 }
 
 .card:hover{
@@ -80,6 +82,7 @@ a:hover {
   cursor: pointer;
 
 }
+
 
 .btn{
   background-color: black !important;
