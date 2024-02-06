@@ -6,21 +6,14 @@
   
 }
 
-body{
-  /* background-color:  #222222!important; */
-  background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
-}
+
 .dashboard{
-  background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+  background: radial-gradient(circle at  68.8% 24.1% , rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
 }
 
 .sidebar {
   height: 100vh;
-  /* background: #222222; fallback for old browsers */
-
 }
-
-
 
 
 .userIcon{
@@ -42,14 +35,9 @@ ul li {
   
   width: 100%;
   cursor: pointer;
-  padding-left: 20px;
+  padding-left: 3px;
 }
 
-ul li:hover {
-  background: rgb(81, 81, 81);
-  color: rgb(255, 255, 255);
-  border-radius: 5px;
-}
 
 a {
   color: white !important;
@@ -59,13 +47,15 @@ a {
   text-decoration: none !important;
 }
 a:hover {
-  background: #4ca1af;
+  background: #606060;
   color: black;
+  border-radius: 3px;
+}
+.active{
+  background-color: #303030;
 }
 
-/* 
-
-Front page */
+/* Front page */
 
 
 .Front-cards-Background-card{
