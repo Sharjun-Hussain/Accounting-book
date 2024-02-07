@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
+import bookmark from '../../assets/Icons/Bookmark.svg'
 
 const Frontpage = () => {
   return (
@@ -21,20 +22,20 @@ const Frontpage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column mx-md-1 my-2">
+              <Card className="d-flex flex-column ms-md-1 mx-lg-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
                     <Card.Title className="align-content-end">Vangi iruppu</Card.Title>
                   </div>
-                  <span>Icon</span>
+                  <img src={bookmark} width={35} />
                 </Card.Body>
               </Card>
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column  me-md-1 my-2">
+              <Card className="d-flex flex-column  me-md-1 mx-lg-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
@@ -47,7 +48,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column mx-md-1 my-2  ">
+              <Card className="d-flex flex-column ms-md-1 my-2  ">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
@@ -73,7 +74,7 @@ const Frontpage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Card className="d-flex flex-column mx-md-1 my-2">
+              <Card className="d-flex flex-column ms-md-1 my-2">
                 <Card.Body className="d-flex flex-row justify-content-between  ">
                   <div>
                     {" "}
