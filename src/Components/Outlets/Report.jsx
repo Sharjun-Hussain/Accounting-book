@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Container, Col } from "react-bootstrap";
+import { Container, Col,Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
 const Report = () => {
@@ -8,7 +8,17 @@ const Report = () => {
       <>
         <Col md={12} xs={12} className="ps-0 pe-0">
           <div className="Front-cards-Background-card mt-3">
+          <div className="d-flex justify-content-between ">
             <h3 className="text-center text-white my-3">This Month's Kanakkarikkai</h3>
+            <div className="py-3">                
+                
+                
+                <Button onClick={() => {}}>
+                  Print
+                </Button>
+                
+              </div>
+              </div>
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
