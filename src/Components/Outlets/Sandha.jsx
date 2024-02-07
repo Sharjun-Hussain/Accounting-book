@@ -6,6 +6,10 @@ import { useState } from "react";
 
 
 const SandhaMainPage = () => {
+  const today = new Date();
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const ThisMonth = months[today.getMonth()];
+  const PreviousMonth = months[today.getMonth()-1];
   const [ModalShow, setModalShow] = useState(false);
   return (
     <>
@@ -35,7 +39,7 @@ const SandhaMainPage = () => {
                     <div>
                       {" "}
                       <h2>Rs . 10,000</h2>
-                      <Card.Title>Immaadhe Sandha</Card.Title>
+                      <Card.Title>{ThisMonth} Sandha</Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>
@@ -88,7 +92,7 @@ const SandhaMainPage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>Last Month Sandha</Card.Title>
+                    <Card.Title>{PreviousMonth} Sandha</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
@@ -101,7 +105,7 @@ const SandhaMainPage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>Last Month Due Sandha</Card.Title>
+                    <Card.Title>{PreviousMonth} Due Sandha</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>

@@ -3,6 +3,10 @@ import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import bookmark from '../../assets/Icons/Bookmark.svg'
 
 const Frontpage = () => {
+  const today = new Date();
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
+  const monthFullName = months[today.getMonth()];
   return (
     <>
       <Container fluid>
@@ -14,7 +18,7 @@ const Frontpage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>Kaiyiruppu</Card.Title>
+                    <Card.Title>Local Assets</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
@@ -27,7 +31,7 @@ const Frontpage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title className="align-content-end">Vangi iruppu</Card.Title>
+                    <Card.Title className="align-content-end"> Bank Assets</Card.Title>
                   </div>
                   <img src={bookmark} width={35} />
                 </Card.Body>
@@ -53,7 +57,7 @@ const Frontpage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>Immaathe Santhaa</Card.Title>
+                    <Card.Title>{monthFullName} Santhaa</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
