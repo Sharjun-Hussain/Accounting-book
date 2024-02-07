@@ -12,8 +12,8 @@ const Report = () => {
             <h3 className="text-center text-white my-3">This Month's Kanakkarikkai</h3>
             <div className="py-3">                
                 
-                
-                <Button onClick={() => {}}>
+            
+                <Button onClick={()=> window.open("printlayout", "_blank")}>
                   Print
                 </Button>
                 

@@ -82,11 +82,14 @@ a:hover {
 .btn{
   background-color: black !important;
   color: white !important;
-  border: none !important;
+  border: white solid 0.5px !important;
 }
 
 .btn:hover{
-  background-color: rgb(54, 51, 51) !important;
+  /* background-color: rgb(54, 51, 51) !important; */
+  background-color: white !important;
+ 
+  color: black !important;
 }
 
 .modal-header .btn-close{
