@@ -31,6 +31,10 @@ const SideBar = () => {
           {" "}
           <img src={report}  width={30}/>  <li>Sandha</li>
         </NavLink>
+        <NavLink to="/Donations" className="d-flex ps-3">
+          {" "}
+          <img src={report}  width={30}/>  <li>Donations</li>
+        </NavLink>
         <NavLink to="/Settings" className="d-flex ps-3">
           {" "}
           <img src={report}  width={30}/>  <li>Settings</li>
