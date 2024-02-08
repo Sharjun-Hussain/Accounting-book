@@ -3,6 +3,10 @@ import { Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const MonthlyAccountDetail = () => {
+    const today = new Date().toISOString().substr(0, 10);
+  
+  
+  
     const {month} = useParams();
   let num = 1000;
   let fi = num.toFixed(2);
@@ -32,7 +36,7 @@ const MonthlyAccountDetail = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>2023-10-12</td>
+                  <td>{today}</td>
                   <td>Hello</td>
                   <td className="text-end">{fi}</td>
                   <td className="text-end"></td>
