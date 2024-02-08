@@ -1,8 +1,18 @@
-import { Col, Container, Row, Form } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import axios from "axios";
+import { useState } from "react";
+import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap";
 
 const MemberAddModal = (props) => {
+  const [Name, setName] = useState("");
+  const [Address, setAddress] = useState("");
+  const [Phone, setPhone] = useState();
+  const [Amount, setAmount] = useState();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios.post("")
+  };
+
   return (
     <Container>
       <Row>
@@ -19,32 +29,40 @@ const MemberAddModal = (props) => {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Full Name</Form.Label>
-                    <Form.Control type="text" placeholder="Sharjun-Hussain" />
+                    <Form.Control type="text" value={Name} onChange={(e)=>{setName(e.target.value)}} placeholder="Sharjun-Hussain" />
                   </Form.Group>
                 </Row>
 
                 <Form.Group className="mb-3" controlId="formGridAddress1">
                   <Form.Label>Address</Form.Label>
-                  <Form.Control placeholder="1234 Main St" />
+                  <Form.Control value={Address} onChange={(e)=>{setAddress(e.target.value)}}  placeholder="1234 Main St" />
                 </Form.Group>
 
                 <Row>
-                <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
-                  <Form.Label>Phone</Form.Label>
-                  <Form.Control type="number" placeholder="075 74 74 744" />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="formGridPhone">
-                  <Form.Label>Sandha Amount</Form.Label>
-                  <Form.Control type="number" placeholder="" />
-                </Form.Group>
+                  <Form.Group
+                    as={Col}
+                    className="mb-3"
+                    controlId="formGridPhone"
+                  >
+                    <Form.Label>Phone</Form.Label>
+                    <Form.Control type="number" value={Phone} onChange={(e)=>{setPhone(e.target.value)}} placeholder="075 74 74 744" />
+                  </Form.Group>
+                  <Form.Group
+                    as={Col}
+                    className="mb-3"
+                    controlId="formGridPhone"
+                  >
+                    <Form.Label>Sandha Amount</Form.Label>
+                    <Form.Control type="number" Amount={Amount} onChange={(e)=>{setAmount(e.target.value)}} placeholder="" />
+                  </Form.Group>
                 </Row>
 
                 <Button
-                  style={{ alignSelf: "end",width:"100%"  }}
+                  style={{ alignSelf: "end", width: "100%" }}
                   variant="primary"
                   type="submit"
                 >
