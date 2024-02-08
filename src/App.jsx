@@ -10,6 +10,8 @@ import { Settings } from "./Components/Outlets/Settings";
 import Frontpage from "./Components/Outlets/Frontpage";
 import SandhaMainPage from "./Components/Outlets/Sandha";
 import ThisMonth from './Components/Outlets/SandhaOutlets/THisMonth'
+import MonthlyAccountDetail from "./Components/PrintLayout/MonthlyAccountDetail";
+import SandhaPrint from "./Components/PrintLayout/SandhaPrint";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <Route path="Accounts" element={<Accounts />} /> 
             <Route path="Members" element={<Members />} /> 
             <Route path="Transaction" element={<Transaction />} /> 
+            <Route path="print/report/:month" element={<MonthlyAccountDetail />} />
+            <Route path="print/user/:id" element={<SandhaPrint />} />
             <Route path="settings" element={<Settings />} /> 
             <Route path="Sandha" element={<SandhaMainPage />} >
               <Route path="this-Month" element={<ThisMonth/>} />
