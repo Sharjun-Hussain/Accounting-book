@@ -15,7 +15,7 @@ const Report = () => {
           <div className="Front-cards-Background-card mt-3">
             <div className="d-flex justify-content-between ">
               <h3 className="text-center text-white my-3">
-                {ThisMonth} Kanakkarikkai
+                {ThisMonth} Monthly Report
               </h3>
               <div className="py-3">
                 <Link to={`/print/report/${ThisMonth}`}>

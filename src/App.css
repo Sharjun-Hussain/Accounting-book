@@ -107,3 +107,8 @@ a:hover {
 
 
 
+@media print{
+  .hide-print{
+    display: none;
+  }
+}
