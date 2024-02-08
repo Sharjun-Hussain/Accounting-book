@@ -24,15 +24,15 @@ function App() {
             <Route path="Accounts" element={<Accounts />} /> 
             <Route path="Members" element={<Members />} /> 
             <Route path="Transaction" element={<Transaction />} /> 
-            <Route path="print/report/:month" element={<MonthlyAccountDetail />} />
-            <Route path="print/user/:id" element={<SandhaPrint />} />
+            
             <Route path="settings" element={<Settings />} /> 
             <Route path="Sandha" element={<SandhaMainPage />} >
               <Route path="this-Month" element={<ThisMonth/>} />
               </Route>
           </Route>
 
-
+          <Route path="print/report/:month" element={<MonthlyAccountDetail />} />
+            <Route path="print/user/:id" element={<SandhaPrint />} />
           
         </Routes>
       </BrowserRouter>
