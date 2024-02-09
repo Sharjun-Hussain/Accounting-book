@@ -39,7 +39,7 @@ const SandhaMainPage = () => {
                     <div>
                       {" "}
                       <h2>Rs . 10,000</h2>
-                      <Card.Title>{ThisMonth} Sandha</Card.Title>
+                      <Card.Title> இம்மாத  சந்தா </Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>
@@ -53,7 +53,7 @@ const SandhaMainPage = () => {
                   <div>
                     {" "}
                     <h2>100</h2>
-                    <Card.Title>Santha THanthor</Card.Title>
+                    <Card.Title>சந்தா கொடுத்தவர்கள் </Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
@@ -66,7 +66,7 @@ const SandhaMainPage = () => {
                   <div>
                     {" "}
                     <h2>50</h2>
-                    <Card.Title> Sandha Tharathor</Card.Title>
+                    <Card.Title>சந்தா கொடுக்காதவர்கள்</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
@@ -79,7 +79,7 @@ const SandhaMainPage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>Due Sandha</Card.Title>
+                    <Card.Title>வர வேண்டிய சந்தா </Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
@@ -92,7 +92,7 @@ const SandhaMainPage = () => {
                   <div>
                     {" "}
                     <h2>Rs . 10,000</h2>
-                    <Card.Title>{PreviousMonth} Sandha</Card.Title>
+                    <Card.Title>சென்ற மாத சந்தா - {PreviousMonth}</Card.Title>
                   </div>
                   <span>Icon</span>
                 </Card.Body>
