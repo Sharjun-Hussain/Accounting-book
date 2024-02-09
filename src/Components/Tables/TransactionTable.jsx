@@ -78,7 +78,7 @@ const TransactionTable = () => {
   //CheckBox Configuration Stop
 
   return (
-    <Table hover striped variant="dark" bordered className="print-table">
+    <Table hover striped variant="dark" bordered className="print-table" responsive>
       <thead>
         <tr>
           <th>

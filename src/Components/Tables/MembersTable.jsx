@@ -28,7 +28,7 @@ const MembersTable = () => {
     };
     console.log(selected.length) //It will sent for Print whenneed  all members for the count 
   return (
-    <Table hover striped variant="dark" bordered>
+    <Table hover striped variant="dark" bordered responsive>
               <thead>
                 <tr>
                 <th>
