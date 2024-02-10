@@ -1,11 +1,19 @@
 import { Col, Container, Row } from "react-bootstrap";
 import logoWhite from "../assets/Icons/logo-white.svg";
 import SideBar from "./SideBar";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import user from '../assets/Icons/user.png'
+import { useState } from "react";
+
 
 const Dashboard = () => {
   // const [date, setDate] = useState(new Date().toISOString().substr(0, 10)); --> Date
+  const [DropDown, setDropDown] = useState(false);
+
+  const HandleDropDown =() =>{
+    setDropDown(prev => !prev);
+    
+  }
 
   return (
     <>
@@ -15,7 +23,11 @@ const Dashboard = () => {
             <div className="pt-4 mb-4 text-white d-flex my-auto topBar ">
               <img src={logoWhite} width={30} className="ms-3 me-1" />
               <div className="my-auto">DASHBOARD</div>
-              <img className="ms-auto userIcon " style={{marginInline:"12px"}} src={user} width={35} />
+              <img className={ `${DropDown && "animate"} ms-auto userIcon `} onClick={HandleDropDown} style={{marginInline:"12px"}} src={user} width={35} />
+              <div className={`${DropDown ? "d-block  " : "d-none "} my-auto   `} >
+                <Link className="profiledropdown " to="profile">Profile</Link>
+                <Link className="profiledropdown " to="signout">SIgnout</Link>
+              </div>
             </div>
           </Col>
         </Row>
