@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap";
 
 const MemberAddModal = (props) => {
@@ -13,7 +13,24 @@ const MemberAddModal = (props) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8000/Sandha-members/Add");
+      await axios
+        .post(
+          "http://localhost:8000/Sandha-members/Add",
+          JSON.stringify({ Name,Address, Phone, Amount, Email }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          
+        })
+        .catch((error) => {
+          console.log(error);
+         
+        });
     } catch (err) {
       console.log(err);
     }
@@ -59,7 +76,6 @@ const MemberAddModal = (props) => {
                         setEmail(e.target.value);
                       }}
                       placeholder="Example@gmail.com"
-                      
                     />
                   </Form.Group>
                 </Row>
