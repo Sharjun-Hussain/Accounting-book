@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useState} from "react";
+import { useState } from "react";
 import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const MemberAddModal = (props) => {
   const [Name, setName] = useState("");
@@ -9,6 +10,8 @@ const MemberAddModal = (props) => {
   const [Amount, setAmount] = useState();
   const [Email, setEmail] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -16,7 +19,7 @@ const MemberAddModal = (props) => {
       await axios
         .post(
           "http://localhost:8000/Sandha-members/Add",
-          JSON.stringify({ Name,Address, Phone, Amount, Email }),
+          JSON.stringify({ Name, Address, Phone, Amount, Email }),
           {
             headers: {
               "Content-Type": "application/json",
@@ -25,11 +28,10 @@ const MemberAddModal = (props) => {
         )
         .then((response) => {
           console.log(response.data);
-          
+          navigate(0)
         })
         .catch((error) => {
           console.log(error);
-         
         });
     } catch (err) {
       console.log(err);
