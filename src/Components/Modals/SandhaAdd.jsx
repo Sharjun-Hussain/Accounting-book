@@ -29,6 +29,7 @@ const SandhaAddModal = (props) => {
     FetchAllUser();
     console.log(AlluserData,SelectedMonths);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = (e) => {
@@ -46,7 +47,9 @@ const SandhaAddModal = (props) => {
   };
 
 const HandleUserClick = (param) =>{
- setMemberID(param)
+ setMemberID(param._id)
+ setItem(param.Name);
+ setFilteredUsers([])
 }
   const HandleSubmit =  async (e) =>{
 
@@ -90,17 +93,20 @@ const HandleUserClick = (param) =>{
                       value={Item}
                       onChange={handleInputChange}
                       placeholder="Sharjun-Hussain"
+                      autoComplete="off"
+                      required
+                      
                     />
-                    <ul>
+                    <ul style={{zIndex:100, position:"absolute", backgroundColor:"black",overflowY:"scroll"}}>
                       {filteredUsers.map((user) => (
-                        <li className="text-white" key={user._id} onClick={()=>{HandleUserClick(user._id)}}>
+                        <li className="text-white" key={user._id} onClick={()=>{HandleUserClick(user)}}>
                           {user.Name}
                         </li>
                       ))}
                     </ul>
                   </Form.Group>
                   <Form.Group as={Col} controlId="Months">
-                    <Dropdown style={{ marginTop: "31px", marginLeft: "31px" }}>
+                    <Dropdown style={{ marginTop: "31px", marginLeft: "31px" ,}}>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Select Months
                       </Dropdown.Toggle>
