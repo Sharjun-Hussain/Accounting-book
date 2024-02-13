@@ -1,18 +1,23 @@
 import axios from "axios";
-import { useState } from "react";
+import {  useState } from "react";
 import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const MemberAddModal = (props) => {
-  const [Name, setName] = useState("");
-  const [Address, setAddress] = useState("");
-  const [Phone, setPhone] = useState();
-  const [Amount, setAmount] = useState();
-  const [Email, setEmail] = useState("");
+  const [Name, setName] = useState(""); // For Post Data
+  const [Address, setAddress] = useState(""); // For Post Data
+  const [Phone, setPhone] = useState(); // For Post Data
+  const [Amount, setAmount] = useState(); // For Post Data
+  const [Email, setEmail] = useState(""); // For Post Data
+
+
 
   const navigate = useNavigate();
 
+ 
+
   const handleSubmit = async (e) => {
+    //Member Add Function Submit Button Triggers
     e.preventDefault();
 
     try {
@@ -28,7 +33,7 @@ const MemberAddModal = (props) => {
         )
         .then((response) => {
           console.log(response.data);
-          navigate(0)
+          navigate(0);
         })
         .catch((error) => {
           console.log(error);
@@ -119,7 +124,7 @@ const MemberAddModal = (props) => {
                     <Form.Label>Sandha Amount</Form.Label>
                     <Form.Control
                       type="number"
-                      Amount={Amount}
+                      value={Amount}
                       onChange={(e) => {
                         setAmount(e.target.value);
                       }}

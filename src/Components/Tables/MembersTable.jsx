@@ -8,10 +8,7 @@ const MembersTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/Sandha-members/All"
-        );
-
+        const response = await axios.get("http://localhost:8000/Sandha-members/All");
         setMembers(response.data.Members);
       } catch (err) {
         console.log(err);
