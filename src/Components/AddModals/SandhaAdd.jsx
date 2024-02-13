@@ -128,7 +128,7 @@ const HandleUserClick = (param) =>{
                 <Row>
                   <Form.Group as={Col} className="mb-3" controlId="Amount">
                     <Form.Label>Sandha Amount</Form.Label>
-                    <Form.Control type="number" value={Amount} onChange={(e)=>{setAmount(e.target.value)}} placeholder="" />
+                    <Form.Control type="number" value={Amount} required onChange={(e)=>{setAmount(e.target.value)}} placeholder="" />
                   </Form.Group>
 
                   <Form.Group
