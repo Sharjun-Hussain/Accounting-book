@@ -45,7 +45,9 @@ const SandhaAddModal = (props) => {
     }
   };
 
-
+const HandleUserClick = (param) =>{
+ setMemberID(param)
+}
   const HandleSubmit =  async (e) =>{
 
     e.preventDefault();
@@ -91,7 +93,7 @@ const SandhaAddModal = (props) => {
                     />
                     <ul>
                       {filteredUsers.map((user) => (
-                        <li className="text-white" key={user._id} onClick={() =>{setMemberID(user._id)}}>
+                        <li className="text-white" key={user._id} onClick={()=>{HandleUserClick(user._id)}}>
                           {user.Name}
                         </li>
                       ))}
