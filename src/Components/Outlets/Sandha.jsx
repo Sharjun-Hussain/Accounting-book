@@ -1,27 +1,27 @@
-/* eslint-disable react/no-unescaped-entities */
+
 import { Button, Card, Col, Container } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
-import SandhaAddModal from "../Modals/SandhaAdd";
+import SandhaAddModal from "../AddModals/SandhaAdd";
 import { useState } from "react";
 
 const SandhaMainPage = () => {
-  const today = new Date();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const ThisMonth = months[today.getMonth()];
-  const PreviousMonth = months[today.getMonth() - 1];
+  // const today = new Date();
+  // const months = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "August",
+  //   "September",
+  //   "October",
+  //   "November",
+  //   "December",
+  // ];
+  // const ThisMonth = months[today.getMonth()];
+  // const PreviousMonth = months[today.getMonth() - 1];
   const [ModalShow, setModalShow] = useState(false);
   return (
     <>

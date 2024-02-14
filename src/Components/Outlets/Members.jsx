@@ -1,6 +1,6 @@
 import { Container, Col, Button } from "react-bootstrap";
 import { useState } from "react";
-import MemberAddModal from "../Modals/MemberAdd";
+import MemberAddModal from "../AddModals/MemberAdd";
 import MembersTable from "../Tables/MembersTable";
 
 const Members = () => {

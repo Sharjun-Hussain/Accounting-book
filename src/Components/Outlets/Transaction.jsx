@@ -1,6 +1,6 @@
 import { Container, Col, Button } from "react-bootstrap";
 import { useState } from "react";
-import TransactionAddModal from "../Modals/TransactionAdd";
+import TransactionAddModal from "../AddModals/TransactionAdd"
 // import { useReactToPrint } from "react-to-print";
 import TransactionTable from "../Tables/TransactionTable";
 

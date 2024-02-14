@@ -1,6 +1,6 @@
 import { Container, Col, Table, Button } from "react-bootstrap";
 import { useState } from "react";
-import AccountAddModal from "../Modals/AccountAdd";
+import AccountAddModal from "../AddModals/AccountAdd";
 
 
 
