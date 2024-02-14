@@ -9,7 +9,20 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 
+const LoadingSkeleton = () => (
+  <Box
+    sx={{
+      height: 'max-content',
+    }}
+  >
+    {[...Array(10)].map((_, index) => (
+      <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
+    ))}
+  </Box>
+);
 
 const darkTheme = createTheme({
   palette: {
@@ -28,6 +41,7 @@ const handleDelete = (id) => {
   console.log("Deleting member with ID:", id);
 };
 const MembersTable = () => {
+  const [loading, setLoading] = useState(true);
   const [Members, setMembers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +50,7 @@ const MembersTable = () => {
           "http://localhost:8000/Sandha-members/All"
         );
         setMembers(response.data.Members);
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -105,12 +120,16 @@ const MembersTable = () => {
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
+          components={{
+            LoadingOverlay: LoadingSkeleton,
+          }}
+          loading={loading}
         />
       </div>
     </ThemeProvider>
