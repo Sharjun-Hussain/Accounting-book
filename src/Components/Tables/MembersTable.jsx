@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+
+
+//From MUI 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { DataGrid } from "@mui/x-data-grid";
+
 
 const darkTheme = createTheme({
   palette: {
@@ -15,12 +19,12 @@ const darkTheme = createTheme({
 
 
 const handleEdit = (id) => {
-  // Implement edit functionality here
+  
   console.log("Editing member with ID:", id);
 };
 
 const handleDelete = (id) => {
-  // Implement delete functionality here
+  
   console.log("Deleting member with ID:", id);
 };
 const MembersTable = () => {
@@ -94,7 +98,7 @@ const MembersTable = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{  width: "100%" }}>
         <DataGrid
           getRowId={getRowId}
           rows={Members}
