@@ -64,8 +64,7 @@ const MembersTable = () => {
     { field: "_id", headerName: "_id", width: 50 },
     { field: "Name", headerName: "Name", width: 230 },
     { field: "Address", headerName: "Address", width: 250 },
-    {
-      field: "Phone",
+    {field: "Phone",
       headerName: "Phone",
       type: "number",
       sortable: true,
