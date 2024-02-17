@@ -21,6 +21,7 @@ async function ConnectDB() {
 App.use(express.json());
 App.use(cors());
 App.use("/Sandha-members",SandhaMembersRoute)
+App.use("/Sandha",SandhaMembersRoute)
 
 App.listen(8000, () => {
   console.log(`Server started on 8000`);

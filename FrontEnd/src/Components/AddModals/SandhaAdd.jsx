@@ -6,7 +6,7 @@ const SandhaAddModal = (props) => {
 
 
   const [SelectedMonths, SetSelectedMonths] = useState([]);
-  const Month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const MonthData = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
@@ -15,6 +15,7 @@ const SandhaAddModal = (props) => {
 
   const [MemberID, setMemberID] = useState("");
   const [Amount, setAmount] = useState();
+  const Date = new Date().toISOString().split("T")[0];
   
 
 
@@ -54,7 +55,7 @@ const HandleUserClick = (param) =>{
   const HandleSubmit =  async (e) =>{
 
     e.preventDefault();
-     await axios.post("fwef",JSON.stringify({SelectedMonths,MemberID,Amount}))
+     await axios.post("fwef",JSON.stringify({SelectedMonths,MemberID,Amount,Date}))
 
 
   }
@@ -111,7 +112,7 @@ const HandleUserClick = (param) =>{
                         Select Months
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        {Month.map((option, index) => (
+                        {MonthData.map((option, index) => (
                           <Dropdown.Item
                             key={index}
                             onClick={() => toggleLang(option)}
