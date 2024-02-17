@@ -1,23 +1,39 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {Col,Container,Row,Form,Dropdown,Button,Modal,} from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Form,
+  Dropdown,
+  Button,
+  Modal,
+} from "react-bootstrap";
 
 const SandhaAddModal = (props) => {
-
-
-  const [SelectedMonths, SetSelectedMonths] = useState([]);
-  const MonthData = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const [PaidMonths, SetPaidMonths] = useState([]);
+  const MonthData = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
 
-
   const [MemberID, setMemberID] = useState("");
   const [Amount, setAmount] = useState();
-  const Date = new Date().toISOString().split("T")[0];
-  
-
+  // const Date = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     const FetchAllUser = async () => {
@@ -28,9 +44,9 @@ const SandhaAddModal = (props) => {
     };
 
     FetchAllUser();
-    console.log(AlluserData,SelectedMonths);
+    console.log(AlluserData, PaidMonths);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = (e) => {
@@ -47,24 +63,38 @@ const SandhaAddModal = (props) => {
     }
   };
 
-const HandleUserClick = (param) =>{
- setMemberID(param._id)
- setItem(param.Name);
- setFilteredUsers([])
-}
-  const HandleSubmit =  async (e) =>{
-
+  const HandleUserClick = (param) => {
+    setMemberID(param._id);
+    setItem(param.Name);
+    setFilteredUsers([]);
+  };
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-     await axios.post("fwef",JSON.stringify({SelectedMonths,MemberID,Amount,Date}))
-
-
-  }
+    await axios
+      .post(
+        "http://localhost:8000/Sandha/Add",
+        
+          { PaidMonths, MemberID, Amount },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   const toggleLang = (option) => {
-    if (SelectedMonths.includes(option)) {
-      SetSelectedMonths(SelectedMonths.filter((item) => item !== option));
+    if (PaidMonths.includes(option)) {
+      SetPaidMonths(PaidMonths.filter((item) => item !== option));
     } else {
-      SetSelectedMonths([...SelectedMonths, option]);
+      SetPaidMonths([...PaidMonths, option]);
     }
   };
   console.log(MemberID);
@@ -96,18 +126,30 @@ const HandleUserClick = (param) =>{
                       placeholder="Sharjun-Hussain"
                       autoComplete="off"
                       required
-                      
                     />
-                    <ul style={{zIndex:100, position:"absolute", backgroundColor:"black",overflowY:"scroll"}}>
+                    <ul
+                      style={{
+                        zIndex: 100,
+                        position: "absolute",
+                        backgroundColor: "black",
+                        overflowY: "scroll",
+                      }}
+                    >
                       {filteredUsers.map((user) => (
-                        <li className="text-white" key={user._id} onClick={()=>{HandleUserClick(user)}}>
+                        <li
+                          className="text-white"
+                          key={user._id}
+                          onClick={() => {
+                            HandleUserClick(user);
+                          }}
+                        >
                           {user.Name}
                         </li>
                       ))}
                     </ul>
                   </Form.Group>
                   <Form.Group as={Col} controlId="Months">
-                    <Dropdown style={{ marginTop: "31px", marginLeft: "31px" ,}}>
+                    <Dropdown style={{ marginTop: "31px", marginLeft: "31px" }}>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Select Months
                       </Dropdown.Toggle>
@@ -116,7 +158,7 @@ const HandleUserClick = (param) =>{
                           <Dropdown.Item
                             key={index}
                             onClick={() => toggleLang(option)}
-                            active={SelectedMonths.includes(option)}
+                            active={PaidMonths.includes(option)}
                           >
                             {option}
                           </Dropdown.Item>
@@ -129,7 +171,15 @@ const HandleUserClick = (param) =>{
                 <Row>
                   <Form.Group as={Col} className="mb-3" controlId="Amount">
                     <Form.Label>Sandha Amount</Form.Label>
-                    <Form.Control type="number" value={Amount} required onChange={(e)=>{setAmount(e.target.value)}} placeholder="" />
+                    <Form.Control
+                      type="number"
+                      value={Amount}
+                      required
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                      }}
+                      placeholder=""
+                    />
                   </Form.Group>
 
                   <Form.Group
@@ -137,7 +187,7 @@ const HandleUserClick = (param) =>{
                     className="my-1"
                     controlId="formGridPhone"
                   >
-                    {SelectedMonths.map((btn) => {
+                    {PaidMonths.map((btn) => {
                       return (
                         <Button className="mx-1 my-1" key={btn}>
                           {btn}
