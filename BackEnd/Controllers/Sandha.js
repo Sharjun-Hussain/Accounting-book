@@ -4,7 +4,7 @@ const SandhaModel = require('../Models/Sandha');
 
 
 exports.FetchAllSandha = async (req, res, next) => {
-  const AllSandhaDetails = await SandhaModel.find();
+  const AllSandhaDetails = await SandhaModel.find().populate({path:'MemberID', select : 'Name'})
 
   res.status(200).json({
     Success: true,
@@ -13,6 +13,18 @@ exports.FetchAllSandha = async (req, res, next) => {
   });
 };
 
+exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
+
+  const { Month } = req.params;
+  const AllSandhaDetails = await SandhaModel.find()
+  console.log(AllSandhaDetails);
+  res.status(200).json({
+    Success: true,
+    Message: " Sandha Details Fetching Succesfull",
+    AllSandhaDetails,
+    
+  });
+};
 
 
 exports.AddSandha = async (req, res, next) => {
