@@ -5,6 +5,7 @@ const App = express();
 
 //Routes Import
 const SandhaMembersRoute = require('./Routes/SandhaMembers')
+const SandhaRoute = require('./Routes/Sandha');
 
 async function ConnectDB() {
   await mongoose
@@ -21,7 +22,7 @@ async function ConnectDB() {
 App.use(express.json());
 App.use(cors());
 App.use("/Sandha-members",SandhaMembersRoute)
-App.use("/Sandha",SandhaMembersRoute)
+App.use("/Sandha",SandhaRoute)
 
 App.listen(8000, () => {
   console.log(`Server started on 8000`);

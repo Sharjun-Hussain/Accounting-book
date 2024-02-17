@@ -16,21 +16,20 @@ exports.FetchAllSandha = async (req, res, next) => {
 
 
 exports.AddSandha = async (req, res, next) => {
-  const { SelectedMonths, MemberID, Date, Amount } = req.body;
+  const { PaidMonths, MemberID, Amount } = req.body;
 
-  if (SelectedMonths && MemberID && Date && Amount != "") {
+  if (PaidMonths && MemberID  && Amount != "") {
     try {
       const Sandha = await SandhaModel.create({
         MemberID,
         Amount,
-        SelectedMonths,
-        Date,
+        PaidMonths,
       });
 
       res.status(201).json({
         Success: true,
         Message: "Sandha  Added Succefully",
-        Member,
+        Sandha,
       });
     } catch (err) {
       res.status(500).json({
