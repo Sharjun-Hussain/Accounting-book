@@ -1,6 +1,8 @@
-import { Container, Col, Table, Button } from "react-bootstrap";
+import { Container, Col,  Button } from "react-bootstrap";
 import { useState } from "react";
 import AccountAddModal from "../AddModals/AccountAdd";
+import AccountsTable from "../Tables/AccountsTable";
+
 
 
 
@@ -34,7 +36,7 @@ const Accounts = () => {
                 />
               </div>
             </div>
-            <AccountsTable  />
+            <AccountsTable/>
           </div>
         </Col>
       </>
@@ -44,28 +46,6 @@ const Accounts = () => {
 
 export default Accounts;
 
-const AccountsTable = () => {
-  return (
-    <Table hover striped variant="dark" bordered className="print-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th className="text-center">Account</th>
-          <th className="text-center">Current Balance</th>
-          <th className="text-center">Status</th>
-          <th className="text-center">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Memebrts</td>
-          <td>Month</td>
-          <td>Month</td>
-        </tr>
-      </tbody>
-    </Table>
-  );
-};
+
 
 

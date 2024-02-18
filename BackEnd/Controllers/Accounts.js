@@ -31,12 +31,12 @@ exports.CreateAccount = async function (req, res, next) {
 };
 
 exports.FetchAllAccounts = async function (req, res, next) {
-  const accounts = await AccountsModel.find();
+  const Accounts = await AccountsModel.find();
   try {
     res.status(200).json({
       Success: true,
       Message: "Accounts Fetching Succefully",
-      accounts,
+      Accounts,
     });
   } catch (err) {
     res.status(500).json({

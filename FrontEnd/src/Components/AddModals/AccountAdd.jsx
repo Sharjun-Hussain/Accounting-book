@@ -5,22 +5,16 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
-
-
 const AccountAddModal = (props) => {
-
+  const [Description, setDescription] = useState("");
   const [FetchCategory, setFetchCategory] = useState([]);
   const [Category, setCategory] = useState("");
   const [Name, setName] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     const FetchAllCategory = async () => {
-      const response = await axios.get(
-        "http://localhost:8000/Category/All"
-      );
+      const response = await axios.get("http://localhost:8000/Category/All");
       setFetchCategory(response.data.Category);
     };
 
@@ -35,14 +29,13 @@ const AccountAddModal = (props) => {
     await axios
       .post(
         "http://localhost:8000/Accounts/Add",
-        
-          { Name, Category },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        
+
+        { Name, Category, Description },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);
@@ -52,7 +45,7 @@ const AccountAddModal = (props) => {
         console.error("Error:", error);
       });
   };
-  
+
   return (
     <Container>
       <Row>
@@ -73,30 +66,60 @@ const AccountAddModal = (props) => {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Account Name</Form.Label>
-                    <Form.Control type="text" value={Name} onChange={(e)=>{setName(e.target.value)}} placeholder="Sharjun-Hussain" />
+                    <Form.Control
+                      type="text"
+                      value={Name}
+                      autoComplete="off"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
+                      placeholder="Sharjun-Hussain"
+                    />
                   </Form.Group>
-               
 
-                <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                <Form.Label>Account Type</Form.Label>
-                    <Form.Select aria-label="Default select example">
+                  <Form.Group
+                    as={Col}
+                    className="mb-3"
+                    controlId="formGridAddress1"
+                  >
+                    <Form.Label>Account Type</Form.Label>
+                    <Form.Select
+                      onChange={(e) => {
+                        setCategory(e.target.value);
+                      }}
+                      aria-label="Default select example"
+                    >
                       <option>Open this select menu</option>
-                      {Object.values(FetchCategory).map((item)=>{
-                        return(
-                          <option onClick={(e)=>{setCategory(e.target.value)}} value={item.Name} key={item}>{item.Name}</option>
-                        )
+                      {Object.values(FetchCategory).map((item, key) => {
+                        return (
+                          <option value={item._id} key={key}>
+                            {item.Name}
+                          </option>
+                        );
                       })}
-                
-                  {console.log(Category)}
-                    </Form.Select>
-                </Form.Group>
 
-                </Row> 
+                      {console.log(Category)}
+                    </Form.Select>
+                  </Form.Group>
+                </Row>
+                <Form.Group as={Col} controlId="formGridName">
+                  <Form.Label>Account Description</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={Description}
+                    required
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                    placeholder="Description"
+                  />
+                </Form.Group>
+                <Row></Row>
                 <Button
-                  style={{ alignSelf: "end",width:"100%"  }}
+                  style={{ alignSelf: "end", width: "100%" }}
                   variant="primary"
                   type="submit"
-                  onSubmit={HandleSubmit}
+                  onClick={HandleSubmit}
                 >
                   Submit
                 </Button>
