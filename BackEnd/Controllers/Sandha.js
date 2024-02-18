@@ -1,10 +1,10 @@
-const SandhaModel = require('../Models/Sandha');
-
-
-
+const SandhaModel = require("../Models/Sandha");
 
 exports.FetchAllSandha = async (req, res, next) => {
-  const AllSandhaDetails = await SandhaModel.find().populate({path:'MemberID', select : 'Name'})
+  const AllSandhaDetails = await SandhaModel.find().populate({
+    path: "MemberID",
+    select: "Name",
+  });
 
   res.status(200).json({
     Success: true,
@@ -14,23 +14,33 @@ exports.FetchAllSandha = async (req, res, next) => {
 };
 
 exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
-
+  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
   const { Month } = req.params;
-  const AllSandhaDetails = await SandhaModel.find()
-  console.log(AllSandhaDetails);
-  res.status(200).json({
-    Success: true,
-    Message: " Sandha Details Fetching Succesfull",
-    AllSandhaDetails,
+
+  if (MonthList.includes(Month)) {
+    const AllSandhaDetails = await SandhaModel.aggregate([
+      { $match: { PaidMonths: Month } },
+    ]);
+    console.log(AllSandhaDetails);
+    res.status(200).json({
+      Success: true,
+      Message: " Sandha Details Fetching Succesfull",
+      AllSandhaDetails,
+    });
+  }
+else{
+  res.status(400).json({
+    Success: false,
+    Message: " Bad Request",
     
   });
+}
 };
-
 
 exports.AddSandha = async (req, res, next) => {
   const { PaidMonths, MemberID, Amount } = req.body;
 
-  if (PaidMonths && MemberID  && Amount != "") {
+  if (PaidMonths && MemberID && Amount != "") {
     try {
       const Sandha = await SandhaModel.create({
         MemberID,
@@ -60,7 +70,7 @@ exports.AddSandha = async (req, res, next) => {
 
 exports.DeleteSandha = async (req, res, next) => {
   try {
-    const {id} = req.params
+    const { id } = req.params;
     const SandhaDetail = await SandhaModel.findById(id);
     if (!SandhaDetail) {
       res.status(400).json({
@@ -76,7 +86,6 @@ exports.DeleteSandha = async (req, res, next) => {
       Message: "Sandha Deleted Succefully",
     });
     return;
-
   } catch (err) {
     res.status(500).json({
       Success: false,

@@ -19,7 +19,7 @@ const SandhaSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  createdAt: { type: Date, default: Date.now() ,set: setDateOnly  },
+  createdAt: { type: Date, default: Date.now() , set: setDateOnly  },
   updatedAt: { type: Date, default: Date.now },
 });
 
