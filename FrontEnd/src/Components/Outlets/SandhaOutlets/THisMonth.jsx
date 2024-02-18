@@ -67,8 +67,8 @@ const ThisMonth = () => {
 
   const columns = [
     { field: "_id", headerName: "_id", width: 50 },
-    { field: `MemberID`, headerName: "Name", width: 230,renderCell: (params) => {
-      return <div className="rowitem">{params.row.MemberID.Name}</div>;
+    { field: `Data`, headerName: "Name", width: 230,renderCell: (params) => {
+      return <div className="rowitem">{params.row.Data[0].Name}</div>;
     }, },
     { field: "PaidMonths", headerName: "Paid Months", width: 250 },
     {field: "Status",

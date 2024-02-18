@@ -19,14 +19,11 @@ const SandhaSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  createdAt: { type: Date, default: Date.now() , set: setDateOnly  },
+  createdAt: { type: Date, default: Date.now() },
   updatedAt: { type: Date, default: Date.now },
 });
 
 
-function setDateOnly(date) {
-  // Extract only the date part from the current timestamp
-  return new Date(date.toDateString());
-}
+
 const Sandha = mongoose.model("Sandha", SandhaSchema);
 module.exports = Sandha;
