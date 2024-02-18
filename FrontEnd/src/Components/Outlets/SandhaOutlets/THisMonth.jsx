@@ -75,6 +75,7 @@ const ThisMonth = () => {
     { field: `Data`, headerName: "Name", width: 230,renderCell: (params) => {
       return <div className="rowitem">{params.row.Data[0].Name}</div>;
     }, },
+    { field: "Description", headerName: "Description", width: 250 },
     { field: "PaidMonths", headerName: "Paid Months", width: 250 },
     {field: "Status",
       headerName: "Status",
