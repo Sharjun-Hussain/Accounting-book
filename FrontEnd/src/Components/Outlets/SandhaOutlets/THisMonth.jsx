@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 //From MUI 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -40,16 +40,18 @@ const handleDelete = (id) => {
 
 
 const ThisMonth = () => {
-  // const currentDate = new Date().toISOString().split("T")[0];
+
   const currentDate = new Date()
   const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const thismonth = MonthList[currentDate.getMonth()]
  
   const [loading, setLoading] = useState(true);
-  const [AllSandhaDetails, setAllSandhaDetails] = useState([]);
+
+  const [AllSandhaDetails, setAllSandhaDetails] = useState([]);  //fetchThisMonthSandha
+  
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchThisMonthSandha = async () => {
       try {
         const response = await axios.get(
           `http://localhost:8000/Sandha/Month/${thismonth}`
@@ -60,7 +62,10 @@ const ThisMonth = () => {
         console.log(err);
       }
     };
-    fetchData();
+
+   
+    fetchThisMonthSandha();
+    
     console.log(AllSandhaDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -120,9 +125,9 @@ const ThisMonth = () => {
   return (
     <div>
        <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div style={{  width: "100%" }}>
-        <DataGrid
+     
+      <div  style={{  width: "100%"}}>
+        <DataGrid 
           getRowId={getRowId}
           rows={AllSandhaDetails}
           columns={columns}

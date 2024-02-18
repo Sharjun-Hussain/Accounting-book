@@ -55,6 +55,46 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
 };
 
 
+exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
+  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const { Month } = req.params;
+
+  if (MonthList.includes(Month)) {
+    try {
+      const AllSandhaDetails = await SandhaModel.aggregate([
+        { 
+          $match: { PaidMonths: Month } 
+        },
+        {
+          $group: {
+            _id: null, // Group all documents together
+            TotalAmount: { $sum: "$Amount" } // Sum the 'Amount' field
+          }
+        }
+        
+      ]);
+      console.log(AllSandhaDetails);
+      res.status(200).json({
+        Success: true,
+        Message: "Sandha Sum  Successful",
+        AllSandhaDetails,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({
+        Success: false,
+        Message: "Internal Server Error",
+      });
+    }
+  } else {
+    res.status(400).json({
+      Success: false,
+      Message: "Bad Request",
+    });
+  }
+};
+
+
 exports.AddSandha = async (req, res, next) => {
   const { PaidMonths, MemberID, Amount } = req.body;
 
