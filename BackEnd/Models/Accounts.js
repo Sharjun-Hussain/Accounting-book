@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const TrialBalanceSchema = new mongoose.Schema({
+const AccountsSchema = new mongoose.Schema({
     Name:{
         type : String,
         required : true
@@ -16,12 +16,13 @@ const TrialBalanceSchema = new mongoose.Schema({
     },
     Balance:{
         type : Number,
-        required : true
+        required : true,
+        default: 0
     
     },
     
 })
 
 
-const TrialBalance = mongoose.model('TrialBalance', TrialBalanceSchema);
+const Accounts = mongoose.model('Accounts', AccountsSchema);
 module.exports = TrialBalance;

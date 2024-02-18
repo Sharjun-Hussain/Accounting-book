@@ -19,7 +19,7 @@ const AccountAddModal = (props) => {
 
     const FetchAllCategory = async () => {
       const response = await axios.get(
-        "http://localhost:8000/Category/list"
+        "http://localhost:8000/Category/All"
       );
       setCategory(response.data.Category);
     };
