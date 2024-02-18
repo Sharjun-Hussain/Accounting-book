@@ -15,6 +15,12 @@ const SandhaSchema = new mongoose.Schema({
     required: true,
     default: "Completed",
   },
+
+  Description: {
+    type: String,
+    required: true,
+    default: "Sandha Payment",
+  },
   PaidMonths: {
     type: [String],
     required: true,

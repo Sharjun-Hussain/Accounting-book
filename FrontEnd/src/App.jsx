@@ -28,6 +28,7 @@ function App() {
             
             <Route path="settings" element={<Settings />} /> 
             <Route path="Sandha" element={<SandhaMainPage />} >
+            <Route index element={<ThisMonth />} /> 
               <Route path="this-Month" element={<ThisMonth/>} />
               <Route path="last-Month" element={<LastMonth/>} />
               </Route>

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { useState, useEffect } from "react";
 import {
   Col,
@@ -9,6 +10,7 @@ import {
   Button,
   Modal,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const SandhaAddModal = (props) => {
   const [PaidMonths, SetPaidMonths] = useState([]);
@@ -26,16 +28,18 @@ const SandhaAddModal = (props) => {
     "November",
     "December",
   ];
-
+  const navigate = useNavigate()
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
 
   const [MemberID, setMemberID] = useState("");
   const [Amount, setAmount] = useState();
+  const [Description, setDescription] = useState()
   // const Date = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
+
     const FetchAllUser = async () => {
       const response = await axios.get(
         "http://localhost:8000/Sandha-members/All"
@@ -58,7 +62,7 @@ const SandhaAddModal = (props) => {
       const filteredItems = AlluserData.filter((user) =>
         user.Name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-
+toggleMonth
       setFilteredUsers(filteredItems);
     }
   };
@@ -67,7 +71,11 @@ const SandhaAddModal = (props) => {
     setMemberID(param._id);
     setItem(param.Name);
     setFilteredUsers([]);
+    setAmount(param.Amount);
+    setDescription(param.Description);
   };
+
+
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await axios
@@ -84,13 +92,14 @@ const SandhaAddModal = (props) => {
       )
       .then((res) => {
         console.log(res.data);
+        navigate(0);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
 
-  const toggleLang = (option) => {
+  const toggleMonth = (option) => {
     if (PaidMonths.includes(option)) {
       SetPaidMonths(PaidMonths.filter((item) => item !== option));
     } else {
@@ -107,7 +116,7 @@ const SandhaAddModal = (props) => {
             {...props}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
-            centered
+            top
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
@@ -157,7 +166,7 @@ const SandhaAddModal = (props) => {
                         {MonthData.map((option, index) => (
                           <Dropdown.Item
                             key={index}
-                            onClick={() => toggleLang(option)}
+                            onClick={() => toggleMonth(option)}
                             active={PaidMonths.includes(option)}
                           >
                             {option}
@@ -186,14 +195,28 @@ const SandhaAddModal = (props) => {
                     as={Col}
                     className="my-1"
                     controlId="formGridPhone"
+                    
                   >
                     {PaidMonths.map((btn) => {
                       return (
-                        <Button className="mx-1 my-1" key={btn}>
+                        <Button className="mx-1 mt-4"   key={btn}>
                           {btn}
                         </Button>
                       );
                     })}
+                  </Form.Group>
+                </Row>
+                <Row>
+                <Form.Group  className="mb-3" controlId="Description">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={Description}
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                      }}
+                      placeholder=""
+                    />
                   </Form.Group>
                 </Row>
 

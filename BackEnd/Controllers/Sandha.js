@@ -1,5 +1,7 @@
 const SandhaModel = require("../Models/Sandha");
 
+
+// Sandha/All
 exports.FetchAllSandha = async (req, res, next) => {
   const AllSandhaDetails = await SandhaModel.find().populate({
     path: "MemberID",
@@ -13,6 +15,7 @@ exports.FetchAllSandha = async (req, res, next) => {
   });
 };
 
+// Sandha/:Month
 exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
   const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const { Month } = req.params;
@@ -54,7 +57,7 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
   }
 };
 
-
+// Sandha/:Month/Sum
 exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
   const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const { Month } = req.params;
@@ -94,7 +97,7 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
   }
 };
 
-
+// Sandha/Add
 exports.AddSandha = async (req, res, next) => {
   const { PaidMonths, MemberID, Amount } = req.body;
 
