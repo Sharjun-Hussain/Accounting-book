@@ -33,6 +33,7 @@ exports.AddSandhaMembers = async (req, res, next) => {
         Address,
         Phone,
         Amount,
+        Email
       });
 
       res.status(201).json({

@@ -10,9 +10,9 @@ import axios from "axios";
 
 const AccountAddModal = (props) => {
 
-  const [Category, setCategory] = useState([]);
-  const [SelectedCategory, setSelectedCategory] = useState("");
-  const [AccountName, setAccountName] = useState("");
+  const [FetchCategory, setFetchCategory] = useState([]);
+  const [Category, setCategory] = useState("");
+  const [Name, setName] = useState("");
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -21,11 +21,11 @@ const AccountAddModal = (props) => {
       const response = await axios.get(
         "http://localhost:8000/Category/All"
       );
-      setCategory(response.data.Category);
+      setFetchCategory(response.data.Category);
     };
 
     FetchAllCategory();
-    console.log(AccountName);
+    console.log(Name);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -36,7 +36,7 @@ const AccountAddModal = (props) => {
       .post(
         "http://localhost:8000/Accounts/Add",
         
-          { AccountName, SelectedCategory },
+          { Name, Category },
           {
             headers: {
               "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const AccountAddModal = (props) => {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Account Name</Form.Label>
-                    <Form.Control type="text" value={AccountName} onChange={(e)=>{setAccountName(e.target.value)}} placeholder="Sharjun-Hussain" />
+                    <Form.Control type="text" value={Name} onChange={(e)=>{setName(e.target.value)}} placeholder="Sharjun-Hussain" />
                   </Form.Group>
                
 
@@ -81,13 +81,13 @@ const AccountAddModal = (props) => {
                 <Form.Label>Account Type</Form.Label>
                     <Form.Select aria-label="Default select example">
                       <option>Open this select menu</option>
-                      {Object.values(Category).map((item)=>{
+                      {Object.values(FetchCategory).map((item)=>{
                         return(
-                          <option onClick={(e)=>{setSelectedCategory(e.target.value)}} value={item.Name} key={item}>{item.Name}</option>
+                          <option onClick={(e)=>{setCategory(e.target.value)}} value={item.Name} key={item}>{item.Name}</option>
                         )
                       })}
                 
-                  {console.log(SelectedCategory)}
+                  {console.log(Category)}
                     </Form.Select>
                 </Form.Group>
 

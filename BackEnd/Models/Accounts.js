@@ -25,4 +25,4 @@ const AccountsSchema = new mongoose.Schema({
 
 
 const Accounts = mongoose.model('Accounts', AccountsSchema);
-module.exports = TrialBalance;
+module.exports = Accounts;
