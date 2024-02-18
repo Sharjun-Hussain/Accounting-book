@@ -10,6 +10,7 @@ import { Settings } from "./Components/Outlets/Settings";
 import Frontpage from "./Components/Outlets/Frontpage";
 import SandhaMainPage from "./Components/Outlets/Sandha";
 import ThisMonth from './Components/Outlets/SandhaOutlets/THisMonth'
+import LastMonth from './Components/Outlets/SandhaOutlets/LastMonth'
 import MonthlyAccountDetail from "./Components/PrintLayout/MonthlyAccountDetail";
 import SandhaPrint from "./Components/PrintLayout/SandhaPrint";
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="settings" element={<Settings />} /> 
             <Route path="Sandha" element={<SandhaMainPage />} >
               <Route path="this-Month" element={<ThisMonth/>} />
+              <Route path="last-Month" element={<LastMonth/>} />
               </Route>
           </Route>
 
