@@ -14,28 +14,46 @@ exports.FetchAllSandha = async (req, res, next) => {
 };
 
 exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
-  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const { Month } = req.params;
 
   if (MonthList.includes(Month)) {
-    const AllSandhaDetails = await SandhaModel.aggregate([
-      { $match: { PaidMonths: Month } },
-    ]);
-    console.log(AllSandhaDetails);
-    res.status(200).json({
-      Success: true,
-      Message: " Sandha Details Fetching Succesfull",
-      AllSandhaDetails,
+    try {
+      const AllSandhaDetails = await SandhaModel.aggregate([
+        { 
+          $match: { PaidMonths: Month } 
+        },
+       
+        {
+          $lookup: {
+            from: "sandhamembers",
+            localField: "MemberID",
+            foreignField: "_id",
+            as: "Data",
+          },
+        }
+      ]);
+      console.log(AllSandhaDetails);
+      res.status(200).json({
+        Success: true,
+        Message: "Sandha Details Fetching Successful",
+        AllSandhaDetails,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({
+        Success: false,
+        Message: "Internal Server Error",
+      });
+    }
+  } else {
+    res.status(400).json({
+      Success: false,
+      Message: "Bad Request",
     });
   }
-else{
-  res.status(400).json({
-    Success: false,
-    Message: " Bad Request",
-    
-  });
-}
 };
+
 
 exports.AddSandha = async (req, res, next) => {
   const { PaidMonths, MemberID, Amount } = req.body;

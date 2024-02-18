@@ -40,6 +40,10 @@ const handleDelete = (id) => {
 
 
 const ThisMonth = () => {
+  // const currentDate = new Date().toISOString().split("T")[0];
+  const currentDate = new Date()
+  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const thismonth = MonthList[currentDate.getMonth()]
  
   const [loading, setLoading] = useState(true);
   const [AllSandhaDetails, setAllSandhaDetails] = useState([]);
@@ -48,7 +52,7 @@ const ThisMonth = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/Sandha/All"
+          `http://localhost:8000/Sandha/Month/${thismonth}`
         );
         setAllSandhaDetails(response.data.AllSandhaDetails);
         setLoading(false);
