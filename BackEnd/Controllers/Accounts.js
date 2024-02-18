@@ -1,14 +1,48 @@
-const AccountsModel = require('../Models/Accounts')
-
+const AccountsModel = require("../Models/Accounts");
 
 exports.CreateAccount = async function (req, res, next) {
-const {Name,Account} = req.body;
+  const { Name, Category,Description } = req.body;
 
-const Accounts = await AccountsModel.create({Name,Account});
+  if (Name && Category && Description !== "") {
+    try {
+      const Account = await AccountsModel.create({
+        Name,
+        Category,
+        Description
+      });
+      res.status(201).json({
+        Success: true,
+        Message: "Account Created Succefully",
+        Account,
+      });
+    } catch (err) {
+      res.status(500).json({
+        Success: false,
+        Message: "Internal Server Error",
+        err,
+      });
+    }
+  } else {
+    res.status(400).json({
+      Success: false,
+      Message: "Fill All The Details Correctly",
+    });
+  }
+};
 
-res.status(201).json({
-    Success: true,
-    Message: "Account Created Successfully",
-    Accounts
-})
-}
+exports.FetchAllAccounts = async function (req, res, next) {
+  const accounts = await AccountsModel.find();
+  try {
+    res.status(200).json({
+      Success: true,
+      Message: "Accounts Fetching Succefully",
+      accounts,
+    });
+  } catch (err) {
+    res.status(500).json({
+      Success: false,
+      Message: "Internal Server Error",
+      err,
+    });
+  }
+};
