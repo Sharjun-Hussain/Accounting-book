@@ -15,11 +15,13 @@ const TransactionSchema = new mongoose.Schema({
     },
     FromAccount:{
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'Accounts'
+        ref : 'Accounts',
+        required:true
     },
     ToAccount:{
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'Accounts'
+        ref : 'Accounts',
+        required:true
     }
 
 })
