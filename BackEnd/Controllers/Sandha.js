@@ -1,5 +1,5 @@
 const SandhaModel = require("../Models/Sandha");
-
+const AccountsModel = require("../Models/Accounts");
 
 // Sandha/All
 exports.FetchAllSandha = async (req, res, next) => {
@@ -17,16 +17,29 @@ exports.FetchAllSandha = async (req, res, next) => {
 
 // Sandha/:Month
 exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
-  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const MonthList = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const { Month } = req.params;
 
   if (MonthList.includes(Month)) {
     try {
       const AllSandhaDetails = await SandhaModel.aggregate([
-        { 
-          $match: { PaidMonths: Month } 
+        {
+          $match: { PaidMonths: Month },
         },
-       
+
         {
           $lookup: {
             from: "sandhamembers",
@@ -34,7 +47,7 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
             foreignField: "_id",
             as: "Data",
           },
-        }
+        },
       ]);
       console.log(AllSandhaDetails);
       res.status(200).json({
@@ -59,22 +72,34 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
 
 // Sandha/:Month/Sum
 exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
-  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const MonthList = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const { Month } = req.params;
 
   if (MonthList.includes(Month)) {
     try {
       const AllSandhaDetails = await SandhaModel.aggregate([
-        { 
-          $match: { PaidMonths: Month } 
+        {
+          $match: { PaidMonths: Month },
         },
         {
           $group: {
             _id: null, // Group all documents together
-            TotalAmount: { $sum: "$Amount" } // Sum the 'Amount' field
-          }
-        }
-        
+            TotalAmount: { $sum: "$Amount" }, // Sum the 'Amount' field
+          },
+        },
       ]);
       console.log(AllSandhaDetails);
       res.status(200).json({
@@ -108,6 +133,14 @@ exports.AddSandha = async (req, res, next) => {
         Amount,
         PaidMonths,
       });
+
+      const CashAccount = await AccountsModel.findOne({ Name: "Cash" });
+      const SummableAmount = CashAccount.Balance + Amount;
+
+      const UpdateCashAccount = await AccountsModel.findOneAndUpdate(
+        { Name: "Cash" },
+        { Balance: SummableAmount }
+      );
 
       res.status(201).json({
         Success: true,
