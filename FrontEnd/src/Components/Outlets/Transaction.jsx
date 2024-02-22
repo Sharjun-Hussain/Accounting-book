@@ -7,16 +7,6 @@ import TransactionTable from "../Tables/TransactionTable";
 const Transactions = () => {
   const [ModalShow, setModalShow] = useState(false); //Modal Popup
 
-  // const [CheckedValue, setCheckedValue] = useState([]); //CheckBox Data
-
-  //Print Fucntion Start
-  // const componentRef = useRef();
-  // const handlePrint = useReactToPrint({
-  //   content: () => componentRef.current,
-  // });
-
-  //Print Fucntion End
-
   return (
     <Container fluid className="mt-3">
       <>

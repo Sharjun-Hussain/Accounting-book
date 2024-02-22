@@ -1,131 +1,137 @@
-import { useState, useRef } from "react";
-import { Table, Form } from "react-bootstrap";
-// import CheckBox from "../Utilities/CheckBox";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
+
+//From MUI 
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { DataGrid } from "@mui/x-data-grid";
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
+
+const LoadingSkeleton = () => (
+  <Box
+    sx={{
+      height: 'max-content',
+    }}
+  >
+    {[...Array(10)].map((_, index) => (
+      <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
+    ))}
+  </Box>
+);
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
+
+const handleEdit = (id) => {
+  
+  console.log("Editing member with ID:", id);
+};
+
+const handleDelete = (id) => {
+  
+  console.log("Deleting member with ID:", id);
+};
 const TransactionTable = () => {
-  //CheckBox All Configuration Start
-  const [selected, setSelected] = useState([]);
-  const [checked, setChecked] = useState(false);
-  const listOptions = [
-    "apple",
-    "banana",
-    "cherry",
-    "date",
-    "elderberry",
-    "fig",
-    "honeydew melon",
+  const [loading, setLoading] = useState(true);
+  const [Transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/Transactions/All"
+        );
+        setTransactions(response.data.Transactions);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+    console.log(Transactions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const columns = [
+    { field: "_id", headerName: "_id", width: 50 },
+    { field: "Date", headerName: "Name", width: 230 },
+    { field: "Amount", headerName: "Address", width: 250 },
+    {field: "Description",
+      headerName: "Phone",
+      type: "number",
+      sortable: true,
+      width: 150,
+    },
+    {
+      field: "ToAccount",
+      headerName: "Amount",
+      type: "number",
+      description: "This column has a value getter and is not sortable.",
+      sortable: true,
+      width: 160,
+    },
+    {
+      headerName: "FromAccount",
+      type: "textfield",
+      description: "This column has a value getter and is not sortable.",
+
+      width: 120,
+      renderCell: (params) => (
+        <div>
+          <IconButton
+          color="primary"
+          aria-label="edit"
+          onClick={() => handleEdit(params.row._id)}
+        >
+          <EditIcon />
+        </IconButton>
+        <IconButton
+          color="secondary"
+          aria-label="delete"
+          onClick={() => handleDelete(params.row._id)}
+        >
+          <DeleteIcon />
+        </IconButton>
+        </div>
+      ),
+    },
   ];
 
-  // const HandleCheck = (event) =>{
-
-  //     const {value, checked} = event.target;
-
-  //     if(checked){
-  //         setSelected(e =>[...e,value])
-
-  //     }else {
-  //         setSelected(e => {
-  //             return [...e.filter(ev => ev !== value)]
-  //         })
-
-  //     }
-
-  // }
-
-  console.log(selected);
-
-  const rowCheckbox = useRef("");
-  const toggleCheckboxes = () => {
-    setChecked((prevState) => !prevState);
-
-    if (checked) {
-      setSelected(listOptions);
-    } else {
-      setSelected([]);
-    }
-  };
-
-  // const handleSelectAll = (value) => {
-  //     if (value) {
-  //       setSelected(listOptions);
-  //     } else {
-  //       setSelected([]);
-  //     }
-  //   };
-
-  //   function handleSelect(value, name) {
-  //     if (value) {
-  //       setSelected([...selected, name]);
-  //       console.log(selected)
-  //     } else {
-  //       setSelected(selected.filter((item) => item !== name));
-  //       console.log(selected)
-  //     }
-  //   }
-
-  //   function selectAll(value) {
-  //     if (value) {
-  //       // if true
-  //       setSelected(listOptions);
-  //       console.log(selected)
-  //     } else {
-  //       // if false
-  //       setSelected([]);
-  //       console.log(selected)
-  //     }
-  //   }
-
-  //CheckBox Configuration Stop
+  function getRowId(row) {
+    return row._id;
+  }
 
   return (
-    <Table hover striped variant="dark" bordered className="print-table" responsive>
-      <thead>
-        <tr>
-          <th>
-            <Form.Check
-              className="text-center"
-              type="checkbox"
-              onClick={toggleCheckboxes}
-            />
-            {/* <input type="checkbox" onClick={toggleCheckboxes} /> */}
-          </th>
-
-          <th>#</th>
-          <th className="text-center"> Date</th>
-          <th className="text-center"> Description</th>
-          <th className="text-center"> From</th>
-          <th className="text-center"> to</th>
-          <th className="text-center"> Amount</th>
-          <th className="text-center"> Documents</th>
-          <th className="text-center">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <Form.Check
-              className="text-center"
-              type="checkbox"
-              ref={rowCheckbox}
-              name="" // name={item}  format
-              value="" // value={item}  format
-              defaultChecked={checked}
-            />
-          </td>
-          <td>1</td>
-          <td>Buy Tea</td>
-          <td></td>
-        </tr>
-        {/* <input
-          type="checkbox"
-          ref={rowCheckbox}
-          className=""
-          name="" // name={item}  format
-          value="" // value={item}  format
-          checked={checked}
-        ></input> */}
-      </tbody>
-    </Table>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <div style={{  width: "100%" }}>
+        <DataGrid
+          getRowId={getRowId}
+          rows={Transactions}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+          disableRowSelectionOnClick
+          components={{
+            LoadingOverlay: LoadingSkeleton,
+          }}
+          loading={loading}
+        />
+      </div>
+    </ThemeProvider>
   );
 };
 

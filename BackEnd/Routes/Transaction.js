@@ -5,4 +5,6 @@ const App = express.Router();
 
 
 App.route("/All").get(FetchAllTransactions);
-App.route("/Add").get(AddTransaction);
+App.route("/Add").post(AddTransaction);
+
+module.exports = App;
