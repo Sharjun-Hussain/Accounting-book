@@ -2,11 +2,14 @@ const SandhaMembers = require("../Models/SandhaMembers");
 
 exports.FetchAllSandhaMembers = async (req, res, next) => {
   const Members = await SandhaMembers.find();
+  const TotalMembers = Members.length;
 
   res.status(200).json({
     Success: true,
     Message: "Fetching Succesfull",
     Members,
+    TotalMembers,
+    
   });
 };
 

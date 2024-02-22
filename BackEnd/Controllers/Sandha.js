@@ -135,12 +135,14 @@ exports.AddSandha = async (req, res, next) => {
       });
 
       const CashAccount = await AccountsModel.findOne({ Name: "Cash" });
-      const SummableAmount = CashAccount.Balance + Amount;
+      CashAccount.Balance += Amount;
 
-      const UpdateCashAccount = await AccountsModel.findOneAndUpdate(
-        { Name: "Cash" },
-        { Balance: SummableAmount }
-      );
+      CashAccount.save();
+
+      // const UpdateCashAccount = await AccountsModel.findOneAndUpdate(
+      //   { Name: "Cash" },
+      //   { Balance: SummableAmount }
+      // );
 
       res.status(201).json({
         Success: true,

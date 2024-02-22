@@ -43,6 +43,7 @@ const handleDelete = (id) => {
 const TransactionTable = () => {
   const [loading, setLoading] = useState(true);
   const [Transactions, setTransactions] = useState([]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,7 +57,7 @@ const TransactionTable = () => {
       }
     };
     fetchData();
-    console.log(Transactions);
+    console.log(Transactions );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

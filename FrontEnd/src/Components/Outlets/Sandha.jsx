@@ -24,6 +24,7 @@ const SandhaMainPage = () => {
           `http://localhost:8000/Sandha/Month/${thismonth}/Sum`
         );
         setThisMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount)
+        
       } catch (err) {
         console.log(err);
       }
@@ -41,6 +42,8 @@ const SandhaMainPage = () => {
     };
     fetchThisMonthSandhaSum();
     fetchLastMonthSandhaSum();
+
+    
    
   }, [])
   

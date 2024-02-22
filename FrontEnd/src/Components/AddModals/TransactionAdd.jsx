@@ -7,8 +7,6 @@ import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
-
 const TransactionAddModal = (props) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const Navigate = useNavigate();
@@ -60,7 +58,7 @@ const TransactionAddModal = (props) => {
     console.log(FromAccount, ToAccount, Amount,Description, TransactionDate);
   };
   
-  console.log(currentDate);
+ 
   return (
     <Container>
       <Row>
