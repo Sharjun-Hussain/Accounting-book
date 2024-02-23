@@ -7,7 +7,7 @@ import report from '../assets/Icons/report.svg'
 const SideBar = () => {
   return (
     <>
-      <ul>
+      <ul className="d-none d-md-block">
         <NavLink to="/" className="d-flex ps-3 ps-3">
           {" "}
           <img src={report}  width={30}/> <li>Dashboard</li>

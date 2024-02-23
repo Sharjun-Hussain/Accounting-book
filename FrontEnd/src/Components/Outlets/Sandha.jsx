@@ -3,19 +3,30 @@
 import { Button, Card, Col, Container } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import SandhaAddModal from "../AddModals/SandhaAdd";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-
-
 const SandhaMainPage = () => {
-  const currentDate = new Date()
-  const MonthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const thismonth = MonthList[currentDate.getMonth()]
-  const lastMonth = MonthList[currentDate.getMonth()-1]
-
-  const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState();  //fetchThisMonthSandhaSum
-  const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState();  //fetchLastMonthSandhaSum
+  const currentDate = new Date();
+  const MonthList = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const thismonth = MonthList[currentDate.getMonth()];
+  const lastMonth = MonthList[currentDate.getMonth() - 1];
+  
+  const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
+  const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchLastMonthSandhaSum
 
   useEffect(() => {
     const fetchThisMonthSandhaSum = async () => {
@@ -23,8 +34,7 @@ const SandhaMainPage = () => {
         const response = await axios.get(
           `http://localhost:8000/Sandha/Month/${thismonth}/Sum`
         );
-        setThisMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount)
-        
+        setThisMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount);
       } catch (err) {
         console.log(err);
       }
@@ -35,19 +45,15 @@ const SandhaMainPage = () => {
         const response = await axios.get(
           `http://localhost:8000/Sandha/Month/${lastMonth}/Sum`
         );
-        setLastMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount)
+        setLastMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount);
       } catch (err) {
         console.log(err);
       }
     };
     fetchThisMonthSandhaSum();
     fetchLastMonthSandhaSum();
+  }, []);
 
-    
-   
-  }, [])
-  
-  
   const [ModalShow, setModalShow] = useState(false);
   return (
     <>
@@ -91,24 +97,9 @@ const SandhaMainPage = () => {
                     <div>
                       {" "}
                       <h2>Rs. {LastMonthSandhaSum}</h2>
-                      <Card.Title style={{fontSize:"18px"}}>சென்றமாத சந்தா </Card.Title>
-                    </div>
-                    <span>Icon</span>
-                  </Card.Body>
-                </Card>{" "}
-              </Link>
-            </Col>
-
-            
-            
-            <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="this-month">
-                <Card className="d-flex flex-column me-md-1 my-2">
-                  <Card.Body className="d-flex flex-row justify-content-between">
-                    <div>
-                      {" "}
-                      <h2>Rs . 10,000</h2>
-                      <Card.Title>இம்மாத சந்தா </Card.Title>
+                      <Card.Title style={{ fontSize: "18px" }}>
+                        சென்றமாத சந்தா{" "}
+                      </Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>
@@ -131,15 +122,20 @@ const SandhaMainPage = () => {
               </Link>
             </Col>
 
-            
-
-           
-
-            
-
-            
-
-            
+            <Col md={6} xs={12} lg={4} xl={3} className="">
+              <Link to="this-month">
+                <Card className="d-flex flex-column me-md-1 my-2">
+                  <Card.Body className="d-flex flex-row justify-content-between">
+                    <div>
+                      {" "}
+                      <h2>Rs . 10,000</h2>
+                      <Card.Title>இம்மாத சந்தா </Card.Title>
+                    </div>
+                    <span>Icon</span>
+                  </Card.Body>
+                </Card>{" "}
+              </Link>
+            </Col>
           </div>
         </>
       </Container>
