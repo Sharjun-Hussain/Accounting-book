@@ -1,21 +1,20 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-
-//From MUI 
+//From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 
 const LoadingSkeleton = () => (
   <Box
     sx={{
-      height: 'max-content',
+      height: "max-content",
     }}
   >
     {[...Array(10)].map((_, index) => (
@@ -30,20 +29,18 @@ const darkTheme = createTheme({
   },
 });
 
-
 const handleEdit = (id) => {
-  
   console.log("Editing member with ID:", id);
 };
 
 const handleDelete = (id) => {
-  
   console.log("Deleting member with ID:", id);
 };
 const TransactionTable = () => {
   const [loading, setLoading] = useState(true);
   const [Transactions, setTransactions] = useState([]);
-  
+  // const [Error, setError] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,33 +51,40 @@ const TransactionTable = () => {
         setLoading(false);
       } catch (err) {
         console.log(err);
+        // setError(err);
       }
     };
     fetchData();
-    console.log(Transactions );
+    console.log(Transactions);
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const columns = [
     { field: "_id", headerName: "_id", width: 50 },
-    { field: "Date", headerName: "Name", width: 230 },
-    { field: "Amount", headerName: "Address", width: 250 },
-    {field: "Description",
-      headerName: "Phone",
-      type: "number",
-      sortable: true,
-      width: 150,
-    },
+    { field: "Description", headerName: "Description", width: 250 },
+    { field: "Date", headerName: "Date", width: 230 },
+    { field: "Amount", headerName: "Amount", width: 250 },
+    {
+      field: "fromaccount",
+      headerName: "FromAccount",
+      width: 250,
+      renderCell: (params) => {
+        return <div className="rowitem" key={params.row.FromAccount._id}>{params.row.FromAccount[0].Name}</div>;
+      },
+      },
+
     {
       field: "ToAccount",
-      headerName: "Amount",
-      type: "number",
-      description: "This column has a value getter and is not sortable.",
-      sortable: true,
-      width: 160,
+      headerName: "ToAccount",
+      width: 250,
+      renderCell: (params) => {
+        return <div className="rowitem" key={params.row.ToAccount._id}>{params.row.ToAccount[0].Name}</div>;
+      },
     },
+
     {
-      headerName: "FromAccount",
+      headerName: "Actions",
       type: "textfield",
       description: "This column has a value getter and is not sortable.",
 
@@ -88,19 +92,19 @@ const TransactionTable = () => {
       renderCell: (params) => (
         <div>
           <IconButton
-          color="primary"
-          aria-label="edit"
-          onClick={() => handleEdit(params.row._id)}
-        >
-          <EditIcon />
-        </IconButton>
-        <IconButton
-          color="secondary"
-          aria-label="delete"
-          onClick={() => handleDelete(params.row._id)}
-        >
-          <DeleteIcon />
-        </IconButton>
+            color="primary"
+            aria-label="edit"
+            onClick={() => handleEdit(params.row._id)}
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            color="secondary"
+            aria-label="delete"
+            onClick={() => handleDelete(params.row._id)}
+          >
+            <DeleteIcon />
+          </IconButton>
         </div>
       ),
     },
@@ -111,9 +115,11 @@ const TransactionTable = () => {
   }
 
   return (
+
+    
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div style={{  width: "100%" }}>
+      <div style={{ width: "100%" }}>
         <DataGrid
           getRowId={getRowId}
           rows={Transactions}
