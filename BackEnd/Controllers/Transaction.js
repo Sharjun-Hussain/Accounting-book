@@ -54,11 +54,11 @@ exports.AddTransaction = async function (req, res, next) {
   const FromAccountFromModel = await AccountsModel.findById(FromAccount);
   const ToAccountFromModel = await AccountsModel.findById(ToAccount);
 
-  FromAccountFromModel.Balance -= Amount;
-  ToAccountFromModel.Balance += Amount;
+  const FinalizedFromBalance = FromAccountFromModel.Balance - Amount;
+  const FinalizedToBalance = ToAccountFromModel.Balance + Amount;
 
-  FromAccountFromModel.save();
-  ToAccountFromModel.save();
+  await AccountsModel.updateOne({FromAccountFromModel}, {$inc :{FinalizedFromBalance}})
+  await AccountsModel.updateOne({ToAccountFromModel}, {$inc :{FinalizedToBalance}})
 
   res.status(200).json({
     Success: true,

@@ -2,10 +2,7 @@ const AccountsModel = require("../Models/Accounts");
 
 exports.CreateAccount = async function (req, res, next) {
   const { Name, Category, Description } = req.body;
-  
-  
-  
-
+ 
   if (Name && Category && Description !== "") {
     try {
       const lowercasedName = Name.toLowerCase().trim().replace(/\s+/g, '-');

@@ -62,13 +62,13 @@ const TransactionTable = () => {
 
   const columns = [
     { field: "_id", headerName: "_id", width: 50 },
-    { field: "Description", headerName: "Description", width: 250 },
-    { field: "Date", headerName: "Date", width: 230 },
-    { field: "Amount", headerName: "Amount", width: 250 },
+    { field: "Description", headerName: "Description", width: 230 },
+    { field: "Date", headerName: "Date", width: 110 },
+    { field: "Amount", headerName: "Amount", width: 110 },
     {
       field: "fromaccount",
       headerName: "FromAccount",
-      width: 250,
+      width: 180,
       renderCell: (params) => {
         return <div className="rowitem" key={params.row.FromAccount._id}>{params.row.FromAccount[0].Name}</div>;
       },
@@ -77,7 +77,7 @@ const TransactionTable = () => {
     {
       field: "ToAccount",
       headerName: "ToAccount",
-      width: 250,
+      width: 180,
       renderCell: (params) => {
         return <div className="rowitem" key={params.row.ToAccount._id}>{params.row.ToAccount[0].Name}</div>;
       },
