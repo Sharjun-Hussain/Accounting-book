@@ -135,9 +135,6 @@ exports.AddSandha = async (req, res, next) => {
       });
 
       const CashAccount = await AccountsModel.findOne({ Name: "cash" });
-      
-
-      
 
       const UpdateCashAccount = await AccountsModel.findOneAndUpdate(
         { Name: "cash" },
