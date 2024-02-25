@@ -37,7 +37,7 @@ const ReportTable = () => {
 
   const [loading, setLoading] = useState(true);
   const [SandhaIncome, setSandhaIncome] = useState();
-  const [Transactions, setTransactions] = useState([]);
+  // const [Transactions, setTransactions] = useState([]);
   useEffect(() => {
     const fetchSandhaIncome = async () => {
       try {
@@ -51,20 +51,20 @@ const ReportTable = () => {
       }
     };
 
-    const fetchTransactions = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/Transactions/All"
-        );
-        setTransactions(response.data.Transactions);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        // setError(err);
-      }
-    };
+    // const fetchTransactions = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       "http://localhost:8000/Transactions/All"
+    //     );
+    //     setTransactions(response.data.Transactions);
+    //     setLoading(false);
+    //   } catch (err) {
+    //     console.log(err);
+    //     // setError(err);
+    //   }
+    // };
 
-    fetchTransactions();
+    // fetchTransactions();
     fetchSandhaIncome();
     
     // eslint-disable-next-line react-hooks/exhaustive-deps

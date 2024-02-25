@@ -5,24 +5,12 @@ const TransactionSchema = new mongoose.Schema({
         type: Date,
         required:true
     },
-    Amount:{
-        type:Number,
-        required:true
-    },
+    
     Description:{
         type:String,
 
     },
-    FromAccount:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref : 'Accounts',
-        required:true
-    },
-    ToAccount:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref : 'Accounts',
-        required:true
-    }
+    
 
 })
 
