@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 //From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
@@ -29,13 +26,6 @@ const darkTheme = createTheme({
   },
 });
 
-const handleEdit = (id) => {
-  console.log("Editing member with ID:", id);
-};
-
-const handleDelete = (id) => {
-  console.log("Deleting member with ID:", id);
-};
 const TransactionTable = () => {
   const [loading, setLoading] = useState(true);
   const [Transactions, setTransactions] = useState([]);
