@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Container, Col, Button } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
+import ReportTable from "../Tables/ReportTable";
 
 const Report = () => {
   const today = new Date();
@@ -23,40 +23,7 @@ const Report = () => {
                 </Link>
               </div>
             </div>
-            <Table striped bordered hover variant="dark">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Description</th>
-                  <th>Income</th>
-                  <th>OutGoing</th>
-                  <th>Balance</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Larry the Bird</td>
-                  <td>@twitter</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-              </tbody>
-            </Table>
+            <ReportTable/>
           </div>
         </Col>
       </>
