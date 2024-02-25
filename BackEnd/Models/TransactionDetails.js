@@ -3,16 +3,14 @@ const mongoose = require("mongoose");
 const TransactionDetailsSchema = new mongoose.Schema({
   TransactionID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Transactions",
+    ref: "Transaction",
     required: true,
   },
   Amount: {
     type: Number,
     required: true,
   },
-  Description: {
-    type: String,
-  },
+  
   AccountID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Accounts",
