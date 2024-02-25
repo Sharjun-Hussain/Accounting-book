@@ -47,7 +47,8 @@ const TransactionTable = () => {
         const response = await axios.get(
           "http://localhost:8000/Transactions/All"
         );
-        setTransactions(response.data.Transactions);
+        setTransactions(response.data.TransactionDetails);
+        // setTransactions(response.data.TransactionDetails[0].AccountDetails[0].Name);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -56,58 +57,48 @@ const TransactionTable = () => {
     };
     fetchData();
     console.log(Transactions);
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const columns = [
-    { field: "_id", headerName: "_id", width: 50 },
-    { field: "Description", headerName: "Description", width: 230 },
-    { field: "Date", headerName: "Date", width: 110 },
-    { field: "Amount", headerName: "Amount", width: 110 },
+    
     {
-      field: "fromaccount",
-      headerName: "FromAccount",
-      width: 180,
+      field: "Transactio",
+      headerName: "Description",
+      width: 200,
       renderCell: (params) => {
-        return <div className="rowitem" key={params.row.FromAccount._id}>{params.row.FromAccount[0].Name}</div>;
-      },
-      },
-
-    {
-      field: "ToAccount",
-      headerName: "ToAccount",
-      width: 180,
-      renderCell: (params) => {
-        return <div className="rowitem" key={params.row.ToAccount._id}>{params.row.ToAccount[0].Name}</div>;
+        return (
+          <div
+            className="rowitem"
+            key={params.row.Transaction[0].Description}
+          >
+            {params.row.Transaction[0].Description}
+          </div>
+        );
       },
     },
-
+    
+    { field: "Amount", headerName: "Amount", width: 200 },
     {
-      headerName: "Actions",
-      type: "textfield",
-      description: "This column has a value getter and is not sortable.",
-
-      width: 120,
-      renderCell: (params) => (
-        <div>
-          <IconButton
-            color="primary"
-            aria-label="edit"
-            onClick={() => handleEdit(params.row._id)}
-          >
-            <EditIcon />
-          </IconButton>
-          <IconButton
-            color="secondary"
-            aria-label="delete"
-            onClick={() => handleDelete(params.row._id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </div>
-      ),
+      field: "Account",
+      headerName: "Account",
+      width: 180,
+      renderCell: (params) => {
+        return (
+          <div className="rowitem" key={params.row.Account[0]._id}>
+            {params.row.Account[0].Name}
+          </div>
+        );
+      },
     },
+    {
+      field: "Type",
+      headerName: "Type",
+      width: 200,
+    },
+
+    
   ];
 
   function getRowId(row) {
@@ -115,8 +106,6 @@ const TransactionTable = () => {
   }
 
   return (
-
-    
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div style={{ width: "100%" }}>

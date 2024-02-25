@@ -26,29 +26,29 @@ exports.FetchAllTransactions = async function (req, res, next) {
   //   },
   // ]);
 
-
   const TransactionDetails = await TransactionDetailsModel.aggregate([
-    {$match:{}},
-    {$lookup:{
-      from: "transaction",
-      localField: "TransactionID",
-      foreignField: "_id",
-      as: "TransactionDetails",
-    }},
+    { $match: {} },
+    {
+      $lookup: {
+        from: "transactions",
+        localField: "TransactionID",
+        foreignField: "_id",
+        as: "Transaction",
+      },
+    },
     {
       $lookup: {
         from: "accounts",
         localField: "AccountID",
         foreignField: "_id",
-        as: "AccountDetails",
+        as: "Account",
       },
-    }
-  ])
+    },
+  ]);
   res.status(200).json({
     Success: true,
     Message: "Fetching Succesfull",
-    TransactionDetails
-    
+    TransactionDetails,
   });
 };
 
@@ -73,21 +73,22 @@ exports.AddTransaction = async function (req, res, next) {
   }
   const Transaction = await TransactionModel.create({
     Date: TransactionDate,
-    Description,
+    Description:Description,
   });
 
-  const TransactionID = Transaction._id;
+  const SavedTransactionID = Transaction._id;
 
   const TransactionDetailsFrom = await TransactionDetailsModel.create({
-    TransactionID,
-    Amount,
-    FromAccount,
+    TransactionID:SavedTransactionID,
+    Amount:Amount,
+    AccountID:FromAccount,
+    Type:"Debit"
   });
 
   const TransactionDetailsTo = await TransactionDetailsModel.create({
-    Amount,
-    ToAccount,
-    TransactionID,
+    TransactionID:SavedTransactionID ,
+    Amount:Amount,
+    AccountID:ToAccount,
     Type: "Credit",
   });
 
@@ -98,12 +99,16 @@ exports.AddTransaction = async function (req, res, next) {
     $inc: { Balance: Amount },
   });
 
-
-  await TransactionLog.create({TransactionID:{TransactionID},Action:"Create"})
+  await TransactionLog.create({
+    TransactionID:  SavedTransactionID ,
+    Action: "Create",
+  });
 
   res.status(201).json({
     Success: true,
     Message: "Transaction Added Succefully",
+    
+  }).send({
     Transaction,
     TransactionDetailsFrom,
     TransactionDetailsTo,

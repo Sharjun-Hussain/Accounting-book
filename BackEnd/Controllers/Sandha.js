@@ -134,13 +134,12 @@ exports.AddSandha = async (req, res, next) => {
         PaidMonths,
       });
 
-      const CashAccount = await AccountsModel.findOne({ Name: "cash" });
-
-      const UpdateCashAccount = await AccountsModel.findOneAndUpdate(
+      await AccountsModel.findOneAndUpdate(
         { Name: "cash" },
-        { $inc:{Balance: Amount} },
+        { $inc: { Balance: Amount } }
       );
 
+      
       res.status(201).json({
         Success: true,
         Message: "Sandha  Added Succefully",
