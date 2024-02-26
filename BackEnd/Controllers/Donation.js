@@ -4,20 +4,18 @@ const AccountsModel = require("../Models/Accounts");
 
 // Sandha/All
 exports.FetchAllDonation = async (req, res, next) => {
-  const AllDonationDetails = await SandhaModel.find().populate({
-    path: "MemberID",
-    select: "Name",
-  });
+
+  const AllDonationDetails = await DonationModel.find()
 
   res.status(200).json({
     Success: true,
-    Message: " Sandha Details Fetching Succesfull",
-    AllSandhaDetails,
+    Message: " Donation Details Fetching Succesfull",
+    AllDonationDetails,
   });
 };
 
 // Sandha/:Month
-exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
+exports.FetchSpecicMonthDonationDetails = async (req, res, next) => {
   const MonthList = [
     "January",
     "February",
@@ -36,9 +34,9 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
 
   if (MonthList.includes(Month)) {
     try {
-      const AllSandhaDetails = await SandhaModel.aggregate([
+      const AllDonationDetails = await DonationModel.aggregate([
         {
-          $match: { PaidMonths: Month },
+          $match: { DonatedMonth: Month },
         },
 
         {
@@ -50,11 +48,11 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
           },
         },
       ]);
-      console.log(AllSandhaDetails);
+      
       res.status(200).json({
         Success: true,
-        Message: "Sandha Details Fetching Successful",
-        AllSandhaDetails,
+        Message: "Donation Details Fetching Successful",
+        AllDonationDetails,
       });
     } catch (error) {
       console.error("Error:", error);
@@ -72,7 +70,7 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
 };
 
 // Sandha/:Month/Sum
-exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
+exports.FetchSpecicMonthDonationSum = async (req, res, next) => {
   const MonthList = [
     "January",
     "February",
@@ -91,9 +89,9 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
 
   if (MonthList.includes(Month)) {
     try {
-      const AllSandhaDetails = await SandhaModel.aggregate([
+      const AllDonationDetails = await DonationModel.aggregate([
         {
-          $match: { PaidMonths: Month },
+          $match: { DonatedMonth: Month },
         },
         {
           $group: {
@@ -102,11 +100,11 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
           },
         },
       ]);
-      console.log(AllSandhaDetails);
+      
       res.status(200).json({
         Success: true,
-        Message: "Sandha Sum  Successful",
-        AllSandhaDetails,
+        Message: "Donation Sum  Successful",
+        AllDonationDetails,
       });
     } catch (error) {
       console.error("Error:", error);
@@ -191,7 +189,7 @@ exports.DeleteDonation = async (req, res, next) => {
   }
 };
 
-exports.UpdateSandha = async (req, res, next) => {
+exports.UpdateDonation = async (req, res, next) => {
   const { id } = req.params;
 
   const DonationDetail = await DonationDetail.findById(id);
