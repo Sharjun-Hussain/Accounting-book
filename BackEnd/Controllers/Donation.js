@@ -1,9 +1,10 @@
 const SandhaModel = require("../Models/Sandha");
+const DonationModel = require("../Models/Donations");
 const AccountsModel = require("../Models/Accounts");
 
 // Sandha/All
-exports.FetchAllSandha = async (req, res, next) => {
-  const AllSandhaDetails = await SandhaModel.find().populate({
+exports.FetchAllDonation = async (req, res, next) => {
+  const AllDonationDetails = await SandhaModel.find().populate({
     path: "MemberID",
     select: "Name",
   });
@@ -123,26 +124,30 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
 };
 
 // Sandha/Add
-exports.AddSandha = async (req, res, next) => {
-  const { PaidMonths, MemberID, Amount,Description } = req.body;
+exports.AddDonation = async (req, res, next) => {
+  const { Name, MemberID, Amount, Category, Description, DonatedMonth } =
+    req.body;
 
-  if (PaidMonths && MemberID && Amount != "") {
+  if (DonatedMonth && Amount && Description && Category != null) {
     try {
-      const Sandha = await SandhaModel.create({
-        MemberID,
-        Amount,
-        PaidMonths,
-      });
+      if (Name) {
+        const Donation = await DonationModel.create({
+          Name: Name,
+          Category: Category,
+          Amount: Amount,
+          Description: Description,
+          DonatedMonth: DonatedMonth,
+        });
+      }
 
       await AccountsModel.findOneAndUpdate(
         { Name: "cash" },
         { $inc: { Balance: Amount } }
       );
 
-      
       res.status(201).json({
         Success: true,
-        Message: "Sandha  Added Succefully",
+        Message: "Donation  Added Succefully",
         Sandha,
       });
     } catch (err) {
@@ -160,18 +165,18 @@ exports.AddSandha = async (req, res, next) => {
   }
 };
 
-exports.DeleteSandha = async (req, res, next) => {
+exports.DeleteDonation = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const SandhaDetail = await SandhaModel.findById(id);
-    if (!SandhaDetail) {
+    const DonationDetail = await DonationModel.findById(id);
+    if (!DonationDetail) {
       res.status(400).json({
         Success: false,
-        Message: "Sandha Detail is  Not Found",
+        Message: "Donation is  Not Found",
       });
       return;
     }
-    await SandhaModel.deleteOne({ _id: id });
+    await DonationDetail.deleteOne({ _id: id });
 
     res.status(200).json({
       Success: true,
@@ -189,19 +194,19 @@ exports.DeleteSandha = async (req, res, next) => {
 exports.UpdateSandha = async (req, res, next) => {
   const { id } = req.params;
 
-  const SandhaDetail = await SandhaModel.findById(id);
+  const DonationDetail = await DonationDetail.findById(id);
 
-  if (!SandhaDetail) {
+  if (!DonationDetail) {
     res.status(404).json({
       Success: false,
-      Message: "Sandha Detail is Not Found",
+      Message: "Donation is Not Found",
     });
   }
-  await SandhaModel.findByIdAndUpdate(id, { re });
+  await DonationDetail.findByIdAndUpdate(id, { re });
 
   res.status(200).json({
     Success: true,
-    Message: "Member Deleted Succefully",
+    Message: "Donation Deleted Succefully",
     Member,
   });
 };

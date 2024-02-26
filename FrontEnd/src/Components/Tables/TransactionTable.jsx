@@ -70,6 +70,13 @@ const TransactionTable = () => {
     },
     
     { field: "Amount", headerName: "Amount", width: 200 },
+    { field: "Transaction", headerName: "Date", width: 200,renderCell: (params) => {
+      return (
+        <div className="rowitem" key={params.row.Transaction[0].Date}>
+          {params.row.Transaction[0].Date}
+        </div>
+      );
+    }, },
     {
       field: "Account",
       headerName: "Account",
