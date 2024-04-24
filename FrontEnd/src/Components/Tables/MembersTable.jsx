@@ -12,34 +12,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 
-const LoadingSkeleton = () => (
-  <Box
-    sx={{
-      height: 'max-content',
-    }}
-  >
-    {[...Array(10)].map((_, index) => (
-      <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-    ))}
-  </Box>
-);
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-
-const handleEdit = (id) => {
-  
-  console.log("Editing member with ID:", id);
-};
-
-const handleDelete = (id) => {
-  
-  console.log("Deleting member with ID:", id);
-};
 const MembersTable = () => {
   const [loading, setLoading] = useState(true);
   const [Members, setMembers] = useState([]);
@@ -59,6 +31,38 @@ const MembersTable = () => {
     console.log(Members);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const LoadingSkeleton = () => (
+    <Box
+      sx={{
+        height: 'max-content',
+      }}
+    >
+      {[...Array(10)].map((_, index) => (
+        <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
+      ))}
+    </Box>
+  );
+  
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
+  
+  
+  const handleEdit = (id) => {
+    
+    console.log("Editing member with ID:", id);
+  };
+  
+  const handleDelete = async (id) => {
+    
+    await axios.post( `http://localhost:8000/Sandha-members/Delete/${id}`)
+    console.log("Deleting member with ID:", id);
+    setMembers(Members.filter((member) =>  member._id !== id))
+     console.log(Members);
+  };
 
   const columns = [
     { field: "_id", headerName: "_id", width: 50 },
@@ -134,5 +138,7 @@ const MembersTable = () => {
     </ThemeProvider>
   );
 };
+
+
 
 export default MembersTable;
