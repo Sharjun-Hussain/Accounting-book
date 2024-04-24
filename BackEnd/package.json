@@ -1,4 +1,8 @@
 {
+  "Details" : {
+    "Name" : "Accounting Book BackEnd",
+    "Version" : "v1"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
