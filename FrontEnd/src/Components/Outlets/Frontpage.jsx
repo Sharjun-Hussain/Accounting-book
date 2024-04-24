@@ -32,7 +32,7 @@ const Frontpage = () => {
   useEffect(() => {
     const FetchCashAccountTotal = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/Accounts/cash`);
+        const response = await axios.get(`http://localhost:8000/Accounts/cash/sum`);
         setcashAmount(response.data.FetchedAccount.Balance);
       } catch (err) {
         console.log(err);
@@ -41,7 +41,7 @@ const Frontpage = () => {
 
     const FetchBankAccountTotal = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/Accounts/bank`);
+        const response = await axios.get(`http://localhost:8000/Accounts/bank/sum`);
         setbankAmount(response.data.FetchedAccount.Balance);
       } catch (err) {
         console.log(err);
@@ -97,7 +97,7 @@ const Frontpage = () => {
                 <div>
                   {" "}
                   <h2>Rs . {cashAmount}</h2>
-                  <Card.Title>கையிருப்பு </Card.Title>
+                  <Card.Title>Hand Assets </Card.Title>
                 </div>
                 <span>Icon</span>
               </Card.Body>
@@ -112,7 +112,7 @@ const Frontpage = () => {
                   <h2>Rs . {bankAmount}</h2>
                   <Card.Title className="align-content-end">
                     {" "}
-                    வங்கியிருப்பு{" "}
+                    Bank Assets{" "}
                   </Card.Title>
                 </div>
                 <img src={bookmark} width={35} />
@@ -126,7 +126,7 @@ const Frontpage = () => {
                 <div>
                   {" "}
                   <h2>{TotalMembers}</h2>
-                  <Card.Title>சந்தாதாரர்கள் </Card.Title>
+                  <Card.Title>Sandha Members </Card.Title>
                 </div>
                 <span>Icon</span>
               </Card.Body>
@@ -139,7 +139,7 @@ const Frontpage = () => {
                 <div>
                   {" "}
                   <h2>Rs . {ThisMonthSandhaSum}</h2>
-                  <Card.Title>{thismonth} - சந்தா </Card.Title>
+                  <Card.Title>{thismonth} - Sandha </Card.Title>
                 </div>
                 <span>Icon</span>
               </Card.Body>
@@ -152,7 +152,7 @@ const Frontpage = () => {
                 <div>
                   {" "}
                   <h2>Rs . {LastMonthSandhaSum}</h2>
-                  <Card.Title>{lastMonth} - சந்தா </Card.Title>
+                  <Card.Title>{lastMonth} - Sandha </Card.Title>
                 </div>
                 <span>Icon</span>
               </Card.Body>

@@ -1,15 +1,7 @@
 import axios from "axios";
 
 import { useState, useEffect } from "react";
-import {
-  Col,
-  Container,
-  Row,
-  Form,
-  Dropdown,
-  Button,
-  Modal,
-} from "react-bootstrap";
+import {Col,Container,Row,Form,Dropdown,Button,Modal} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const SandhaAddModal = (props) => {
