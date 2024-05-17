@@ -3,6 +3,13 @@ import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import bookmark from "../../assets/Icons/Bookmark.svg";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SellIcon from '@mui/icons-material/Sell';
+import PaidIcon from '@mui/icons-material/Paid';
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import TollIcon from '@mui/icons-material/Toll';
+import PixIcon from '@mui/icons-material/Pix';
+
 
 const currentDate = new Date();
 const MonthList = [
@@ -99,7 +106,7 @@ const Frontpage = () => {
                   <h2>Rs . {cashAmount}</h2>
                   <Card.Title>Hand Assets </Card.Title>
                 </div>
-                <span>Icon</span>
+                <SellIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
               </Card.Body>
             </Card>
           </Col>
@@ -115,7 +122,7 @@ const Frontpage = () => {
                     Bank Assets{" "}
                   </Card.Title>
                 </div>
-                <img src={bookmark} width={35} />
+                <PaidIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
               </Card.Body>
             </Card>
           </Col>
@@ -128,7 +135,7 @@ const Frontpage = () => {
                   <h2>{TotalMembers}</h2>
                   <Card.Title>Sandha Members </Card.Title>
                 </div>
-                <span>Icon</span>
+                <RequestQuoteIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
               </Card.Body>
             </Card>
           </Col>
@@ -141,7 +148,7 @@ const Frontpage = () => {
                   <h2>Rs . {ThisMonthSandhaSum}</h2>
                   <Card.Title>{thismonth} - Sandha </Card.Title>
                 </div>
-                <span>Icon</span>
+                <CurrencyExchangeIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
               </Card.Body>
             </Card>
           </Col>
@@ -154,7 +161,7 @@ const Frontpage = () => {
                   <h2>Rs . {LastMonthSandhaSum}</h2>
                   <Card.Title>{lastMonth} - Sandha </Card.Title>
                 </div>
-                <span>Icon</span>
+                <TollIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
               </Card.Body>
             </Card>
           </Col>
