@@ -136,11 +136,37 @@ a:hover {
 
 
 .modal-content{
-  background-color: black !important;
+  background-color: rgb(23, 23, 23) !important;
   color: white !important;
 }
 
+.form-control{
+  background-color: transparent !important;
+  color: white !important;
 
+}
+.form-control::placeholder{
+  color: wheat !important;;
+  opacity: 0.4 !important;
+}
+.form-control:focus{
+
+  box-shadow: none !important;
+}
+
+.form-select{
+  background-color: transparent !important;
+  color: white !important;
+  
+}
+.form-select option{
+  background-color: #303030 !important;
+}
+.form-select option:nth-child(1){
+  color: wheat !important;;
+  background-color: #99a1d4 !important;
+  opacity: 0.4 !important;
+}
 
 @media print{
   .hide-print{
