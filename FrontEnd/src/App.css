@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box !important;
+  padding: 0;
+  margin: 0;
+  
+  
+}
+
+
+.dashboard{
+  background: radial-gradient(circle at  68.8% 24.1% , rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+}
+
+.sidebar {
+  height: 100vh;
+}
+
+
+.userIcon{
+  cursor: pointer;
+  transition: 1s;
+  
+}
+
+
+.animate{
+  transform: translateX(-10px);
+}
+
+.profiledropdown{
+  color: #303030;
+  margin-inline:6px;
+  border-radius: 40px;
+  border:  1px solid rgba(255, 255, 255, 0.5);
+  padding-inline: 20px;
+}
+
+.profiledropdown:hover{
+  color: #303030;
+  
+  border-radius: 40px;
+  border:  1px solid rgba(255, 255, 255, 0.5);
+  padding-inline: 20px;
+}
+
+#dropdown-basic{
+  
+}
+
+.dropdown-menu{
+  background-color: black !important;
+}
+
+.dropdown-item:hover{
+  background-color: white !important;
+  color: black !important;
+}
+ul {
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  
+}
+ul li {
+  text-decoration: none !important;
+  color: white;
+  font-size: 16px;
+  list-style: none;
+  padding-block: 10px;
+  
+  width: 100%;
+  cursor: pointer;
+  padding-left: 3px;
+}
+
+
+a {
+  color: white !important;
+  list-style: none !important;
+  padding-block: 10px;
+  
+  text-decoration: none !important;
+}
+a:hover {
+  background: #606060;
+  color: black;
+  border-radius: 3px;
+}
+.active{
+  background-color: #303030;
+}
+
+/* Front page */
+
+
+.Front-cards-Background-card{
+
+  border:  1px solid rgba(255, 255, 255, 0.5);
+  
+  border-radius: 0.5rem;
+  padding: 1rem ;
+}
+
+.card{
+  background-color:  #3d3d3d !important;
+  color: white !important;
+  min-height: 130px;
+}
+
+.card:hover{
+  background-color:  #99a1d4 !important;
+  color: black !important;
+  cursor: pointer;
+}
+
+
+.btn{
+  background-color: black !important;
+  color: white !important;
+  border: white solid 0.5px !important;
+}
+
+.btn:hover{
+  /* background-color: rgb(54, 51, 51) !important; */
+  background-color: white !important;
+  color: black !important;
+}
+
+.modal-header .btn-close{
+
+ 
+  padding: 20px !important;
+  background-color: white !important;
+  
+}
+
+
+.modal-content{
+  background-color: black !important;
+  color: white !important;
+}
+
+
+
+@media print{
+  .hide-print{
+    display: none;
+  }
+}
