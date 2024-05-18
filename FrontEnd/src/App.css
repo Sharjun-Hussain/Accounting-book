@@ -115,7 +115,7 @@ a:hover {
 
 
 .btn{
-  background-color: black !important;
+  background-color: transparent !important;;
   color: white !important;
   border: white solid 0.5px !important;
 }

@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
-import bookmark from "../../assets/Icons/Bookmark.svg";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SellIcon from '@mui/icons-material/Sell';
@@ -8,7 +7,6 @@ import PaidIcon from '@mui/icons-material/Paid';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import TollIcon from '@mui/icons-material/Toll';
-import PixIcon from '@mui/icons-material/Pix';
 
 
 const currentDate = new Date();

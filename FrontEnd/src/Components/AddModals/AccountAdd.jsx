@@ -64,65 +64,74 @@ const AccountAddModal = (props) => {
             <Modal.Body>
               <Form>
                 <Row className="mb-3">
-                  <Form.Group as={Col} controlId="formGridName">
-                    <Form.Label>Account Name</Form.Label>
+                  <Col className="my-3 my-md-0" md={6} xs={12}>
+                    <Form.Group controlId="formGridName">
+                      <Form.Label>Account Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={Name}
+                        autoComplete="off"
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
+                        placeholder="Sharjun-Hussain"
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6} xs={12}>
+                    <Form.Group className="mb-3" controlId="formGridAddress1">
+                      <Form.Label>Account Type</Form.Label>
+                      <Form.Select
+                        onChange={(e) => {
+                          setCategory(e.target.value);
+                        }}
+                        aria-label="Default select example"
+                      >
+                        <option>Open this select menu</option>
+                        {Object.values(FetchCategory).map((item, key) => {
+                          return (
+                            <option value={item._id} key={key}>
+                              {item.Name}
+                            </option>
+                          );
+                        })}
+
+                        {console.log(Category)}
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6} xs={12}>
+                  <Form.Group controlId="formGridName">
+                    <Form.Label>Account Description</Form.Label>
                     <Form.Control
                       type="text"
-                      value={Name}
-                      autoComplete="off"
+                      value={Description}
+                      required
                       onChange={(e) => {
-                        setName(e.target.value);
+                        setDescription(e.target.value);
                       }}
-                      placeholder="Sharjun-Hussain"
+                      placeholder="Description"
                     />
                   </Form.Group>
-
-                  <Form.Group
-                    as={Col}
-                    className="mb-3"
-                    controlId="formGridAddress1"
-                  >
-                    <Form.Label>Account Type</Form.Label>
-                    <Form.Select
-                      onChange={(e) => {
-                        setCategory(e.target.value);
-                      }}
-                      aria-label="Default select example"
-                    >
-                      <option>Open this select menu</option>
-                      {Object.values(FetchCategory).map((item, key) => {
-                        return (
-                          <option value={item._id} key={key}>
-                            {item.Name}
-                          </option>
-                        );
-                      })}
-
-                      {console.log(Category)}
-                    </Form.Select>
-                  </Form.Group>
-                </Row>
-                <Form.Group as={Col} controlId="formGridName">
-                  <Form.Label>Account Description</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={Description}
-                    required
-                    onChange={(e) => {
-                      setDescription(e.target.value);
+                </Col>
+                <Col md={6} xs={12}>
+                  <Button
+                    style={{
+                      alignSelf: "end",
+                      width: "100%",
+                      marginTop: "30px",
                     }}
-                    placeholder="Description"
-                  />
-                </Form.Group>
-                <Row></Row>
-                <Button
-                  style={{ alignSelf: "end", width: "100%" }}
-                  variant="primary"
-                  type="submit"
-                  onClick={HandleSubmit}
-                >
-                  Submit
-                </Button>
+                    variant="primary"
+                    type="submit"
+                    onClick={HandleSubmit}
+                  >
+                    Submit
+                  </Button>
+                  </Col>
+                </Row>
+              
               </Form>
             </Modal.Body>
           </Modal>
