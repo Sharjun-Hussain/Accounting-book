@@ -11,15 +11,15 @@ import Frontpage from "./Components/Outlets/Frontpage";
 import SandhaMainPage from "./Components/Outlets/Sandha";
 import ThisMonth from "./Components/Outlets/SandhaOutlets/THisMonth";
 import LastMonth from "./Components/Outlets/SandhaOutlets/LastMonth";
-import MonthlyAccountDetail from "./Components/PrintLayout/MonthlyAccountDetail";
-import SandhaPrint from "./Components/PrintLayout/SandhaPrint";
+// import MonthlyAccountDetail from "./Components/PrintLayout/MonthlyAccountDetail";
+// import SandhaPrint from "./Components/PrintLayout/SandhaPrint";
 import Donations from "./Components/Outlets/Donations";
 import Login from "./Login";
 
-import { useState } from "react";
+// import { useState } from "react";
 
 function App() {
-  const [user, setUser] = useState("");
+  const user = true
   return (
     <>
       <BrowserRouter>

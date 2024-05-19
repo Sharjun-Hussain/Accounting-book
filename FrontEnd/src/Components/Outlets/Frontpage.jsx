@@ -199,7 +199,7 @@ const Sandha = () => {
   return (
     <>
       <h5 className="text-start text-white mb-3">
-        இம்மாதம் சந்தா கொடுத்தவர்கள்{" "}
+        {thismonth} - Month Income
       </h5>
       <Table striped hover bordered variant="dark">
         <thead>
@@ -226,7 +226,7 @@ const Sandha = () => {
 const RecentPurchase = () => {
   return (
     <>
-      <h5 className="text-start text-white mb-3">இம்மாத செலவுகள் </h5>
+      <h5 className="text-start text-white mb-3">{thismonth} - Outgoing </h5>
       <Table striped hover bordered variant="dark">
         <thead>
           <tr>
