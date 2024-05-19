@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.css";
 import Dashboard from "./Components/Dashboard";
@@ -14,40 +14,38 @@ import LastMonth from "./Components/Outlets/SandhaOutlets/LastMonth";
 import MonthlyAccountDetail from "./Components/PrintLayout/MonthlyAccountDetail";
 import SandhaPrint from "./Components/PrintLayout/SandhaPrint";
 import Donations from "./Components/Outlets/Donations";
-import Login from './Login'
+import Login from "./Login";
 
-
-
-
+import { useState } from "react";
 
 function App() {
-
+  const [user, setUser] = useState("");
   return (
     <>
       <BrowserRouter>
         <Routes>
-        <Route path="/login" element={<Login/>} />
-       
-         
-           <Route path="/" element={<Dashboard />}>
-           <Route index element={<Frontpage />} />
-           <Route path="report" element={<Report />} />
-           <Route path="Accounts" element={<Accounts />} />
-           <Route path="Members" element={<Members />} />
-           <Route path="Transaction" element={<Transaction />} />
-           <Route path="Donations" element={<Donations />} />
-           <Route path="settings" element={<Settings />} />
-           <Route path="Sandha" element={<SandhaMainPage />}>
-             <Route index element={<ThisMonth />} />
-             <Route path="this-Month" element={<ThisMonth />} />
-             <Route path="last-Month" element={<LastMonth />} />
-           </Route>
-           <Route
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} > 
+            <Route index element={<Frontpage />} />
+            <Route path="report" element={<Report />} />
+            <Route path="Accounts" element={<Accounts />} />
+            <Route path="Members" element={<Members />} />
+            <Route path="Transaction" element={<Transaction />} />
+            <Route path="Donations" element={<Donations />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="Sandha" element={<SandhaMainPage />}>
+              <Route index element={<ThisMonth />} />
+              <Route path="this-Month" element={<ThisMonth />} />
+              <Route path="last-Month" element={<LastMonth />} />
+            </Route>
+            {/* <Route
               path="print/report/:month"
               element={<MonthlyAccountDetail />}
             />
-            <Route path="print/user/:id" element={<SandhaPrint />} />
-            </Route>
+            <Route path="print/user/:id" element={<SandhaPrint />} /> */}
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </>
