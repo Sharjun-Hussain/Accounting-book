@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Col, Container, Row, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -11,6 +12,9 @@ const AccountAddModal = (props) => {
   const [Category, setCategory] = useState("");
   const [Name, setName] = useState("");
   const navigate = useNavigate();
+
+
+
 
   useEffect(() => {
     const FetchAllCategory = async () => {
@@ -69,7 +73,8 @@ const AccountAddModal = (props) => {
                       <Form.Label>Account Name</Form.Label>
                       <Form.Control
                         type="text"
-                        value={Name}
+                        // eslint-disable-next-line react/prop-types
+                        value={props.data.Name}
                         autoComplete="off"
                         onChange={(e) => {
                           setName(e.target.value);
@@ -96,7 +101,7 @@ const AccountAddModal = (props) => {
                           );
                         })}
 
-                        {console.log(Category)}
+                        
                       </Form.Select>
                     </Form.Group>
                   </Col>
@@ -107,7 +112,7 @@ const AccountAddModal = (props) => {
                     <Form.Label>Account Description</Form.Label>
                     <Form.Control
                       type="text"
-                      value={Description}
+                      value={props.data.Description}
                       required
                       onChange={(e) => {
                         setDescription(e.target.value);

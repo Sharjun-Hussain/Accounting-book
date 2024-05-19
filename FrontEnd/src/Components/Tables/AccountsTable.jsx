@@ -1,30 +1,28 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import AccountUpdate from "../UpdateModals/AccountUpdate";
 
-
-//From MUI 
+//From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
-
-
-
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 
 const AccountsTable = () => {
   const [loading, setLoading] = useState(true);
   const [Accounts, setAccounts] = useState([]);
+  const [ModalShow, setModalShow] = useState(false);
+  const [selectedRow, setselectedRow] = useState({})
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async() => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/Accounts/All"
-        );
-        setAccounts(response.data.Accounts);
+       const response = await fetch("http://localhost:8000/Accounts/All")
+       const data = await response.json()
+        setAccounts(data.Accounts)
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -38,7 +36,7 @@ const AccountsTable = () => {
   const LoadingSkeleton = () => (
     <Box
       sx={{
-        height: 'max-content',
+        height: "max-content",
       }}
     >
       {[...Array(10)].map((_, index) => (
@@ -46,25 +44,24 @@ const AccountsTable = () => {
       ))}
     </Box>
   );
-  
+
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
     },
   });
-  
-  
-  const handleEdit = (id) => {
-    
-    console.log("Editing member with ID:", id);
+
+  const handleEdit = (id,Name,Description,Balance) => {
+    setModalShow(true);
+    setselectedRow({id,Name,Description,Balance});
+    console.log(selectedRow);
   };
 
   const handleDelete = async (id) => {
-    
-    await axios.post( `http://localhost:8000/Accounts/Delete/${id}`)
+    await axios.post(`http://localhost:8000/Accounts/Delete/${id}`);
     console.log("Deleting member with ID:", id);
-    setAccounts(Accounts.filter((account) =>  account._id !== id))
-     console.log(Accounts);
+    setAccounts(Accounts.filter((account) => account._id !== id));
+    console.log(Accounts);
   };
   const columns = [
     { field: "_id", headerName: "ID", width: 200 },
@@ -88,19 +85,19 @@ const AccountsTable = () => {
       renderCell: (params) => (
         <div>
           <IconButton
-          color="primary"
-          aria-label="edit"
-          onClick={() => handleEdit(params.row._id)}
-        >
-          <EditIcon />
-        </IconButton>
-        <IconButton
-          color="secondary"
-          aria-label="delete"
-          onClick={() => handleDelete(params.row._id)}
-        >
-          <DeleteIcon />
-        </IconButton>
+            color="primary"
+            aria-label="edit"
+            onClick={() => handleEdit(params.row._id, params.row.Name,params.row.Description)}
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            color="secondary"
+            aria-label="delete"
+            onClick={() => handleDelete(params.row._id)}
+          >
+            <DeleteIcon />
+          </IconButton>
         </div>
       ),
     },
@@ -113,7 +110,7 @@ const AccountsTable = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div style={{  width: "100%" }}>
+      <div style={{ width: "100%" }}>
         <DataGrid
           getRowId={getRowId}
           rows={Accounts}
@@ -132,6 +129,8 @@ const AccountsTable = () => {
           loading={loading}
         />
       </div>
+
+      <AccountUpdate data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
     </ThemeProvider>
   );
 };
