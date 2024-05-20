@@ -82,7 +82,7 @@ const SandhaMainPage = () => {
                     <div>
                       {" "}
                       <h2>Rs.{ThisMonthSandhaSum} </h2>
-                      <Card.Title>இம்மாத சந்தா </Card.Title>
+                      <Card.Title>{thismonth} -  Income </Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>
@@ -98,7 +98,7 @@ const SandhaMainPage = () => {
                       {" "}
                       <h2>Rs. {LastMonthSandhaSum}</h2>
                       <Card.Title style={{ fontSize: "18px" }}>
-                        சென்றமாத சந்தா{" "}
+                        {lastMonth} - Income
                       </Card.Title>
                     </div>
                     <span>Icon</span>
@@ -113,8 +113,8 @@ const SandhaMainPage = () => {
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>Rs . 10,000</h2>
-                      <Card.Title>இம்மாத சந்தா </Card.Title>
+                      <h2>56</h2>
+                      <Card.Title>{thismonth} - Paid Members </Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>
@@ -128,8 +128,8 @@ const SandhaMainPage = () => {
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>Rs . 10,000</h2>
-                      <Card.Title>இம்மாத சந்தா </Card.Title>
+                      <h2>23</h2>
+                      <Card.Title>{lastMonth}-Paid Members </Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>

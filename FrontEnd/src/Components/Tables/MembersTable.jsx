@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -11,10 +12,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
+import MemberUpdateModal from "../UpdateModals/MemberUpdate";
 
 const MembersTable = () => {
   const [loading, setLoading] = useState(true);
   const [Members, setMembers] = useState([]);
+  const [ModalShow, setModalShow] = useState(false);
+  const [selectedRow, setselectedRow] = useState({})
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,9 +55,11 @@ const MembersTable = () => {
   });
   
   
-  const handleEdit = (id) => {
+  const handleEdit = (id,Name,Address,Phone,Amount,Email) => {
     
-    console.log("Editing member with ID:", id);
+    setModalShow(true);
+    setselectedRow({id,Name,Address,Phone,Amount,Email});
+    console.log(selectedRow.id);
   };
   
   const handleDelete = async (id) => {
@@ -66,13 +72,14 @@ const MembersTable = () => {
 
   const columns = [
     { field: "_id", headerName: "_id", width: 50 },
-    { field: "Name", headerName: "Name", width: 230 },
-    { field: "Address", headerName: "Address", width: 250 },
+    { field: "Name", headerName: "Name", width: 180 },
+    { field: "Address", headerName: "Address", width: 170 },
+    { field: "Email", headerName: "Email", width: 170 },
     {field: "Phone",
       headerName: "Phone",
       type: "number",
       sortable: true,
-      width: 150,
+      width: 100,
     },
     {
       field: "Amount",
@@ -93,7 +100,7 @@ const MembersTable = () => {
           <IconButton
           color="primary"
           aria-label="edit"
-          onClick={() => handleEdit(params.row._id)}
+          onClick={() => handleEdit(params.row._id,params.row.Name,params.row.Address,params.row.Phone,params.row.Amount,params.row.Email)}
         >
           <EditIcon />
         </IconButton>
@@ -135,6 +142,7 @@ const MembersTable = () => {
           loading={loading}
         />
       </div>
+      <MemberUpdateModal data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
     </ThemeProvider>
   );
 };

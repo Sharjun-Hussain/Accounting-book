@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import {  useState } from "react";
 import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const MemberAddModal = (props) => {
+const MemberUpdateModal = (props) => {
   const [Name, setName] = useState(""); // For Post Data
   const [Address, setAddress] = useState(""); // For Post Data
   const [Phone, setPhone] = useState(); // For Post Data
@@ -17,7 +18,6 @@ const MemberAddModal = (props) => {
  
 
   const handleSubmit = async (e) => {
-    //Member Add Function Submit Button Triggers
     e.preventDefault();
 
     try {
@@ -65,7 +65,7 @@ const MemberAddModal = (props) => {
                     <Form.Label>Full Name</Form.Label>
                     <Form.Control
                       type="text"
-                      value={Name}
+                      value={props.data.Name}
                       onChange={(e) => {
                         setName(e.target.value);
                       }}
@@ -78,7 +78,7 @@ const MemberAddModal = (props) => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                       type="email"
-                      value={Email}
+                      value={props.data.Email}
                       onChange={(e) => {
                         setEmail(e.target.value);
                       }}
@@ -90,7 +90,7 @@ const MemberAddModal = (props) => {
                 <Form.Group className="mb-3" controlId="formGridAddress1">
                   <Form.Label>Address</Form.Label>
                   <Form.Control
-                    value={Address}
+                    value={props.data.Address}
                     onChange={(e) => {
                       setAddress(e.target.value);
                     }}
@@ -108,7 +108,7 @@ const MemberAddModal = (props) => {
                     <Form.Label>Phone</Form.Label>
                     <Form.Control
                       type="number"
-                      value={Phone}
+                      value={props.data.Phone}
                       onChange={(e) => {
                         setPhone(e.target.value);
                       }}
@@ -124,7 +124,7 @@ const MemberAddModal = (props) => {
                     <Form.Label>Sandha Amount</Form.Label>
                     <Form.Control
                       type="number"
-                      value={Amount}
+                      value={props.data.Amount}
                       onChange={(e) => {
                         setAmount(e.target.value);
                       }}
@@ -150,4 +150,4 @@ const MemberAddModal = (props) => {
   );
 };
 
-export default MemberAddModal;
+export default MemberUpdateModal;
