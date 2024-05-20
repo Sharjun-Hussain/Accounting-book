@@ -174,10 +174,12 @@ const Dashboard = (props) => {
             <div className="pt-4 mb-4 text-white d-flex my-auto topBar ">
               <GridViewIcon
                 onClick={handleOffcanvasOpen}
-                className="d-block d-md-none"
+                className="d-block d-md-none my-auto ms-2"
               />
-              <img src={logoWhite} width={30} className="ms-3 me-1" />
-              <div className="my-auto">DASHBOARD</div>
+             <div className="d-flex mx-auto mx-md-0">
+             <img src={logoWhite} width={30} className="ms-3 me-1" />
+              <div className="my-auto ">DASHBOARD</div>
+             </div>
               <img
                 className={`${DropDown && "animate"} ms-auto userIcon `}
                 onClick={HandleDropDown}
