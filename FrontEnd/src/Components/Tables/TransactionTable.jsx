@@ -38,6 +38,7 @@ const TransactionTable = () => {
           "http://localhost:8000/Transactions/All"
         );
         setTransactions(response.data.TransactionDetails);
+        console.log(response.data.TransactionDetails);
         // setTransactions(response.data.TransactionDetails[0].AccountDetails[0].Name);
         setLoading(false);
       } catch (err) {

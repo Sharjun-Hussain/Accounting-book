@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { NavLink } from "react-router-dom";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
@@ -15,10 +16,16 @@ import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivism
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+
+
 const SideBar = () => {
+
   return (
     <>
-      <ul className="">
+    
+    <>
+   
+      <ul className="d-none d-md-block ">
         <NavLink to="/" className="d-flex ps-3 ps-3">
           {({ isActive }) => (
             <>
@@ -85,6 +92,7 @@ const SideBar = () => {
           )}
         </NavLink>
       </ul>
+    </>
     </>
   );
 };

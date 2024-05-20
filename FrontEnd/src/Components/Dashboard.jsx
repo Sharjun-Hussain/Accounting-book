@@ -1,32 +1,199 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Offcanvas } from "react-bootstrap";
 import logoWhite from "../assets/Icons/logo-white.svg";
 import SideBar from "./SideBar";
 import { Link, Outlet } from "react-router-dom";
-import user from '../assets/Icons/user.png'
+import user from "../assets/Icons/user.png";
 import { useState } from "react";
+import GridViewIcon from "@mui/icons-material/GridView";
+import { NavLink } from "react-router-dom";
+import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
+import SummarizeIcon from "@mui/icons-material/Summarize";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import PaidIcon from "@mui/icons-material/Paid";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
-
-const Dashboard = () => {
+const Dashboard = (props) => {
   // const [date, setDate] = useState(new Date().toISOString().substr(0, 10)); --> Date
   const [DropDown, setDropDown] = useState(false);
+  const [show, setshow] = useState(false);
 
-  const HandleDropDown =() =>{
-    setDropDown(prev => !prev);
-    
-  }
+  const handleOffcanvasClose = () => setshow(false);
+  const handleOffcanvasOpen = () => setshow(true);
+
+  const HandleDropDown = () => {
+    setDropDown((prev) => !prev);
+  };
 
   return (
     <>
       <Container fluid className="dashboard">
         <Row>
           <Col>
+            <Offcanvas
+              className="bg-dark text-white"
+              show={show}
+              onHide={handleOffcanvasClose}
+              {...props}
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title>Dashboard</Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <ul>
+                  <NavLink
+                    to="/"
+                    className="d-flex ps-3 ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? (
+                          <SpaceDashboardIcon />
+                        ) : (
+                          <SpaceDashboardOutlinedIcon />
+                        )}
+                        <span>&nbsp;Dashboard</span>
+                      </>
+                    )}
+                  </NavLink>
+
+                  <NavLink
+                    to="report"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? (
+                          <SummarizeIcon />
+                        ) : (
+                          <SummarizeOutlinedIcon />
+                        )}
+                        <span>&nbsp;Report</span>
+                      </>
+                    )}
+                  </NavLink>
+                  <NavLink
+                    to="/Accounts"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? (
+                          <AccountBalanceWalletIcon />
+                        ) : (
+                          <AccountBalanceWalletOutlinedIcon />
+                        )}
+                        <span>&nbsp;Accounts</span>
+                      </>
+                    )}
+                  </NavLink>
+                  <NavLink
+                    to="/Members"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? <PeopleAltIcon /> : <PeopleOutlinedIcon />}
+                        <span>&nbsp;Members</span>
+                      </>
+                    )}
+                  </NavLink>
+                  <NavLink
+                    to="/Transaction"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? (
+                          <ReceiptLongIcon />
+                        ) : (
+                          <ReceiptLongOutlinedIcon />
+                        )}
+                        <span>&nbsp;Transaction</span>
+                      </>
+                    )}
+                  </NavLink>
+                  <NavLink
+                    to="/Sandha"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? <PaidIcon /> : <PaidOutlinedIcon />}
+                        <span>&nbsp;Sandha</span>
+                      </>
+                    )}
+                  </NavLink>
+                  <NavLink
+                    to="/Donations"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? (
+                          <VolunteerActivismIcon />
+                        ) : (
+                          <VolunteerActivismOutlinedIcon />
+                        )}
+                        <span>&nbsp;Donations</span>
+                      </>
+                    )}
+                  </NavLink>
+                  <NavLink
+                    to="/Settings"
+                    className="d-flex ps-3"
+                    onClick={handleOffcanvasClose}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {isActive ? <SettingsIcon /> : <SettingsOutlinedIcon />}
+                        <span>&nbsp;Settings</span>
+                      </>
+                    )}
+                  </NavLink>
+                </ul>
+              </Offcanvas.Body>
+            </Offcanvas>
             <div className="pt-4 mb-4 text-white d-flex my-auto topBar ">
+              <GridViewIcon
+                onClick={handleOffcanvasOpen}
+                className="d-block d-md-none"
+              />
               <img src={logoWhite} width={30} className="ms-3 me-1" />
               <div className="my-auto">DASHBOARD</div>
-              <img className={ `${DropDown && "animate"} ms-auto userIcon `} onClick={HandleDropDown} style={{marginInline:"12px"}} src={user} width={35} />
-              <div className={`${DropDown ? "d-block  " : "d-none "} my-auto   `} >
-                <Link className="profiledropdown " to="profile">Profile</Link>
-                <Link className="profiledropdown " to="signout">SIgnout</Link>
+              <img
+                className={`${DropDown && "animate"} ms-auto userIcon `}
+                onClick={HandleDropDown}
+                style={{ marginInline: "12px" }}
+                src={user}
+                width={35}
+              />
+              <div
+                className={`${DropDown ? "d-block  " : "d-none "} my-auto   `}
+              >
+                <Link className="profiledropdown " to="profile">
+                  Profile
+                </Link>
+                <Link className="profiledropdown " to="signout">
+                  SIgnout
+                </Link>
               </div>
             </div>
           </Col>
