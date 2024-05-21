@@ -1,30 +1,42 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
-import { useState, useRef ,useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2'
+
+
+
 const Login = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState(null);
-
   const inputref = useRef(null);
 
   useEffect(() => {
-  
     inputref.current.focus();
-  
-    
-  }, [])
-  
+  }, []);
 
-  const HandleSubmit = (e) => {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-    axios.post("/api/user/login",
-      JSON.stringify({Email,Password})
-    )
+    await axios
+      .post("http://localhost:8000/api/user/login", { Email, Password })
+      .then((response) => {
+        localStorage.setItem("token", response.data.generatedToken);
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1500);
+        
+      });
   };
 
   return (
     <Container fluid className="login-Container">
+  
       <Row>
         <Col>
           <div className="login-card">
