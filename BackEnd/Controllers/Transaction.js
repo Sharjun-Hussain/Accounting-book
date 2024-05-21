@@ -73,22 +73,22 @@ exports.AddTransaction = async function (req, res, next) {
   }
   const Transaction = await TransactionModel.create({
     Date: TransactionDate,
-    Description:Description,
+    Description: Description,
   });
 
   const SavedTransactionID = Transaction._id;
 
   const TransactionDetailsFrom = await TransactionDetailsModel.create({
-    TransactionID:SavedTransactionID,
-    Amount:Amount,
-    AccountID:FromAccount,
-    Type:"Debit"
+    TransactionID: SavedTransactionID,
+    Amount: Amount,
+    AccountID: FromAccount,
+    Type: "Debit",
   });
 
   const TransactionDetailsTo = await TransactionDetailsModel.create({
-    TransactionID:SavedTransactionID ,
-    Amount:Amount,
-    AccountID:ToAccount,
+    TransactionID: SavedTransactionID,
+    Amount: Amount,
+    AccountID: ToAccount,
     Type: "Credit",
   });
 
@@ -100,17 +100,18 @@ exports.AddTransaction = async function (req, res, next) {
   });
 
   await TransactionLog.create({
-    TransactionID:  SavedTransactionID ,
+    TransactionID: SavedTransactionID,
     Action: "Create",
   });
 
-  res.status(201).json({
-    Success: true,
-    Message: "Transaction Added Succefully",
+  res
+    .status(201)
+    .json({
+      Success: true,
+      Message: "Transaction Added Succefully",
+      Date : Transaction,
+      TransactionDetailsFrom,
+      TransactionDetailsTo
+    })
     
-  }).send({
-    Transaction,
-    TransactionDetailsFrom,
-    TransactionDetailsTo,
-  });
 };

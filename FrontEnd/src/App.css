@@ -2,63 +2,58 @@
   box-sizing: border-box !important;
   padding: 0;
   margin: 0;
-  
-  
 }
 
-
-.dashboard{
-  background: radial-gradient(circle at  68.8% 24.1% , rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+.dashboard {
+  background: radial-gradient(
+    circle at 68.8% 24.1%,
+    rgb(50, 50, 50) 0%,
+    rgb(0, 0, 0) 99.4%
+  );
   min-height: 100vh !important;
 }
-body{
+body {
   height: 100vh !important;
 }
-@media (max-width: 319px){
+@media (max-width: 319px) {
   .sidebar {
     height: 100vh !important;
   }
-  
 }
 
-
-
-.userIcon{
+.userIcon {
   cursor: pointer;
   transition: 1s;
-  
 }
 
-
-.animate{
+.animate {
   transform: translateX(-10px);
 }
 
-.profiledropdown{
+.profiledropdown {
   color: #303030;
-  margin-inline:6px;
+  margin-inline: 6px;
   border-radius: 40px;
-  border:  1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   padding-inline: 20px;
 }
 
-.profiledropdown:hover{
+.profiledropdown:hover {
   color: #303030;
-  
+
   border-radius: 40px;
-  border:  1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   padding-inline: 20px;
 }
 
-#dropdown-basic{
-  
+#dropdown-basic {
 }
 
-.dropdown-menu{
+.dropdown-menu {
   background-color: black !important;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
   background-color: white !important;
   color: black !important;
 }
@@ -66,7 +61,6 @@ ul {
   width: 100%;
   padding: 0 !important;
   margin: 0 !important;
-  
 }
 ul li {
   text-decoration: none !important;
@@ -74,18 +68,17 @@ ul li {
   font-size: 16px;
   list-style: none;
   padding-block: 10px;
-  
+
   width: 100%;
   cursor: pointer;
   padding-left: 3px;
 }
 
-
 a {
   color: white !important;
   list-style: none !important;
   padding-block: 10px;
-  
+
   text-decoration: none !important;
 }
 a:hover {
@@ -93,90 +86,119 @@ a:hover {
   color: black;
   border-radius: 3px;
 }
-.active{
+.active {
   background-color: #303030;
 }
 
 /* Front page */
 
+.Front-cards-Background-card {
+  border: 1px solid rgba(255, 255, 255, 0.5);
 
-.Front-cards-Background-card{
-
-  border:  1px solid rgba(255, 255, 255, 0.5);
-  
   border-radius: 0.5rem;
-  padding: 1rem ;
+  padding: 1rem;
 }
 
-.card{
-  background-color:  #3d3d3d !important;
+.card {
+  background-color: #3d3d3d !important;
   color: white !important;
   min-height: 130px;
 }
 
-.card:hover{
-  background-color:  #99a1d4 !important;
+.card:hover {
+  background-color: #99a1d4 !important;
   color: black !important;
   cursor: pointer;
 }
 
-
-.btn{
-  background-color: transparent !important;;
+.btn {
+  background-color: transparent !important;
   color: white !important;
   border: white solid 0.5px !important;
 }
 
-.btn:hover{
+.btn:hover {
   /* background-color: rgb(54, 51, 51) !important; */
   background-color: white !important;
   color: black !important;
 }
 
-.modal-header .btn-close{
-
- 
+.modal-header .btn-close {
   padding: 20px !important;
   background-color: white !important;
-  
 }
 
-
-.modal-content{
+.modal-content {
   background-color: rgb(23, 23, 23) !important;
   color: white !important;
 }
 
-.form-control{
+.form-control {
   background-color: transparent !important;
   color: white !important;
-
 }
-.form-control::placeholder{
-  color: wheat !important;;
+.form-control::placeholder {
+  color: wheat !important;
   opacity: 0.4 !important;
 }
-.form-control:focus{
-
+.form-control:focus {
   box-shadow: none !important;
 }
 
-.form-select{
+.form-select {
   background-color: transparent !important;
   color: white !important;
-  
 }
-.form-select option{
+.form-select option {
   background-color: #303030 !important;
 }
-.form-select option:nth-child(1){
-  color: wheat !important;;
+.form-select option:nth-child(1) {
+  color: wheat !important;
   background-color: #99a1d4 !important;
   opacity: 0.4 !important;
 }
 
-@media print{
-  .hide-print{
+@media print {
+  .hide-print {
     display: none;
   }
 }
+
+.login-Container {
+  height: 100vh !important;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background-image: url("./assets/images/bg3.jpg");
+  background-size: cover;
+  background-position: right;
+  padding: 0;
+  margin: 0;
+}
+
+.login-card {
+   /* From https://css.glass */
+   background: rgba(255, 255, 255, 0.2);
+   border-radius: 10px;
+   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+   backdrop-filter: blur(5px);
+   -webkit-backdrop-filter: blur(5px);
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   padding: 20px;
+   padding-inline: 40px;
+   padding-bottom: 40px;
+}
+.login-logo {
+  mix-blend-mode: darken !important;
+  width: 100px;
+  align-self: center;
+}
+
+.login-btn{
+  margin-top: 23px;
+  background-color: #00728B !important ;
+  width: 100%;
+  
+
+}
+
