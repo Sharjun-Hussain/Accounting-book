@@ -1,6 +1,7 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef ,useEffect} from "react";
+import axios from "axios";
 const Login = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState(null);
@@ -17,7 +18,9 @@ const Login = () => {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    console.log(Email, Password);
+    axios.post("/api/user/login",
+      JSON.stringify({Email,Password})
+    )
   };
 
   return (
