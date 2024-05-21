@@ -1,30 +1,45 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
 const AdminSchema = new mongoose.Schema({
     Name:{
         type : String,
-        required : true
+        
     },
     Password:{
         type : String,
         required : true,
-        unique:true
+        Select : false
     },
     Phone:{
         type : Number,
-        required : true
+        
     },
     Role:{
         type : String,
-        required : true
+        
     },
     Email:{
         type:String,
-        required:true
+        required:true,
+        unique:true
         
     },
     
 })
+
+
+  
+  AdminSchema.methods.generatejwtToken = function(){
+    return jwt.sign({id:this.id},process.env.JWT_SECRET,{
+      expiresIn:process.env.JWT_SECRET_EXPIRES
+    })
+  }
+  
+  AdminSchema.methods.isValidPassword = async function(Enteredpassword){
+   return await bcrypt.compare(Enteredpassword,this.password);
+  }
 
 
 const Admin = mongoose.model('Admin', AdminSchema);
