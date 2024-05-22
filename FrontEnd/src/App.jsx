@@ -19,14 +19,14 @@ import Login from "./Login";
 // import { useState } from "react";
 
 function App() {
-  const user = true
+  const token = localStorage.getItem('token');
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
+         { !token && <Route path="/login" element={<Login />} />}
 
-          <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} > 
+          <Route path="/" element={token ? <Dashboard /> : <Navigate to="/login" />} > 
             <Route index element={<Frontpage />} />
             <Route path="report" element={<Report />} />
             <Route path="Accounts" element={<Accounts />} />
