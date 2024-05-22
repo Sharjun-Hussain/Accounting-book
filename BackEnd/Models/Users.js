@@ -21,8 +21,12 @@ const AdminSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-  }
- 
+  },
+
+ OrganizationName: {
+  type: String,
+  required: true,
+ }
 });
 
 AdminSchema.methods.generatejwtToken = function () {
