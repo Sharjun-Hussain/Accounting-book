@@ -47,8 +47,8 @@ exports.login = async function (req, res, next) {
 };
 
 exports.register = async function (req, res) {
-  const { Email, Password } = req.body;
-  console.log(Email, Password);
+  const { Email, Password,OrganizationID } = req.body;
+  console.log(Email, Password,OrganizationID);
   if (!Email || !Password) {
     return res.status(400).json({
       Success: false,
@@ -61,7 +61,7 @@ exports.register = async function (req, res) {
   if (!ExistingUser) {
 
     const hashedPassword = await bcrypt.hash(Password, 10);
-    const user = await userModel.create({ Email: Email, Password: hashedPassword });
+    const user = await userModel.create({ Email: Email, Password: hashedPassword,OrganizationID });
     const generatedToken = await user.generatejwtToken();
 
     if (user) {

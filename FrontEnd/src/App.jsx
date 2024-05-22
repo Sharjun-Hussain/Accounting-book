@@ -16,6 +16,7 @@ import LastMonth from "./Components/Outlets/SandhaOutlets/LastMonth";
 // import SandhaPrint from "./Components/PrintLayout/SandhaPrint";
 import Donations from "./Components/Outlets/Donations";
 import Login from "./Login";
+import Register from "./Register";
 
 
 // import { useState } from "react";
@@ -27,6 +28,7 @@ function App() {
       <BrowserRouter>
         <Routes>
          { !token && <Route path="/login" element={<Login />} />}
+         { !token && <Route path="/register" element={<Register />} />}
 
           <Route path="/" element={token ? <Dashboard /> : <Navigate to="/login" />} > 
             <Route index element={<Frontpage />} />

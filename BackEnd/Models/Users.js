@@ -21,12 +21,8 @@ const AdminSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-  },
-  OrganizationID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Organization",
-    required: true,
-  },
+  }
+ 
 });
 
 AdminSchema.methods.generatejwtToken = function () {

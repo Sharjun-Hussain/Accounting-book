@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import bg4 from "./assets/images/bg3.jpg";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState(null);
   const inputref = useRef(null);
@@ -109,7 +109,7 @@ const Login = () => {
               >
                 Login
               </Button>
-              <p>Don't have an account <Link to="/register" >Signup Here</Link></p>
+              <p>Already have an account <Link to="/login" >Login Here</Link></p>
             </Form>
           </div>
         </Col>
@@ -118,4 +118,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

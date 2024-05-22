@@ -20,7 +20,12 @@ const organizationSchema = new mongoose.Schema({
     Website:{
         type:String,
         
-    }
+    },
+    UserID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Admin",
+        required: true,
+      },
 })
 
 const Organization = mongoose.model('Organization', organizationSchema);
