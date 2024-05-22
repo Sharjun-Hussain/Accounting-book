@@ -1,3 +1,4 @@
+const cookieParser = require("cookie-parser");
 const userModel = require("../Models/Users");
 const bcrypt = require("bcryptjs");
 
@@ -30,7 +31,7 @@ exports.login = async function (req, res, next) {
         const generatedToken = user.generatejwtToken();
         res
           .status(200)
-          .cookie("token", generatedToken, { httponly: true })
+          .cookie("token", generatedToken, { httponly:true ,sameSite:"strict",path: "/",maxAge:900000})
           .json({
             Message: "Login SuccessFull",
             generatedToken,
@@ -64,10 +65,7 @@ exports.register = async function (req, res) {
     const generatedToken = await user.generatejwtToken();
 
     if (user) {
-      res.status(200).cookie("token", generatedToken, { httponly: true }).json({
-        Message: " Your Account Creation SuccessFull! ",
-        generatedToken,
-      });
+      res.status(200).setcookie("token", generatedToken, { httponly:true }).json({ message: " Your Account Creation SuccessFull! "});
     }
   }
 
@@ -77,3 +75,12 @@ exports.register = async function (req, res) {
     });
   }
 };
+
+
+exports.signout = function(req,res,next){
+  res.status(200).cookie("token", "", {sameSite:"strict",path: "/"}).json({
+    Success: true,
+    Message: "Sign Out Successfull"
+    
+  })
+}

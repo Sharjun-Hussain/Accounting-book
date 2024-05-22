@@ -1,8 +1,10 @@
 import { Col, Container, Row, Offcanvas } from "react-bootstrap";
 import logoWhite from "../assets/Icons/logo-white.svg";
 import SideBar from "./SideBar";
-import { Link, Outlet } from "react-router-dom";
-import user from "../assets/Icons/user.png";
+import { Outlet } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import { removeCookie   } from 'react-use-cookie';
 import { useState } from "react";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { NavLink } from "react-router-dom";
@@ -22,19 +24,47 @@ import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivism
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-
+import axios from "axios";
+import Swal from "sweetalert2";
 const Dashboard = (props) => {
   // const [date, setDate] = useState(new Date().toISOString().substr(0, 10)); --> Date
-  const [DropDown, setDropDown] = useState(false);
-  const [show, setshow] = useState(false);
-
+  // const [DropDown, setDropDown] = useState(false);
+  const [show, setshow] = useState(false);  //offcanvas state
   const handleOffcanvasClose = () => setshow(false);
   const handleOffcanvasOpen = () => setshow(true);
 
-  const HandleDropDown = () => {
-    setDropDown((prev) => !prev);
-  };
+  
 
+  // const HandleDropDown = () => {
+  //   setDropDown((prev) => !prev);
+  // };
+
+  const HandleSignOut = async () => {
+    await axios.post("http://localhost:8000/api/user/signout",{ withCredentials: true}).then((res) => {
+      console.log(res);
+      removeCookie  ('token');
+      Swal.fire({
+        icon: "success",
+        title: `Login Logout Succesfull! `,
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+      
+    }).catch((err) => {
+      Swal.fire({
+        icon: "success",
+        title: `Login Logout Succesfull! `,
+        text: err.message,
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+    })
+  };
   return (
     <>
       <Container fluid className="dashboard">
@@ -176,26 +206,25 @@ const Dashboard = (props) => {
                 onClick={handleOffcanvasOpen}
                 className="d-block d-md-none my-auto ms-2"
               />
-             <div className="d-flex mx-auto mx-md-0">
-             <img src={logoWhite} width={30} className="ms-3 me-1" />
-              <div className="my-auto ">DASHBOARD</div>
-             </div>
-              <img
-                className={`${DropDown && "animate"} ms-auto userIcon `}
-                onClick={HandleDropDown}
-                style={{ marginInline: "12px" }}
-                src={user}
-                width={35}
-              />
-              <div
-                className={`${DropDown ? "d-block  " : "d-none "} my-auto   `}
-              >
-                <Link className="profiledropdown " to="profile">
-                  Profile
-                </Link>
-                <Link className="profiledropdown " to="signout">
-                  SIgnout
-                </Link>
+              <div className="d-flex mx-auto mx-md-0">
+                <img src={logoWhite} width={30} className="ms-3 me-1" />
+                <div className="my-auto ">DASHBOARD</div>
+              </div>
+
+              <div className="ms-auto me-3">
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Admin"
+
+                  
+                >
+                 
+                  <Dropdown.Item href="Settings">Settings</Dropdown.Item>
+                  <Dropdown.Item onClick={HandleSignOut}>
+                    SignOut
+                  </Dropdown.Item>
+                  
+                </DropdownButton>
               </div>
             </div>
           </Col>

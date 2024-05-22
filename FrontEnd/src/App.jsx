@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { getCookie } from 'react-use-cookie';
 
 import "./App.css";
 import Dashboard from "./Components/Dashboard";
@@ -16,10 +17,11 @@ import LastMonth from "./Components/Outlets/SandhaOutlets/LastMonth";
 import Donations from "./Components/Outlets/Donations";
 import Login from "./Login";
 
+
 // import { useState } from "react";
 
 function App() {
-  const token = localStorage.getItem('token');
+  const token = getCookie('token');
   return (
     <>
       <BrowserRouter>
