@@ -12,7 +12,7 @@ const Register = () => {
   const [Password, setPassword] = useState(null);
   const [Phone, setPhone] = useState(null);
   const [Name, setName] = useState(null);
-  const [Organization, setOrganization] = useState(null);
+  const [OrganizationName, setOrganizationName] = useState(null);
   const inputref = useRef(null);
 
   useEffect(() => {
@@ -23,8 +23,8 @@ const Register = () => {
     e.preventDefault();
     await axios
       .post(
-        "http://localhost:8000/api/user/login",
-        { Email, Password },
+        "http://localhost:8000/api/user/register",
+        { Email, Password,OrganizationName,Phone,Name },
         { withCredentials: true }
       )
       .then(() => {
@@ -126,9 +126,9 @@ const Register = () => {
                         className="form-control"
                         name="OrganizationName"
                         required
-                        value={Organization}
+                        value={OrganizationName}
                         onChange={(e) => {
-                          setOrganization(e.target.value);
+                          setOrganizationName(e.target.value);
                         }}
                         ref={inputref}
                       />
