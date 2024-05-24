@@ -2,18 +2,20 @@
 import { Col, Container, Form, Image, Row, Button } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-// import bg4 from "./assets/images/bg3.jpg";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "./redux/actions/UserActions";
+
 
 const Register = () => {
   const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState(null);
-  const [Phone, setPhone] = useState(null);
-  const [Name, setName] = useState(null);
-  const [OrganizationName, setOrganizationName] = useState(null);
+  const [Password, setPassword] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Name, setName] = useState("");
+  const [OrganizationName, setOrganizationName] = useState("");
   const inputref = useRef(null);
+  const { loading } = useSelector((state) => state.authState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     inputref.current.focus();
@@ -21,34 +23,7 @@ const Register = () => {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .post(
-        "http://localhost:8000/api/user/register",
-        { Email, Password,OrganizationName,Phone,Name },
-        { withCredentials: true }
-      )
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Login Successful!",
-          showConfirmButton: false,
-          timer: 1500,
-          timerProgressBar: true,
-        });
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: `Login Failed! <br/> `,
-          text: `${err.message}`,
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-      });
+    dispatch(register(Email,Password,Phone,Name,OrganizationName));
   };
 
   return (
@@ -74,7 +49,7 @@ const Register = () => {
             <h5 className="text-center">Register Here</h5>
             <hr />
             <Row className="d-flex flex-row ">
-              <Form>
+              <Form onSubmit={HandleSubmit}>
                 <Row className="d-flex flex-row ">
                   <Col>
                     <Form.Group>
@@ -173,7 +148,7 @@ const Register = () => {
                       />
                     </Form.Group>
                     <Button
-                      onClick={HandleSubmit}
+                      disabled={loading}
                       type="submit"
                       className="login-btn "
                     >
@@ -181,7 +156,12 @@ const Register = () => {
                       Register{" "}
                     </Button>
                   </Col>
-                  <h6 className="text-white text-center mt-3">Already have an account&nbsp;<Link to='/login' style={{color:"red"}} >Sign In</Link></h6>
+                  <h6 className="text-white text-center mt-3">
+                    Already have an account&nbsp;
+                    <Link to="/login" style={{ color: "red" }}>
+                      Sign In
+                    </Link>
+                  </h6>
                 </Row>
               </Form>
             </Row>

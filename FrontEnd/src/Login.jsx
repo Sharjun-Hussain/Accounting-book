@@ -2,50 +2,25 @@
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 import bg4 from "./assets/images/bg3.jpg";
 import { Link } from "react-router-dom";
+import { login } from "./redux/actions/UserActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState(null);
+  const [Password, setPassword] = useState("");
   const inputref = useRef(null);
+  const dispatch = useDispatch();
+  const { loading } =  useSelector(state => state.authState)
 
   useEffect(() => {
     inputref.current.focus();
   }, []);
 
-  const HandleSubmit = async (e) => {
+  const HandleSubmit = (e) => {
     e.preventDefault();
-    await axios
-      .post(
-        "http://localhost:8000/api/user/login",
-        { Email, Password },
-        { withCredentials: true }
-      )
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Login Successful!",
-          showConfirmButton: false,
-          timer: 1500,
-          timerProgressBar: true,
-        });
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: `Login Failed! <br/> `,
-          text: `${err.message}`,
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-        });
-      });
+    dispatch(login(Email,Password))
   };
 
   return (
@@ -69,7 +44,7 @@ const Login = () => {
               </h4>
             </div>
             <hr />
-            <Form>
+            <Form onSubmit={HandleSubmit}>
               <Form.Group>
                 <Form.Label style={{ marginBottom: "-5px", color: "white" }}>
                   Email
@@ -79,7 +54,7 @@ const Login = () => {
                   placeholder="Enter Your Email Address"
                   className="form-control"
                   name="Email"
-                  required
+                 
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -95,7 +70,7 @@ const Login = () => {
                   placeholder="Enter The Password"
                   className="form-control"
                   name="Password"
-                  required
+
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -103,9 +78,9 @@ const Login = () => {
               </Form.Group>
 
               <Button
-                onClick={HandleSubmit}
                 type="submit"
                 className="login-btn"
+                disabled={loading}
               >
                 Login
               </Button>
