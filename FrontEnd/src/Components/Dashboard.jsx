@@ -4,8 +4,7 @@ import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { removeCookie   } from 'react-use-cookie';
-import { useState } from "react";
+import {  useState } from "react";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { NavLink } from "react-router-dom";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
@@ -24,46 +23,25 @@ import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivism
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/actions/UserActions";
+import { getCookie } from "react-use-cookie";
 const Dashboard = (props) => {
   // const [date, setDate] = useState(new Date().toISOString().substr(0, 10)); --> Date
   // const [DropDown, setDropDown] = useState(false);
-  const [show, setshow] = useState(false);  //offcanvas state
+  const [show, setshow] = useState(false); //offcanvas state
   const handleOffcanvasClose = () => setshow(false);
   const handleOffcanvasOpen = () => setshow(true);
-
-  
+const dispatch = useDispatch()
+  const user = useSelector((state) => state.authState.user);
 
   // const HandleDropDown = () => {
   //   setDropDown((prev) => !prev);
   // };
 
   const HandleSignOut = async () => {
-    await axios.post("http://localhost:8000/api/user/signout",{ withCredentials: true}).then((res) => {
-      console.log(res);
-      removeCookie  ('token');
-      Swal.fire({
-        icon: "success",
-        title: `Login Logout Succesfull! `,
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
-      
-    }).catch((err) => {
-      Swal.fire({
-        icon: "success",
-        title: `Login Logout Succesfull! `,
-        text: err.message,
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-    })
+    dispatch(logout);
+
   };
   return (
     <>
@@ -208,22 +186,13 @@ const Dashboard = (props) => {
               />
               <div className="d-flex mx-auto mx-md-0">
                 <img src={logoWhite} width={30} className="ms-3 me-1" />
-                <div className="my-auto ">DASHBOARD</div>
+                <div className="my-auto ">Dashboard </div>
               </div>
 
               <div className="ms-auto me-3">
-                <DropdownButton
-                  id="dropdown-basic-button"
-                  title="Admin"
-
-                  
-                >
-                 
+                <DropdownButton id="dropdown-basic-button" title="Admin">
                   <Dropdown.Item href="Settings">Settings</Dropdown.Item>
-                  <Dropdown.Item onClick={HandleSignOut}>
-                    SignOut
-                  </Dropdown.Item>
-                  
+                  <Dropdown.Item onClick={HandleSignOut}>SignOut</Dropdown.Item>
                 </DropdownButton>
               </div>
             </div>

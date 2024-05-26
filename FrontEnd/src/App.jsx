@@ -19,9 +19,14 @@ import Login from "./Login";
 import Register from "./Register";
 
 
+
+
 // import { useState } from "react";
 
 function App() {
+
+  // const user = useSelector((state) => state.userState.user)
+  // console.log(user);
   const token = getCookie('token');
   return (
     <>

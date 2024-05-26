@@ -210,3 +210,9 @@ a:hover {
   
 
 }
+
+
+.btn:disabled{
+  cursor: not-allowed;
+}
+

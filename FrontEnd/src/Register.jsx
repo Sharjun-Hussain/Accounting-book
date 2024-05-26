@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "./redux/actions/UserActions";
 
-
 const Register = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -23,7 +22,7 @@ const Register = () => {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(register(Email,Password,Phone,Name,OrganizationName));
+    dispatch(register(Email, Password, Phone, Name, OrganizationName));
   };
 
   return (

@@ -12,7 +12,7 @@ exports.login = async function (req, res, next) {
   }
 
   try {
-    const user = await userModel.findOne({ Email: Email });
+    const user = await userModel.findOne({ Email: Email },{ password:0});
     if (!user) {
       return res.status(400).json({
         Message: "User OR Password Incorrect",
@@ -34,7 +34,7 @@ exports.login = async function (req, res, next) {
             httponly: true,
             sameSite: "strict",
             path: "/",
-            maxAge: 900000,
+            
           })
           .json({
             Message: "Login SuccessFull",

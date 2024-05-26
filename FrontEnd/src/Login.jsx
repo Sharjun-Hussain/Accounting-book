@@ -3,16 +3,19 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
 import bg4 from "./assets/images/bg3.jpg";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const Login = () => {
+  
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const inputref = useRef(null);
+
   const dispatch = useDispatch();
-  const { loading } =  useSelector(state => state.authState)
+  const {loading}  =  useSelector(state => state.authState)
 
   useEffect(() => {
     inputref.current.focus();
@@ -21,6 +24,7 @@ const Login = () => {
   const HandleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(Email,Password))
+    
   };
 
   return (
@@ -82,7 +86,7 @@ const Login = () => {
                 className="login-btn"
                 disabled={loading}
               >
-                Login
+                {loading? "Loading" : "Login"}
               </Button>
               <p className="text-center text-white mt-3">Don't have an account&nbsp; <Link to="/register" >Signup Here</Link></p>
             </Form>
