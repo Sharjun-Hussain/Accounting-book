@@ -56,18 +56,33 @@ exports.AddTransaction = async function (req, res, next) {
   var { FromAccount, ToAccount, Description, Amount, TransactionDate } =
     req.body;
 
+  if (!FromAccount || !ToAccount || !Amount || !TransactionDate) {
+    res.status(400).json({
+      Success: false,
+      Message: "Please Fill All Fields",
+    });
+    return;
+  }
   if (FromAccount == ToAccount) {
     res.status(400).json({
       Success: false,
-      Message: "Can't add transaction",
+      Message: "Can't complete the transaction because the account is already in use.",
     });
     return;
   }
 
-  if (Amount == null) {
+  if (Amount == 0) {
     res.status(400).json({
       Success: false,
-      Message: "Can't add transaction",
+      Message: "Can't complete the transaction fund need to be greater than 0",
+    });
+    return;
+  }
+  const { Balance } = await AccountsModel.findById(FromAccount);
+  if (Balance < Amount) {
+    res.status(400).json({
+      Success: false,
+      Message: "You Don't have enough funds to complete the transaction.",
     });
     return;
   }
@@ -104,14 +119,11 @@ exports.AddTransaction = async function (req, res, next) {
     Action: "Create",
   });
 
-  res
-    .status(201)
-    .json({
-      Success: true,
-      Message: "Transaction Added Succefully",
-      Date : Transaction,
-      TransactionDetailsFrom,
-      TransactionDetailsTo
-    })
-    
+  res.status(201).json({
+    Success: true,
+    Message: "Transaction completed Succefully.",
+    Date: Transaction,
+    TransactionDetailsFrom,
+    TransactionDetailsTo,
+  });
 };

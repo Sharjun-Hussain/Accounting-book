@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 //From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -10,6 +10,8 @@ import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import SandhaUpdateModal from "../../UpdateModals/SandhaUpdate";
+import { useSelector } from "react-redux";
+
 
 const LoadingSkeleton = () => (
   <Box
@@ -32,42 +34,29 @@ const darkTheme = createTheme({
 
 
 const LastMonth = () => {
-  const currentDate = new Date();
-  const MonthList = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const lastmonth = MonthList[currentDate.getMonth() - 1];
-
-  const [loading, setLoading] = useState(false);
+  // const currentDate = new Date();
+  // const MonthList = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "August",
+  //   "September",
+  //   "October",
+  //   "November",
+  //   "December",
+  // ];
+  // const lastmonth = MonthList[currentDate.getMonth() - 1];
+  // const [loading, setLoading] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
   const [selectedRow, setselectedRow] = useState({})
-
   const [AllSandhaDetails, setAllSandhaDetails] = useState([]); //fetchThisMonthSandha
 
-  useEffect(() => {
-    try {
-      setLoading(true);
-      axios
-        .get(`http://localhost:8000/Sandha/Month/${lastmonth}`)
-        .then((data) => setAllSandhaDetails(data.data.AllSandhaDetails));
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
+  const LastMonthSandhaDetails = useSelector(state => state.SandhaState.LastMonthSandhaDetails)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
  
 
   const handleEdit = (id,Name,PaidMonths,Status,Amount) => {
@@ -143,14 +132,12 @@ const LastMonth = () => {
 
   return (
     <div>
-      {loading ? (
-        "Loading..."
-      ) : (
+      
         <ThemeProvider theme={darkTheme}>
           <div style={{ width: "100%" }}>
             <DataGrid
               getRowId={getRowId}
-              rows={AllSandhaDetails}
+              rows={LastMonthSandhaDetails}
               columns={columns}
               initialState={{
                 pagination: {
@@ -163,11 +150,11 @@ const LastMonth = () => {
               components={{
                 LoadingOverlay: LoadingSkeleton,
               }}
-              loading={loading}
+              
             />
           </div>
         </ThemeProvider>
-      )}
+   
        <SandhaUpdateModal data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
     </div>
   );

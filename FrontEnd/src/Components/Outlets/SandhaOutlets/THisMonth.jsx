@@ -1,35 +1,22 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 //From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-// import Skeleton from '@mui/material/Skeleton';
-// import Box from '@mui/material/Box';
+
 import axios from "axios";
 import SandhaUpdateModal from "../../UpdateModals/SandhaUpdate";
-
-// const LoadingSkeleton = () => (
-//   <Box
-//     sx={{
-//       height: 'max-content',
-//     }}
-//   >
-//     {[...Array(10)].map((_, index) => (
-//       <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-//     ))}
-//   </Box>
-// );
+import { useDispatch, useSelector } from "react-redux";
+import { setThisMonthSandhaDetails } from "../../../redux/Slices/SandhaSlice";
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
 });
-
-
 
 const ThisMonth = () => {
   const currentDate = new Date();
@@ -48,34 +35,19 @@ const ThisMonth = () => {
     "December",
   ];
   const thismonth = MonthList[currentDate.getMonth()];
-
   const [loading, setLoading] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
-  const [selectedRow, setselectedRow] = useState({})
-  const [AllSandhaDetails, setAllSandhaDetails] = useState([]); //fetchThisMonthSandha
-
-  useEffect(() => {
-    setLoading(true);
-      try {
-        axios
-          .get(`http://localhost:8000/Sandha/Month/${thismonth}`)
-          .then((data) => setAllSandhaDetails(data.data.AllSandhaDetails));
-
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
+  const [selectedRow, setselectedRow] = useState({});
+  const ThisMonthSandhaDetails = useSelector(state => state.SandhaState.ThisMonthSandhaDetails)
 
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  const handleEdit = (id,Name,PaidMonths,Status,Amount) => {
+
+  const handleEdit = (id, Name, PaidMonths, Status, Amount) => {
     setModalShow(true);
-      setselectedRow({id,Name,PaidMonths,Status,Amount});
-      
+    setselectedRow({ id, Name, PaidMonths, Status, Amount });
   };
-  
+
   const handleDelete = (id) => {
     console.log("Deleting member with ID:", id);
   };
@@ -119,7 +91,15 @@ const ThisMonth = () => {
           <IconButton
             color="primary"
             aria-label="edit"
-            onClick={() => handleEdit(params.row._id,params.row.Data[0].Name,params.row.PaidMonths,params.row.Status,params.row.Amount)}
+            onClick={() =>
+              handleEdit(
+                params.row._id,
+                params.row.Data[0].Name,
+                params.row.PaidMonths,
+                params.row.Status,
+                params.row.Amount
+              )
+            }
           >
             <EditIcon />
           </IconButton>
@@ -146,7 +126,7 @@ const ThisMonth = () => {
           <DataGrid
             autoHeight
             getRowId={getRowId}
-            rows={AllSandhaDetails}
+            rows={ThisMonthSandhaDetails}
             columns={columns}
             initialState={{
               pagination: {
@@ -161,7 +141,11 @@ const ThisMonth = () => {
           />
         </div>
       </ThemeProvider>
-      <SandhaUpdateModal data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
+      <SandhaUpdateModal
+        data={selectedRow}
+        show={ModalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 };

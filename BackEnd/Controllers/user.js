@@ -81,7 +81,6 @@ exports.register = async function (req, res) {
           httponly: true,
           sameSite: "strict",
           path: "/",
-          maxAge: 900000,
         }).json({ message: " Your Account Creation SuccessFull! ",
           user
          });

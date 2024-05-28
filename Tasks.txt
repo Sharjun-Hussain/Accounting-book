@@ -1,2 +1,6 @@
 Greater than 0 validation
+If someone paid for a month he again pay for the month again (duplicate) check if he already paid in server side 
+send each request with authorization header with Bearer token 
+when transfer the money from one account to another account  check validation 
+implement password changing 
 

@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const TransactionAddModal = (props) => {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -49,11 +50,30 @@ const TransactionAddModal = (props) => {
         
       )
       .then((res) => {
-        console.log(res.data);
-        Navigate(0);
+        Swal.fire({
+          icon: "success",
+          title: res.data.Message,
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+        });
+        setTimeout(() =>{
+          Navigate(0);
+        },2000)
+        
       })
       .catch((error) => {
-        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Transaction Failed",
+          text:error.response.data.Message,
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
+        setTimeout(() =>{
+        
+        },2000)
       });
     console.log(FromAccount, ToAccount, Amount,Description, TransactionDate);
   };

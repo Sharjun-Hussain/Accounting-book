@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { Button, Card, Col, Container } from "react-bootstrap";
@@ -5,8 +6,11 @@ import { Link, Outlet } from "react-router-dom";
 import SandhaAddModal from "../AddModals/SandhaAdd";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setLastMonthSandhaDetails, setThisMonthSandhaDetails } from "../../redux/Slices/SandhaSlice";
 
 const SandhaMainPage = () => {
+  const {ThisMonthSandhaDetails, LastMonthSandhaDetails}= useSelector(state => state.SandhaState)
   const currentDate = new Date();
   const MonthList = [
     "January",
@@ -24,11 +28,39 @@ const SandhaMainPage = () => {
   ];
   const thismonth = MonthList[currentDate.getMonth()];
   const lastMonth = MonthList[currentDate.getMonth() - 1];
-  
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
   const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchLastMonthSandhaSum
 
   useEffect(() => {
+
+    const fetchLastMonthSandhaDetails = () =>{
+      try {
+        setLoading(true);
+        axios
+          .get(`http://localhost:8000/Sandha/Month/${lastMonth}`)
+          .then((data) => dispatch(setLastMonthSandhaDetails(data.data.AllSandhaDetails)));
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    const fetchThisMonthSandhaDetails = () =>{
+      setLoading(true);
+      try {
+        axios
+          .get(`http://localhost:8000/Sandha/Month/${thismonth}`)
+          .then((data) =>
+            dispatch(setThisMonthSandhaDetails(data.data.AllSandhaDetails))
+          );
+  
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
     const fetchThisMonthSandhaSum = async () => {
       try {
         const response = await axios.get(
@@ -53,6 +85,8 @@ const SandhaMainPage = () => {
         console.log(err);
       }
     };
+    fetchThisMonthSandhaDetails();
+    fetchLastMonthSandhaDetails();
     fetchThisMonthSandhaSum();
     fetchLastMonthSandhaSum();
   }, [ThisMonthSandhaSum,LastMonthSandhaSum]);
@@ -112,12 +146,12 @@ const SandhaMainPage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="this-month">
+              <Link to="#">
                 <Card className="d-flex flex-column me-md-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>56</h2>
+                      <h2>{ThisMonthSandhaDetails.length}</h2>
                       <Card.Title>{thismonth} - Paid Members </Card.Title>
                     </div>
                     <span>Icon</span>
@@ -127,12 +161,12 @@ const SandhaMainPage = () => {
             </Col>
 
             <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="this-month">
+              <Link to="#">
                 <Card className="d-flex flex-column me-md-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>23</h2>
+                      <h2>{LastMonthSandhaDetails.length}</h2>
                       <Card.Title>{lastMonth}-Paid Members </Card.Title>
                     </div>
                     <span>Icon</span>
