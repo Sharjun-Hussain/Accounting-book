@@ -1,10 +1,20 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import axios from "axios";
 
 import { useState, useEffect } from "react";
-import {Col,Container,Row,Form,Dropdown,Button,Modal} from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Form,
+  Dropdown,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const SandhaAddModal = (props) => {
+const SandhaUpdateModal = (props) => {
   const [PaidMonths, SetPaidMonths] = useState([]);
   const MonthData = [
     "January",
@@ -20,18 +30,17 @@ const SandhaAddModal = (props) => {
     "November",
     "December",
   ];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
 
   const [MemberID, setMemberID] = useState("");
   const [Amount, setAmount] = useState();
-  const [Description, setDescription] = useState()
+  const [Description, setDescription] = useState();
   // const Date = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
-
     const FetchAllUser = async () => {
       const response = await axios.get(
         "http://localhost:8000/Sandha-members/All"
@@ -40,7 +49,7 @@ const SandhaAddModal = (props) => {
     };
 
     FetchAllUser();
-    console.log(AlluserData, PaidMonths);
+    // console.log(AlluserData, PaidMonths);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -54,7 +63,7 @@ const SandhaAddModal = (props) => {
       const filteredItems = AlluserData.filter((user) =>
         user.Name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-toggleMonth
+      toggleMonth;
       setFilteredUsers(filteredItems);
     }
   };
@@ -67,20 +76,18 @@ toggleMonth
     setDescription(param.Description);
   };
 
-
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await axios
       .post(
         "http://localhost:8000/Sandha/Add",
-        
-          { PaidMonths, MemberID, Amount },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        
+
+        { PaidMonths, MemberID, Amount },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);
@@ -112,7 +119,7 @@ toggleMonth
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-              Update Sandha
+                Update Sandha
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -122,7 +129,8 @@ toggleMonth
                     <Form.Label>Member Name</Form.Label>
                     <Form.Control
                       type="text"
-                      value={Item}
+                      // eslint-disable-next-line react/prop-types
+                      value={props.data.Name}
                       onChange={handleInputChange}
                       placeholder="Sharjun-Hussain"
                       autoComplete="off"
@@ -142,7 +150,7 @@ toggleMonth
                           key={user._id}
                           onClick={() => {
                             HandleUserClick(user);
-                          }}
+                          }} 
                         >
                           {user.Name}
                         </li>
@@ -174,7 +182,7 @@ toggleMonth
                     <Form.Label>Sandha Amount</Form.Label>
                     <Form.Control
                       type="number"
-                      value={Amount}
+                      value={props.data.Amount}
                       required
                       onChange={(e) => {
                         setAmount(e.target.value);
@@ -187,11 +195,10 @@ toggleMonth
                     as={Col}
                     className="my-1"
                     controlId="formGridPhone"
-                    
                   >
                     {PaidMonths.map((btn) => {
                       return (
-                        <Button className="mx-1 mt-4"   key={btn}>
+                        <Button className="mx-1 mt-4" key={btn}>
                           {btn}
                         </Button>
                       );
@@ -199,7 +206,7 @@ toggleMonth
                   </Form.Group>
                 </Row>
                 <Row>
-                <Form.Group  className="mb-3" controlId="Description">
+                  <Form.Group className="mb-3" controlId="Description">
                     <Form.Label>Description</Form.Label>
                     <Form.Control
                       type="text"
@@ -229,4 +236,4 @@ toggleMonth
   );
 };
 
-export default SandhaAddModal;
+export default SandhaUpdateModal;

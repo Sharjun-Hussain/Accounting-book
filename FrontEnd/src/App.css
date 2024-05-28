@@ -216,3 +216,9 @@ a:hover {
   cursor: not-allowed;
 }
 
+
+.special{
+  position: absolute !important; 
+  inset: 0px auto auto 0px !important;
+   transform: translate3d(655.5px, 64px, 0px) !important;
+}

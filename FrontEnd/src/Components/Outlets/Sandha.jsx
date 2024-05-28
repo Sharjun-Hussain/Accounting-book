@@ -34,7 +34,8 @@ const SandhaMainPage = () => {
         const response = await axios.get(
           `http://localhost:8000/Sandha/Month/${thismonth}/Sum`
         );
-        setThisMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount);
+        setThisMonthSandhaSum(response.data.AllSandhaDetails[0]?.TotalAmount);
+        localStorage.setItem('thismonthsandhasum', ThisMonthSandhaSum)
       } catch (err) {
         console.log(err);
       }
@@ -45,14 +46,16 @@ const SandhaMainPage = () => {
         const response = await axios.get(
           `http://localhost:8000/Sandha/Month/${lastMonth}/Sum`
         );
-        setLastMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount);
+        setLastMonthSandhaSum(response.data.AllSandhaDetails[0]?.TotalAmount);
+        localStorage.setItem('LastMonthSandhaSum', LastMonthSandhaSum)
+        console.log(ThisMonthSandhaSum);
       } catch (err) {
         console.log(err);
       }
     };
     fetchThisMonthSandhaSum();
     fetchLastMonthSandhaSum();
-  }, []);
+  }, [ThisMonthSandhaSum,LastMonthSandhaSum]);
 
   const [ModalShow, setModalShow] = useState(false);
   return (
@@ -64,6 +67,7 @@ const SandhaMainPage = () => {
               <h3 className="text-white">Sandha Details</h3>
 
               <div className="ms-auto">
+              <Button className="me-2" onClick={() => setModalShow(true)}>Print Sandha</Button>
                 <Button onClick={() => setModalShow(true)}>Add Sandha</Button>
                 <SandhaAddModal
                   show={ModalShow}

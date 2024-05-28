@@ -195,6 +195,7 @@ const dispatch = useDispatch()
                   <Dropdown.Item onClick={HandleSignOut}>SignOut</Dropdown.Item>
                 </DropdownButton>
               </div>
+              
             </div>
           </Col>
         </Row>
