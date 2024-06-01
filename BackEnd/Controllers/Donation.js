@@ -1,8 +1,9 @@
 const SandhaModel = require("../Models/Sandha");
 const DonationModel = require("../Models/Donations");
 const AccountsModel = require("../Models/Accounts");
+const Log = require("../Models/Log");
 
-// Sandha/All
+// Donation/All
 exports.FetchAllDonation = async (req, res, next) => {
   const Donations = await DonationModel.find();
 
@@ -13,7 +14,7 @@ exports.FetchAllDonation = async (req, res, next) => {
   });
 };
 
-// Sandha/:Month
+// Donation/:Month
 exports.FetchSpecicMonthDonationDetails = async (req, res, next) => {
   const MonthList = [
     "January",
@@ -68,7 +69,7 @@ exports.FetchSpecicMonthDonationDetails = async (req, res, next) => {
   }
 };
 
-// Sandha/:Month/Sum
+// Donation/:Month/Sum
 exports.FetchSpecicMonthDonationSum = async (req, res, next) => {
   const MonthList = [
     "January",
@@ -106,10 +107,9 @@ exports.FetchSpecicMonthDonationSum = async (req, res, next) => {
         AllDonationDetails,
       });
     } catch (error) {
-      console.error("Error:", error);
       res.status(500).json({
         Success: false,
-        Message: "Internal Server Error",
+        Message: `Internal Server Error ${error.message}`,
       });
     }
   } else {
@@ -120,7 +120,7 @@ exports.FetchSpecicMonthDonationSum = async (req, res, next) => {
   }
 };
 
-// Sandha/Add
+// Donation/Add
 exports.AddDonation = async (req, res, next) => {
   const { Name, MemberID, Amount, Category, Description } = req.body;
 
@@ -136,6 +136,12 @@ exports.AddDonation = async (req, res, next) => {
         { Name: "cash" },
         { $inc: { Balance: Amount } }
       );
+
+      await Log.create({
+        Title: "Donation",
+        DonationID: Donation._id,
+        Action: "Create",
+      });
 
       res.status(201).json({
         Success: true,
@@ -160,6 +166,19 @@ exports.AddDonation = async (req, res, next) => {
 exports.DeleteDonation = async (req, res, next) => {
   try {
     const { id } = req.params;
+
+    const Donation = await DonationModel.findById(id);
+    await Log.create({
+      Title: "Donation",
+      DonationID: id,
+      Action: "Delete",
+    });
+
+    await AccountsModel.findOneAndUpdate(
+      { Name: "cash" },
+      { $inc: { Balance: -Donation.Amount } }
+    );
+
     await DonationModel.deleteOne({ _id: id });
     res.status(200).json({
       Success: true,
@@ -170,6 +189,7 @@ exports.DeleteDonation = async (req, res, next) => {
     res.status(500).json({
       Success: false,
       Message: "Internal Server Error",
+      Error: err.message,
     });
   }
 };
@@ -178,15 +198,44 @@ exports.UpdateDonation = async (req, res, next) => {
   const { id } = req.params;
   const { Name, Amount, Description } = req.body;
 
-  const UpdatedDonation = await DonationModel.findByIdAndUpdate(id, {
-    Name: Name,
-    Amount: Amount,
-    Description: Description,
-  });
+  try {
+    const UpdatedDonation = await DonationModel.findByIdAndUpdate(id, {
+      Name: Name,
+      Amount: Amount,
+      Description: Description,
+    });
 
-  res.status(200).json({
-    Success: true,
-    Message: "Donation Updated Succefully",
-    UpdatedDonation,
-  });
+    if (Amount > UpdatedDonation.Amount) {
+      const IncrementAmount = Amount - UpdatedDonation.Amount;
+      await AccountsModel.findOneAndUpdate(
+        { Name: "cash" },
+        { $inc: { Balance: IncrementAmount } }
+      );
+    }
+    if (Amount < UpdatedDonation.Amount) {
+      const DecrementAmount = UpdatedDonation.Amount - Amount;
+      await AccountsModel.findOneAndUpdate(
+        { Name: "cash" },
+        { $inc: { Balance: -DecrementAmount } }
+      );
+    }
+
+    await Log.create({
+      Title: "Donation",
+      DonationID: UpdatedDonation._id,
+      Action: "Update",
+    });
+
+    res.status(200).json({
+      Success: true,
+      Message: "Donation Updated Succefully",
+      UpdatedDonation,
+    });
+  } catch (e) {
+    res.status(500).json({
+      Success: false,
+      Message: "Internal Server Error",
+      Error: e.message,
+    });
+  }
 };

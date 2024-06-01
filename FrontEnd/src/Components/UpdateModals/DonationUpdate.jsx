@@ -12,14 +12,14 @@ const DonationUpdateModal = (props) => {
   const [Amount, setAmount] = useState(props.data.Amount);
   const [Name, setName] = useState(props.data.Name);
   const navigate = useNavigate();
-  const [id, setId] = useState(props.data.id);
 
+console.log(props.data);
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    console.log(id);
+
     await axios
       .put(
-        `http://localhost:8000/Donations/Update/${id}`,
+        `http://localhost:8000/Donations/Update/${props.data.id}`,
 
         { Name, Description, Amount },
         {

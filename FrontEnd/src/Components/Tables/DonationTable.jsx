@@ -19,7 +19,7 @@ const DonationTable = () => {
   const [loading, setLoading] = useState(true);
   const [Donations, setDonations] = useState([]);
   const [ModalShow, setModalShow] = useState(false);
-  const [selectedRow, setselectedRow] = useState({})
+  const [selectedRow, setselectedRow] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -40,7 +40,7 @@ const DonationTable = () => {
   }, []);
 
 
-  console.log(Donations);
+
 
   
   const darkTheme = createTheme({
@@ -53,6 +53,7 @@ const DonationTable = () => {
   const handleEdit = (id,Name,Amount,Description) => {
     
     setModalShow(true);
+    console.log(id);
     setselectedRow({id,Name,Description,Amount});
   };
 
@@ -60,7 +61,7 @@ const DonationTable = () => {
     
     await axios.delete( `http://localhost:8000/Donations/Delete/${id}`)
     setDonations(Donations.filter((donation) =>  donation._id !== id))
-     console.log(Donations);
+
   };
   const columns = [
     { field: "_id", headerName: "ID", width: 150 },
