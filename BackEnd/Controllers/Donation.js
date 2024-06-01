@@ -160,19 +160,10 @@ exports.AddDonation = async (req, res, next) => {
 exports.DeleteDonation = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const DonationDetail = await DonationModel.findById(id);
-    if (!DonationDetail) {
-      res.status(400).json({
-        Success: false,
-        Message: "Donation is  Not Found",
-      });
-      return;
-    }
-    await DonationDetail.deleteOne({ _id: id });
-
+    await DonationModel.deleteOne({ _id: id });
     res.status(200).json({
       Success: true,
-      Message: "Sandha Deleted Succefully",
+      Message: `Donation of ${id} is  Deleted Succefully`,
     });
     return;
   } catch (err) {
@@ -185,20 +176,17 @@ exports.DeleteDonation = async (req, res, next) => {
 
 exports.UpdateDonation = async (req, res, next) => {
   const { id } = req.params;
+  const { Name, Amount, Description } = req.body;
 
-  const DonationDetail = await DonationDetail.findById(id);
-
-  if (!DonationDetail) {
-    res.status(404).json({
-      Success: false,
-      Message: "Donation is Not Found",
-    });
-  }
-  await DonationDetail.findByIdAndUpdate(id, { re });
+  const UpdatedDonation = await DonationModel.findByIdAndUpdate(id, {
+    Name: Name,
+    Amount: Amount,
+    Description: Description,
+  });
 
   res.status(200).json({
     Success: true,
-    Message: "Donation Deleted Succefully",
-    Member,
+    Message: "Donation Updated Succefully",
+    UpdatedDonation,
   });
 };

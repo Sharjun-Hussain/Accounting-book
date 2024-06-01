@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Col, Container, Row, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -5,21 +7,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const DonationAddModal = (props) => {
-  const [Description, setDescription] = useState("");
- const [Amount, setAmount] = useState();
-  const [Name, setName] = useState("");
+const DonationUpdateModal = (props) => {
+  const [Description, setDescription] = useState(props.data.Description);
+  const [Amount, setAmount] = useState(props.data.Amount);
+  const [Name, setName] = useState(props.data.Name);
   const navigate = useNavigate();
-
-
+  const [id, setId] = useState(props.data.id);
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
+    console.log(id);
     await axios
-      .post(
-        "http://localhost:8000/Donation/Add",
+      .put(
+        `http://localhost:8000/Donations/Update/${id}`,
 
-        { Name,  Description, Amount },
+        { Name, Description, Amount },
         {
           headers: {
             "Content-Type": "application/json",
@@ -47,7 +49,7 @@ const DonationAddModal = (props) => {
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-              Update Donation
+                Update Donation
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -71,17 +73,16 @@ const DonationAddModal = (props) => {
                     className="mb-3"
                     controlId="formGridAddress1"
                   >
-                    
                     <Form.Label>Amount</Form.Label>
-                  <Form.Control
-                    type="number"
-                    value={Amount}
-                    required
-                    onChange={(e) => {
-                      setAmount(e.target.value);
-                    }}
-                    placeholder="Amount"
-                  /> 
+                    <Form.Control
+                      type="number"
+                      value={Amount}
+                      required
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                      }}
+                      placeholder="Amount"
+                    />
                   </Form.Group>
                 </Row>
                 <Form.Group as={Col} controlId="formGridName">
@@ -114,4 +115,4 @@ const DonationAddModal = (props) => {
   );
 };
 
-export default DonationAddModal;
+export default DonationUpdateModal;

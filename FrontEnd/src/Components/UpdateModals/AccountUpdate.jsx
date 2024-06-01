@@ -13,9 +13,6 @@ const AccountAddModal = (props) => {
   const [Name, setName] = useState("");
   const navigate = useNavigate();
 
-
-
-
   useEffect(() => {
     const FetchAllCategory = async () => {
       const response = await axios.get("http://localhost:8000/Category/All");
@@ -31,7 +28,7 @@ const AccountAddModal = (props) => {
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post(
+      .put(
         "http://localhost:8000/Accounts/Add",
 
         { Name, Category, Description },

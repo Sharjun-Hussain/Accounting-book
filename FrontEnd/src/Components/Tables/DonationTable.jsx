@@ -9,6 +9,7 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
+import DonationUpdateModal from "../UpdateModals/DonationUpdate";
 
 
 
@@ -17,6 +18,8 @@ import { DataGrid } from "@mui/x-data-grid";
 const DonationTable = () => {
   const [loading, setLoading] = useState(true);
   const [Donations, setDonations] = useState([]);
+  const [ModalShow, setModalShow] = useState(false);
+  const [selectedRow, setselectedRow] = useState({})
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -47,15 +50,15 @@ const DonationTable = () => {
   });
   
   
-  const handleEdit = (id) => {
+  const handleEdit = (id,Name,Amount,Description) => {
     
-    console.log("Editing member with ID:", id);
+    setModalShow(true);
+    setselectedRow({id,Name,Description,Amount});
   };
 
   const handleDelete = async (id) => {
     
-    await axios.post( `http://localhost:8000/Donations/Delete/${id}`)
-    console.log("Deleting member with ID:", id);
+    await axios.delete( `http://localhost:8000/Donations/Delete/${id}`)
     setDonations(Donations.filter((donation) =>  donation._id !== id))
      console.log(Donations);
   };
@@ -83,7 +86,7 @@ const DonationTable = () => {
           <IconButton
           color="primary"
           aria-label="edit"
-          onClick={() => handleEdit(params.row._id)}
+          onClick={() => handleEdit(params.row._id,params.row.Name,params.row.Amount,params.row.Description)}
         >
           <EditIcon />
         </IconButton>
@@ -122,6 +125,7 @@ const DonationTable = () => {
           loading={loading}
         />
       </div>
+      <DonationUpdateModal data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
     </ThemeProvider>
   );
 };

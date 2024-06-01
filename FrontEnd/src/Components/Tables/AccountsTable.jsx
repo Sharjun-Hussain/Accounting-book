@@ -58,7 +58,7 @@ const AccountsTable = () => {
   };
 
   const handleDelete = async (id) => {
-    await axios.post(`http://localhost:8000/Accounts/Delete/${id}`);
+    await axios.delete(`http://localhost:8000/Accounts/Delete/${id}`);
     console.log("Deleting member with ID:", id);
     setAccounts(Accounts.filter((account) => account._id !== id));
     console.log(Accounts);
