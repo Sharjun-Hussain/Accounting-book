@@ -1,7 +1,7 @@
 const TransactionModel = require("../Models/Transactions");
 const AccountsModel = require("../Models/Accounts");
 const TransactionDetailsModel = require("../Models/TransactionDetails");
-const TransactionLog = require("../Models/TransactionLog");
+const Log = require("../Models/Log");
 
 exports.FetchAllTransactions = async function (req, res, next) {
   // const Transactions = await TransactionModel.aggregate([
@@ -114,7 +114,7 @@ exports.AddTransaction = async function (req, res, next) {
     $inc: { Balance: Amount },
   });
 
-  await TransactionLog.create({
+  await Log.create({
     TransactionID: SavedTransactionID,
     Action: "Create",
   });

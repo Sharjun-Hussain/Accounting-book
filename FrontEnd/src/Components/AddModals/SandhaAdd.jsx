@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import {Col,Container,Row,Form,Dropdown,Button,Modal} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SandhaAddModal = (props) => {
   const [PaidMonths, SetPaidMonths] = useState([]);
@@ -83,11 +84,30 @@ toggleMonth
         
       )
       .then((res) => {
-        console.log(res.data);
+        Swal.fire({
+          icon: "success",
+          title: res.data.Message,
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+        });
+        setTimeout(() =>{
+          navigate(0);
+        },2000)
         navigate(0);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Transaction Failed",
+          text:error.response.data.Message,
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
+        setTimeout(() =>{
+        
+        },2000)
       });
   };
 
@@ -98,7 +118,7 @@ toggleMonth
       SetPaidMonths([...PaidMonths, option]);
     }
   };
-  console.log(MemberID);
+
 
   return (
     <Container>

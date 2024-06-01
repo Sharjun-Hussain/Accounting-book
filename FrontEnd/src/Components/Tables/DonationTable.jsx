@@ -9,8 +9,7 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
+
 
 
 
@@ -20,6 +19,7 @@ const DonationTable = () => {
   const [Donations, setDonations] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           "http://localhost:8000/Donations/All"
@@ -27,25 +27,18 @@ const DonationTable = () => {
         setDonations(response.data.Donations);
         setLoading(false);
       } catch (err) {
+        setLoading(false);
         console.log(err);
       }
     };
     fetchData();
-    console.log(Donations);
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const LoadingSkeleton = () => (
-    <Box
-      sx={{
-        height: 'max-content',
-      }}
-    >
-      {[...Array(10)].map((_, index) => (
-        <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-      ))}
-    </Box>
-  );
+
+  console.log(Donations);
+
   
   const darkTheme = createTheme({
     palette: {
@@ -67,24 +60,24 @@ const DonationTable = () => {
      console.log(Donations);
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
+    { field: "_id", headerName: "ID", width: 150 },
     { field: "Name", headerName: " Name", width: 230 },
-    { field: "Description", headerName: "Description", width: 250 },
+    { field: "Description", headerName: "Description", width: 200 },
 
     {
-      field: "Balance",
+      field: "Amount",
       headerName: "Amount",
       type: "number",
       description: "This column has a value getter and is not sortable.",
       sortable: true,
-      width: 180,
+      width: 250,
     },
     {
       headerName: "Actions",
       type: "textfield",
       description: "This column has a value getter and is not sortable.",
 
-      width: 120,
+      width: 150,
       renderCell: (params) => (
         <div>
           <IconButton
@@ -126,9 +119,6 @@ const DonationTable = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
-          components={{
-            LoadingOverlay: LoadingSkeleton,
-          }}
           loading={loading}
         />
       </div>

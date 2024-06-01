@@ -4,7 +4,16 @@ const TransactionLogSchema = new mongoose.Schema({
   TransactionID: {
     type: mongoose.Schema.Types.ObjectId,
     ref:"transaction",
-    required: true,
+    
+  },
+
+  SandhaID:{
+     type:mongoose.Schema.Types.ObjectId,
+     ref:"sandha"
+  },
+  DonationID:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"donations"
   },
 
   Action: {
@@ -18,5 +27,5 @@ const TransactionLogSchema = new mongoose.Schema({
 
 
 
-const TransactionLog = mongoose.model("TransactionLog", TransactionLogSchema);
+const TransactionLog = mongoose.model("Log", TransactionLogSchema);
 module.exports = TransactionLog;

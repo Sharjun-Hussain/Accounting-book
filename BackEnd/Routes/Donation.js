@@ -8,7 +8,7 @@ app.route("/All").get(FetchAllDonation);
 app.route("/Month/:Month").get(FetchSpecicMonthDonationDetails);
 app.route("/Month/:Month/Sum").get(FetchSpecicMonthDonationSum);
 app.route("/Add").post(AddDonation);
-app.route("/Delete/:id").post(DeleteDonation);
-app.route("/Update/:id").post(UpdateDonation);
+app.route("/Delete/:id").delete(DeleteDonation);
+app.route("/Update/:id").put(UpdateDonation);
 
 module.exports = app

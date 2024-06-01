@@ -17,7 +17,7 @@ const DonationAddModal = (props) => {
     e.preventDefault();
     await axios
       .post(
-        "http://localhost:8000/Donation/Add",
+        "http://localhost:8000/Donations/Add",
 
         { Name,  Description, Amount },
         {

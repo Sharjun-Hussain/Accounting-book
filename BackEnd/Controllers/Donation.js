@@ -4,13 +4,12 @@ const AccountsModel = require("../Models/Accounts");
 
 // Sandha/All
 exports.FetchAllDonation = async (req, res, next) => {
-
-  const AllDonationDetails = await DonationModel.find()
+  const Donations = await DonationModel.find();
 
   res.status(200).json({
     Success: true,
     Message: " Donation Details Fetching Succesfull",
-    AllDonationDetails,
+    Donations,
   });
 };
 
@@ -48,7 +47,7 @@ exports.FetchSpecicMonthDonationDetails = async (req, res, next) => {
           },
         },
       ]);
-      
+
       res.status(200).json({
         Success: true,
         Message: "Donation Details Fetching Successful",
@@ -100,7 +99,7 @@ exports.FetchSpecicMonthDonationSum = async (req, res, next) => {
           },
         },
       ]);
-      
+
       res.status(200).json({
         Success: true,
         Message: "Donation Sum  Successful",
@@ -123,20 +122,15 @@ exports.FetchSpecicMonthDonationSum = async (req, res, next) => {
 
 // Sandha/Add
 exports.AddDonation = async (req, res, next) => {
-  const { Name, MemberID, Amount, Category, Description, DonatedMonth } =
-    req.body;
+  const { Name, MemberID, Amount, Category, Description } = req.body;
 
-  if (DonatedMonth && Amount && Description && Category != null) {
+  if (Name && Amount && Description != null) {
     try {
-      if (Name) {
-        const Donation = await DonationModel.create({
-          Name: Name,
-          Category: Category,
-          Amount: Amount,
-          Description: Description,
-          DonatedMonth: DonatedMonth,
-        });
-      }
+      const Donation = await DonationModel.create({
+        Name: Name,
+        Amount: Amount,
+        Description: Description,
+      });
 
       await AccountsModel.findOneAndUpdate(
         { Name: "cash" },
@@ -146,7 +140,7 @@ exports.AddDonation = async (req, res, next) => {
       res.status(201).json({
         Success: true,
         Message: "Donation  Added Succefully",
-        Sandha,
+        Donation,
       });
     } catch (err) {
       res.status(500).json({

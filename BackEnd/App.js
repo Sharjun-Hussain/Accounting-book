@@ -14,6 +14,7 @@ const CategoryRoute = require("./Routes/Category");
 const AccountsRoute = require("./Routes/Accounts");
 const TransactionsRoute = require("./Routes/Transaction");
 const UsersRoute = require("./Routes/user");
+const DonationRoute = require('./Routes/Donation');
 
 async function ConnectDB() {
   await mongoose
@@ -39,6 +40,7 @@ App.use("/Sandha-members", SandhaMembersRoute);
 App.use("/Sandha", SandhaRoute);
 App.use("/Category", CategoryRoute);
 App.use("/Accounts", AccountsRoute);
+App.use("/Donations", DonationRoute);
 App.use("/Transactions", TransactionsRoute);
 App.use("/api", UsersRoute);
 

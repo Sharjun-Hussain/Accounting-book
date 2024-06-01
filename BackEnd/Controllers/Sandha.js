@@ -1,5 +1,6 @@
 const SandhaModel = require("../Models/Sandha");
 const AccountsModel = require("../Models/Accounts");
+const Log = require("../Models/Log");
 
 // Sandha/All
 exports.FetchAllSandha = async (req, res, next) => {
@@ -124,7 +125,7 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
 
 // Sandha/Add
 exports.AddSandha = async (req, res, next) => {
-  const { PaidMonths, MemberID, Amount,Description } = req.body;
+  const { PaidMonths, MemberID, Amount, Description } = req.body;
 
   if (PaidMonths && MemberID && Amount != "") {
     try {
@@ -138,8 +139,11 @@ exports.AddSandha = async (req, res, next) => {
         { Name: "cash" },
         { $inc: { Balance: Amount } }
       );
+      await Log.create({
+        SandhaID: Sandha._id,
+        Action: "Create",
+      });
 
-      
       res.status(201).json({
         Success: true,
         Message: "Sandha  Added Succefully",
@@ -167,7 +171,7 @@ exports.DeleteSandha = async (req, res, next) => {
     if (!SandhaDetail) {
       res.status(400).json({
         Success: false,
-        Message: "Sandha Detail is  Not Found",
+        Message: "Sandha Information is  Not Found",
       });
       return;
     }
