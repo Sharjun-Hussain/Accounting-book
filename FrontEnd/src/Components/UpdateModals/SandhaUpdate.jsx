@@ -15,7 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const SandhaUpdateModal = (props) => {
-  const [PaidMonths, SetPaidMonths] = useState([]);
+
   const MonthData = [
     "January",
     "February",
@@ -34,11 +34,13 @@ const SandhaUpdateModal = (props) => {
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-
-  const [MemberID, setMemberID] = useState("");
-  const [Amount, setAmount] = useState();
-  const [Description, setDescription] = useState();
+  const [PaidMonths, SetPaidMonths] = useState(props.data.PaidMonths);
+  const [MemberID, setMemberID] = useState(props.data.id);
+  const [Name, setName] = useState(props.data.Name)
+  const [Amount, setAmount] = useState(props.data.Amount);
+  const [Description, setDescription] = useState(props.data.Description);
   // const Date = new Date().toISOString().split("T")[0];
+
 
   useEffect(() => {
     const FetchAllUser = async () => {
@@ -68,19 +70,12 @@ const SandhaUpdateModal = (props) => {
     }
   };
 
-  const HandleUserClick = (param) => {
-    setMemberID(param._id);
-    setItem(param.Name);
-    setFilteredUsers([]);
-    setAmount(param.Amount);
-    setDescription(param.Description);
-  };
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post(
-        "http://localhost:8000/Sandha/Add",
+      .put(
+        `http://localhost:8000/Sandha/Update/${props.data.id}`,
 
         { PaidMonths, MemberID, Amount },
         {
@@ -98,6 +93,8 @@ const SandhaUpdateModal = (props) => {
       });
   };
 
+  console.log(PaidMonths);
+
   const toggleMonth = (option) => {
     if (PaidMonths.includes(option)) {
       SetPaidMonths(PaidMonths.filter((item) => item !== option));
@@ -105,7 +102,7 @@ const SandhaUpdateModal = (props) => {
       SetPaidMonths([...PaidMonths, option]);
     }
   };
-  console.log(MemberID);
+
 
   return (
     <Container>
@@ -135,27 +132,9 @@ const SandhaUpdateModal = (props) => {
                       placeholder="Sharjun-Hussain"
                       autoComplete="off"
                       required
+                      disabled="true"
                     />
-                    <ul
-                      style={{
-                        zIndex: 100,
-                        position: "absolute",
-                        backgroundColor: "black",
-                        overflowY: "scroll",
-                      }}
-                    >
-                      {filteredUsers.map((user) => (
-                        <li
-                          className="text-white"
-                          key={user._id}
-                          onClick={() => {
-                            HandleUserClick(user);
-                          }} 
-                        >
-                          {user.Name}
-                        </li>
-                      ))}
-                    </ul>
+                   
                   </Form.Group>
                   <Form.Group as={Col} controlId="Months">
                     <Dropdown style={{ marginTop: "31px", marginLeft: "31px" }}>
@@ -182,7 +161,7 @@ const SandhaUpdateModal = (props) => {
                     <Form.Label>Sandha Amount</Form.Label>
                     <Form.Control
                       type="number"
-                      value={props.data.Amount}
+                      value={Amount}
                       required
                       onChange={(e) => {
                         setAmount(e.target.value);

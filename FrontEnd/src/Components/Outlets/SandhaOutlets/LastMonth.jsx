@@ -59,7 +59,7 @@ const LastMonth = () => {
 
  
 
-  const handleEdit = (id,Name,PaidMonths,Status,Amount) => {
+  const handleEdit = (id,Name,[PaidMonths],Status,Amount) => {
     setModalShow(true);
       setselectedRow({id,Name,PaidMonths,Status,Amount});
       

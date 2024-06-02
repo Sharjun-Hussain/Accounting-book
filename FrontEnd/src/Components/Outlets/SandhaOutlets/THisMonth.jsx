@@ -37,7 +37,7 @@ const ThisMonth = () => {
   const thismonth = MonthList[currentDate.getMonth()];
   const [loading, setLoading] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
-  const [selectedRow, setselectedRow] = useState({});
+  const [selectedRow, setselectedRow] = useState([]);
   const ThisMonthSandhaDetails = useSelector(state => state.SandhaState.ThisMonthSandhaDetails)
 
 
@@ -45,8 +45,11 @@ const ThisMonth = () => {
 
   const handleEdit = (id, Name, PaidMonths, Status, Amount) => {
     setModalShow(true);
+    
     setselectedRow({ id, Name, PaidMonths, Status, Amount });
   };
+
+ 
 
   const handleDelete = (id) => {
     console.log("Deleting member with ID:", id);
