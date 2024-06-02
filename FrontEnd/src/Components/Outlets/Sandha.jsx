@@ -4,13 +4,10 @@
 import { Button, Card, Col, Container } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import SandhaAddModal from "../AddModals/SandhaAdd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { setLastMonthSandhaDetails, setThisMonthSandhaDetails } from "../../redux/Slices/SandhaSlice";
 
 const SandhaMainPage = () => {
-  const {ThisMonthSandhaDetails, LastMonthSandhaDetails}= useSelector(state => state.SandhaState)
   const currentDate = new Date();
   const MonthList = [
     "January",
@@ -26,55 +23,82 @@ const SandhaMainPage = () => {
     "November",
     "December",
   ];
-  const thismonth = MonthList[currentDate.getMonth()];
   const lastMonth = MonthList[currentDate.getMonth() - 1];
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
-  const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchLastMonthSandhaSum
+  const thismonth = MonthList[currentDate.getMonth()];
 
-// const local = JSON.parse(localStorage.getItem(san))
-//   console.log(local);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const fetchThisMonthSandhaDetails = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/Sandha/Month/${thismonth}`
-      );
-      dispatch(setThisMonthSandhaDetails(response.data))
-      localStorage.setItem('sandhaDetails', JSON.stringify(response.data))
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [ThisMonthSandhaDetails, setThisMonthSandhaDetails] = useState([]);
+  const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState();
+  const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
+  const [LastMonthSandhaDetails, setLastMonthSandhaDetails] = useState([]);
+ //fetchLastMonthSandhaSum
 
-  const fetchLastMonthSandhaDetails = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/Sandha/Month/${lastMonth}`
-      );
-      dispatch(setLastMonthSandhaDetails(response.data))
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  fetchThisMonthSandhaDetails()
-  fetchLastMonthSandhaDetails()
-}, [])
+  useEffect(() => {
+    const fetchLastMonthSandhaDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/Sandha/Month/${lastMonth}`
+        );
 
+        if (response.data) {
+          // const allSandhaDetails = response.data.AllSandhaDetails || [];
+          // const sandhaSum =
+          //   response.data.SandhaSum && response.data.SandhaSum.length > 0
+          //     ? response.data.SandhaSum[0].TotalAmount
+          //     : 0;
+
+          // setThisMonthSandhaDetails(allSandhaDetails);
+          // setThisMonthSandhaSum(sandhaSum);
+          setLastMonthSandhaDetails(response.data?.AllSandhaDetails );
+          setLastMonthSandhaSum(response.data.SandhaSum[0]?.TotalAmount );
+        }
+      } catch (err) {
+        alert(err);
+      setThisMonthSandhaDetails([]);
+      setThisMonthSandhaSum(0);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchThisMonthSandhaDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/Sandha/Month/${thismonth}`
+        );
+
+        setThisMonthSandhaDetails(response.data.AllSandhaDetails);
+        setThisMonthSandhaSum(response.data.SandhaSum[0]?.TotalAmount);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        alert(err);
+      }
+    };
+
+    fetchThisMonthSandhaDetails();
+    fetchLastMonthSandhaDetails();
+  }, [ThisMonthSandhaSum,LastMonthSandhaSum]);
+
+  console.log(ThisMonthSandhaSum);
 
   const [ModalShow, setModalShow] = useState(false);
   return (
-    <>
+    <Fragment>
       <Container fluid>
-        <>
+        {loading ? (
+          <h1>Loading</h1>
+        ) : (
           <div className="Front-cards-Background-card  mt-3 ">
             <Col className="d-flex">
               <h3 className="text-white">Sandha Details</h3>
 
               <div className="ms-auto">
-              <Button className="me-2" onClick={() => setModalShow(true)}>Print Sandha</Button>
+                <Button className="me-2" onClick={() => setModalShow(true)}>
+                  Print Sandha
+                </Button>
                 <Button onClick={() => setModalShow(true)}>Add Sandha</Button>
                 <SandhaAddModal
                   show={ModalShow}
@@ -83,36 +107,34 @@ useEffect(() => {
               </div>
             </Col>
           </div>
-        </>
-        <>
-        <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
-          
-          {ThisMonthSandhaDetails && ThisMonthSandhaDetails.SandhaSum && ThisMonthSandhaDetails.SandhaSum.length > 0 && (
-           
+        )}
+
+        {loading ? (
+          <h1>Loading</h1>
+        ) : (
+          <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
             <Col md={6} xs={12} lg={4} xl={3} className="">
               <Link to="this-month">
                 <Card className="d-flex flex-column me-md-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>Rs.{ThisMonthSandhaDetails.SandhaSum[0].TotalAmount} </h2>
-                      <Card.Title>{thismonth} -  Income </Card.Title>
+                      <h2>Rs.{ThisMonthSandhaSum} </h2>
+                      <Card.Title>{thismonth} - Income </Card.Title>
                     </div>
                     <span>Icon</span>
                   </Card.Body>
                 </Card>{" "}
               </Link>
             </Col>
-          )}
 
-            {LastMonthSandhaDetails && LastMonthSandhaDetails.SandhaSum && LastMonthSandhaDetails.SandhaSum.length > 0 && (
-              <Col md={6} xs={12} lg={4} xl={3} className="">
+            <Col md={6} xs={12} lg={4} xl={3} className="">
               <Link to="last-month">
                 <Card className="d-flex flex-column me-md-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>Rs. {LastMonthSandhaDetails.SandhaSum[0].TotalAmount}</h2>
+                      <h2>Rs. {LastMonthSandhaSum}</h2>
                       <Card.Title style={{ fontSize: "18px" }}>
                         {lastMonth} - Income
                       </Card.Title>
@@ -122,16 +144,14 @@ useEffect(() => {
                 </Card>{" "}
               </Link>
             </Col>
-            )}
 
-{ThisMonthSandhaDetails && ThisMonthSandhaDetails.SandhaSum && ThisMonthSandhaDetails.SandhaSum.length > 0 && (
             <Col md={6} xs={12} lg={4} xl={3} className="">
               <Link to="#">
                 <Card className="d-flex flex-column me-md-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>{ThisMonthSandhaDetails.AllSandhaDetails.length}</h2>
+                      <h2>{ThisMonthSandhaDetails.length}</h2>
                       <Card.Title>{thismonth} - Paid Members </Card.Title>
                     </div>
                     <span>Icon</span>
@@ -139,16 +159,14 @@ useEffect(() => {
                 </Card>{" "}
               </Link>
             </Col>
-            )}
 
-            {LastMonthSandhaDetails && LastMonthSandhaDetails.SandhaSum && LastMonthSandhaDetails.SandhaSum.length > 0 && (
             <Col md={6} xs={12} lg={4} xl={3} className="">
               <Link to="#">
                 <Card className="d-flex flex-column me-md-1 my-2">
                   <Card.Body className="d-flex flex-row justify-content-between">
                     <div>
                       {" "}
-                      <h2>{LastMonthSandhaDetails.AllSandhaDetails.length}</h2>
+                      <h2>{LastMonthSandhaDetails.length}</h2>
                       <Card.Title>{lastMonth}-Paid Members </Card.Title>
                     </div>
                     <span>Icon</span>
@@ -156,18 +174,15 @@ useEffect(() => {
                 </Card>{" "}
               </Link>
             </Col>
-            )}
           </div>
-        </>
+        )}
       </Container>
       <Container className="">
-        <>
-          <Col md={12} className=" my-3  ps-0  pe-0 pe-md-3">
-            <Outlet />
-          </Col>
-        </>
+        <Col md={12} className=" my-3  ps-0  pe-0 pe-md-3">
+          <Outlet />
+        </Col>
       </Container>
-    </>
+    </Fragment>
   );
 };
 

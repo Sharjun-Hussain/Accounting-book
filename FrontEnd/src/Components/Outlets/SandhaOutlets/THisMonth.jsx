@@ -9,8 +9,6 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import axios from "axios";
 import SandhaUpdateModal from "../../UpdateModals/SandhaUpdate";
-import { useDispatch, useSelector } from "react-redux";
-import { setThisMonthSandhaDetails } from "../../../redux/Slices/SandhaSlice";
 
 const darkTheme = createTheme({
   palette: {
@@ -38,21 +36,44 @@ const ThisMonth = () => {
   const [loading, setLoading] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
   const [selectedRow, setselectedRow] = useState([]);
-  const ThisMonthSandhaDetails = useSelector(state => state.SandhaState.ThisMonthSandhaDetails)
+  const [ThisMonthSandhaDetails, setThisMonthSandhaDetails] = useState([]);
 
+  useEffect(() => {
+    const fetchThisMonthSandhaDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/Sandha/Month/${thismonth}`
+        );
 
+        setThisMonthSandhaDetails(response.data.AllSandhaDetails);
 
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        loading(false);
+      }
+    };
+
+    fetchThisMonthSandhaDetails();
+  }, []);
 
   const handleEdit = (id, Name, PaidMonths, Status, Amount) => {
     setModalShow(true);
     setselectedRow({ id, Name, PaidMonths, Status, Amount });
   };
 
- 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/Sandha/Delete/${id}`);
+      setThisMonthSandhaDetails(
+        ThisMonthSandhaDetails.filter((data) => data._id !== id)
+      );
+    } catch (err) {
+      console.log(err);
+    }
 
-  const handleDelete = async(id) => {
-    await axios.delete(`http://localhost:8000/Sandha/Delete/${id}`)
-    
+    // ThisMonthSandhaDetails.AllSandhaDetails[0].filter((donation) =>  donation._id !== id)
   };
 
   const columns = [
@@ -126,11 +147,10 @@ const ThisMonth = () => {
     <div>
       <ThemeProvider theme={darkTheme}>
         <div style={{ width: "100%" }}>
-        {ThisMonthSandhaDetails && ThisMonthSandhaDetails.AllSandhaDetails  && (
           <DataGrid
             autoHeight
             getRowId={getRowId}
-            rows={ThisMonthSandhaDetails.AllSandhaDetails}
+            rows={ThisMonthSandhaDetails}
             columns={columns}
             initialState={{
               pagination: {
@@ -143,7 +163,6 @@ const ThisMonth = () => {
             sx={{ "--DataGrid-overlayHeight": "100px" }}
             loading={loading}
           />
-        )}
         </div>
       </ThemeProvider>
       <SandhaUpdateModal

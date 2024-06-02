@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 //From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -6,24 +6,12 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from "@mui/material/Skeleton";
-import Box from "@mui/material/Box";
 import axios from "axios";
 import SandhaUpdateModal from "../../UpdateModals/SandhaUpdate";
-import { useSelector } from "react-redux";
 
 
-const LoadingSkeleton = () => (
-  <Box
-    sx={{
-      height: "max-content",
-    }}
-  >
-    {[...Array(10)].map((_, index) => (
-      <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-    ))}
-  </Box>
-);
+
+
 
 const darkTheme = createTheme({
   palette: {
@@ -34,30 +22,46 @@ const darkTheme = createTheme({
 
 
 const LastMonth = () => {
-  // const currentDate = new Date();
-  // const MonthList = [
-  //   "January",
-  //   "February",
-  //   "March",
-  //   "April",
-  //   "May",
-  //   "June",
-  //   "July",
-  //   "August",
-  //   "September",
-  //   "October",
-  //   "November",
-  //   "December",
-  // ];
-  // const lastmonth = MonthList[currentDate.getMonth() - 1];
+  const currentDate = new Date();
+  const MonthList = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const lastmonth = MonthList[currentDate.getMonth() - 1];
   // const [loading, setLoading] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
   const [selectedRow, setselectedRow] = useState({})
-  const [AllSandhaDetails, setAllSandhaDetails] = useState([]); //fetchThisMonthSandha
+  const [LastMonthSandhaDetails, setLastMonthSandhaDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const LastMonthSandhaDetails = useSelector(state => state.SandhaState.LastMonthSandhaDetails)
+  useEffect(() => {
+    const fetchLastMonthSandhaDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `http://localhost:8000/Sandha/Month/${lastmonth}`
+        );
 
- 
+        setLastMonthSandhaDetails(response.data.AllSandhaDetails);
+
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+    fetchLastMonthSandhaDetails();
+  }, []);
 
   const handleEdit = (id,Name,PaidMonths,Status,Amount) => {
     setModalShow(true);
@@ -66,9 +70,15 @@ const LastMonth = () => {
   };
   
   const handleDelete = async (id) => {
-    await axios.post(`http://localhost:8000/Accounts/Delete/${id}`);
-    console.log("Deleting member with ID:", id);
-    setAllSandhaDetails(AllSandhaDetails.filter((sandha) => sandha._id !== id));
+    try{
+      console.log("Deleting member with ID:", id);
+      await axios.delete(`http://localhost:8000/Sandha/Delete/${id}`);
+      setLastMonthSandhaDetails(LastMonthSandhaDetails.filter((data) => data._id !== id))
+    }catch(e){
+      console.log(e);
+    }
+    
+
   };
 
 
@@ -135,10 +145,11 @@ const LastMonth = () => {
       
         <ThemeProvider theme={darkTheme}>
           <div style={{ width: "100%" }}>
-          {LastMonthSandhaDetails && LastMonthSandhaDetails.AllSandhaDetails  && (
+          
             <DataGrid
+            autoHeight
               getRowId={getRowId}
-              rows={LastMonthSandhaDetails.AllSandhaDetails}
+              rows={LastMonthSandhaDetails}
               columns={columns}
               initialState={{
                 pagination: {
@@ -148,11 +159,11 @@ const LastMonth = () => {
               pageSizeOptions={[5, 10]}
               checkboxSelection
               disableRowSelectionOnClick
-              components={{
-                LoadingOverlay: LoadingSkeleton,
-              }}
+              sx={{ "--DataGrid-overlayHeight": "100px" }}
+              loading={loading}
+
               
-            />)}
+            />
           </div>
         </ThemeProvider>
    

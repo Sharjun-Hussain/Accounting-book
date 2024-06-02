@@ -198,7 +198,7 @@ exports.UpdateSandha = async (req, res) => {
 
   await Log.create({
     Title: "Sandha",
-    DonationID: id,
+    SandhaID: id,
     Action: "Update",
   });
 

@@ -87,7 +87,7 @@ console.log(PaidMonths);
       )
       .then((res) => {
         console.log(res.data);
-        navigate(0);
+        window.location.href="/Sandha"
       })
       .catch((error) => {
         console.error("Error:", error);
