@@ -140,6 +140,7 @@ exports.AddSandha = async (req, res, next) => {
         { $inc: { Balance: Amount } }
       );
       await Log.create({
+        Title: "Sandha",
         SandhaID: Sandha._id,
         Action: "Create",
       });
@@ -175,6 +176,15 @@ exports.DeleteSandha = async (req, res, next) => {
       });
       return;
     }
+    await AccountsModel.findOneAndUpdate(
+      { Name: "cash" },
+      { $inc: { Balance: -SandhaDetail.Amount } }
+    );
+    await Log.create({
+      Title: "Sandha",
+      DonationID: id,
+      Action: "Delete",
+    });
     await SandhaModel.deleteOne({ _id: id });
 
     res.status(200).json({
@@ -185,27 +195,55 @@ exports.DeleteSandha = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({
       Success: false,
-      Message: "Internal Server Error",
+      Message: `Internal Server Error:${err.message}`,
     });
   }
 };
 
-exports.UpdateSandha = async (req, res, next) => {
+exports.UpdateSandha = async (req, res) => {
   const { id } = req.params;
+  const { Amount, Description, PaidMonths } = req.body;
 
   const SandhaDetail = await SandhaModel.findById(id);
 
   if (!SandhaDetail) {
     res.status(404).json({
       Success: false,
-      Message: "Sandha Detail is Not Found",
+      Message: "Sandha  is Not Found",
     });
   }
-  await SandhaModel.findByIdAndUpdate(id, { re });
+
+  const UpdatedSandha = await SandhaModel.findByIdAndUpdate(id, {
+    Amount: Amount,
+    Description: Description,
+    PaidMonths: PaidMonths,
+  });
+
+  if (Amount > UpdatedSandha.Amount) {
+    const IncrementAmount = Amount - UpdatedSandha.Amount;
+    await AccountsModel.findOneAndUpdate(
+      { Name: "cash" },
+      { $inc: { Balance: IncrementAmount } }
+    );
+  }
+  if (Amount < UpdatedSandha.Amount) {
+    const DecrementAmount = UpdatedSandha.Amount - Amount;
+    await AccountsModel.findOneAndUpdate(
+      { Name: "cash" },
+      { $inc: { Balance: -DecrementAmount } }
+    );
+  }
+
+  await Log.create({
+    Title: "Sandha",
+    DonationID: id,
+    Action: "Update",
+  });
+
 
   res.status(200).json({
     Success: true,
     Message: "Member Deleted Succefully",
-    Member,
+    UpdatedSandha,
   });
 };

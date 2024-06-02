@@ -8,7 +8,7 @@ app.route("/All").get(FetchAllSandha);
 app.route("/Month/:Month").get(FetchSpecicMonthSandhaDetails);
 app.route("/Month/:Month/Sum").get(FetchSpecicMonthSandhaSum);
 app.route("/Add").post(AddSandha);
-app.route("/Delete/:id").post(DeleteSandha);
-app.route("/Update/:id").post(UpdateSandha);
+app.route("/Delete/:id").delete(DeleteSandha);
+app.route("/Update/:id").put(UpdateSandha);
 
 module.exports = app

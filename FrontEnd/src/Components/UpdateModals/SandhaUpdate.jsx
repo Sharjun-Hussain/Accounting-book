@@ -34,14 +34,15 @@ const SandhaUpdateModal = (props) => {
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [PaidMonths, SetPaidMonths] = useState(props.data.PaidMonths);
+  const [PaidMonths, SetPaidMonths] = useState(props.data.PaidMonths || []);
+
   const [MemberID, setMemberID] = useState(props.data.id);
   const [Name, setName] = useState(props.data.Name)
   const [Amount, setAmount] = useState(props.data.Amount);
   const [Description, setDescription] = useState(props.data.Description);
   // const Date = new Date().toISOString().split("T")[0];
 
-
+console.log(PaidMonths);
   useEffect(() => {
     const FetchAllUser = async () => {
       const response = await axios.get(

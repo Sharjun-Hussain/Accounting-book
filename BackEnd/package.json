@@ -15,6 +15,7 @@
     "nodemon": "^3.0.3"
   },
   "scripts": {
-    "start": "nodemon App.js"
+    "start": "nodemon App.js",
+    "seeder" : "node ./Utilities/DeleteSeeder.js"
   }
 }
