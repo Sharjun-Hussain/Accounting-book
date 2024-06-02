@@ -9,8 +9,6 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from "@mui/material/Skeleton";
-import Box from "@mui/material/Box";
 
 const AccountsTable = () => {
   const [loading, setLoading] = useState(true);
@@ -33,17 +31,7 @@ const AccountsTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const LoadingSkeleton = () => (
-    <Box
-      sx={{
-        height: "max-content",
-      }}
-    >
-      {[...Array(10)].map((_, index) => (
-        <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-      ))}
-    </Box>
-  );
+
 
   const darkTheme = createTheme({
     palette: {
@@ -112,6 +100,7 @@ const AccountsTable = () => {
       <CssBaseline />
       <div style={{ width: "100%" }}>
         <DataGrid
+        autoHeight
           getRowId={getRowId}
           rows={Accounts}
           columns={columns}
@@ -123,9 +112,7 @@ const AccountsTable = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
-          components={{
-            LoadingOverlay: LoadingSkeleton,
-          }}
+          sx={{ "--DataGrid-overlayHeight": "100px" }}
           loading={loading}
         />
       </div>

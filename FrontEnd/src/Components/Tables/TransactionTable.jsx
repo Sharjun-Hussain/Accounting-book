@@ -5,20 +5,6 @@ import { useState, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from "@mui/material/Skeleton";
-import Box from "@mui/material/Box";
-
-const LoadingSkeleton = () => (
-  <Box
-    sx={{
-      height: "max-content",
-    }}
-  >
-    {[...Array(10)].map((_, index) => (
-      <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-    ))}
-  </Box>
-);
 
 const darkTheme = createTheme({
   palette: {
@@ -29,7 +15,6 @@ const darkTheme = createTheme({
 const TransactionTable = () => {
   const [loading, setLoading] = useState(true);
   const [Transactions, setTransactions] = useState([]);
-  // const [Error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,31 +38,32 @@ const TransactionTable = () => {
   }, []);
 
   const columns = [
-    
     {
       field: "Transactio",
       headerName: "Description",
       width: 200,
       renderCell: (params) => {
         return (
-          <div
-            className="rowitem"
-            key={params.row.Transaction[0].Description}
-          >
+          <div className="rowitem" key={params.row.Transaction[0].Description}>
             {params.row.Transaction[0].Description}
           </div>
         );
       },
     },
-    
+
     { field: "Amount", headerName: "Amount", width: 200 },
-    { field: "Transaction", headerName: "Date", width: 200,renderCell: (params) => {
-      return (
-        <div className="rowitem" key={params.row.Transaction[0].Date}>
-          {params.row.Transaction[0].Date}
-        </div>
-      );
-    }, },
+    {
+      field: "Transaction",
+      headerName: "Date",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="rowitem" key={params.row.Transaction[0].Date}>
+            {params.row.Transaction[0].Date}
+          </div>
+        );
+      },
+    },
     {
       field: "Account",
       headerName: "Account",
@@ -95,8 +81,6 @@ const TransactionTable = () => {
       headerName: "Type",
       width: 200,
     },
-
-    
   ];
 
   function getRowId(row) {
@@ -108,6 +92,7 @@ const TransactionTable = () => {
       <CssBaseline />
       <div style={{ width: "100%" }}>
         <DataGrid
+          autoHeight
           getRowId={getRowId}
           rows={Transactions}
           columns={columns}
@@ -119,9 +104,7 @@ const TransactionTable = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
-          components={{
-            LoadingOverlay: LoadingSkeleton,
-          }}
+          sx={{ "--DataGrid-overlayHeight": "100px" }}
           loading={loading}
         />
       </div>

@@ -112,6 +112,7 @@ const DonationTable = () => {
       <CssBaseline />
       <div style={{  width: "100%" }}>
         <DataGrid
+        autoHeight
           getRowId={getRowId}
           rows={Donations}
           columns={columns}
@@ -123,7 +124,8 @@ const DonationTable = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
-          loading={loading}
+          sx={{ "--DataGrid-overlayHeight": "100px" }}
+            loading={loading}
         />
       </div>
       <DonationUpdateModal data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
