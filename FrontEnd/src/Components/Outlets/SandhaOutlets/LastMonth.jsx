@@ -59,7 +59,7 @@ const LastMonth = () => {
 
  
 
-  const handleEdit = (id,Name,[PaidMonths],Status,Amount) => {
+  const handleEdit = (id,Name,PaidMonths,Status,Amount) => {
     setModalShow(true);
       setselectedRow({id,Name,PaidMonths,Status,Amount});
       
@@ -135,9 +135,10 @@ const LastMonth = () => {
       
         <ThemeProvider theme={darkTheme}>
           <div style={{ width: "100%" }}>
+          {LastMonthSandhaDetails && LastMonthSandhaDetails.AllSandhaDetails  && (
             <DataGrid
               getRowId={getRowId}
-              rows={LastMonthSandhaDetails}
+              rows={LastMonthSandhaDetails.AllSandhaDetails}
               columns={columns}
               initialState={{
                 pagination: {
@@ -151,7 +152,7 @@ const LastMonth = () => {
                 LoadingOverlay: LoadingSkeleton,
               }}
               
-            />
+            />)}
           </div>
         </ThemeProvider>
    

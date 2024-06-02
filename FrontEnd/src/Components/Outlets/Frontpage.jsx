@@ -7,6 +7,8 @@ import PaidIcon from '@mui/icons-material/Paid';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import TollIcon from '@mui/icons-material/Toll';
+import { useDispatch, useSelector } from "react-redux";
+import { setLastMonthSandhaDetails, setThisMonthSandhaDetails } from "../../redux/Slices/SandhaSlice";
 
 
 const currentDate = new Date();
@@ -29,8 +31,10 @@ const thismonth = MonthList[currentDate.getMonth()];
 const lastMonth = MonthList[currentDate.getMonth() - 1];
 
 const Frontpage = () => {
-  const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
-  const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchLastMonthSandhaSum
+  const {ThisMonthSandhaDetails, LastMonthSandhaDetails}= useSelector(state => state.SandhaState)
+  const dispatch = useDispatch();
+  // const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
+  // const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchLastMonthSandhaSum
   const [cashAmount, setcashAmount] = useState(); //fetchCashTotalAmount
   const [TotalMembers, setTotalMembers] = useState(); //fetchTotalMembers
   const [bankAmount, setbankAmount] = useState(); //fetchBankTotalAmount
@@ -52,27 +56,30 @@ const Frontpage = () => {
         console.log(err);
       }
     };
-    const fetchThisMonthSandhaSum = async () => {
+
+    const fetchThisMonthSandhaDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/Sandha/Month/${thismonth}/Sum`
+          `http://localhost:8000/Sandha/Month/${thismonth}`
         );
-        setThisMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount);
+        dispatch(setThisMonthSandhaDetails(response.data))
+        localStorage.setItem('sandhaDetails', JSON.stringify(response.data))
       } catch (err) {
         console.log(err);
       }
     };
 
-    const fetchLastMonthSandhaSum = async () => {
+    const fetchLastMonthSandhaDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/Sandha/Month/${lastMonth}/Sum`
+          `http://localhost:8000/Sandha/Month/${lastMonth}`
         );
-        setLastMonthSandhaSum(response.data.AllSandhaDetails[0].TotalAmount);
+        dispatch(setLastMonthSandhaDetails(response.data))
       } catch (err) {
         console.log(err);
       }
-    };
+    }
+  
 
 
     const fetchTotalMembers = async () =>{
@@ -88,9 +95,12 @@ const Frontpage = () => {
     FetchCashAccountTotal();
     fetchTotalMembers();
     FetchBankAccountTotal();
-    fetchThisMonthSandhaSum();
-    fetchLastMonthSandhaSum();
+    fetchThisMonthSandhaDetails();
+    fetchLastMonthSandhaDetails();
+  
   }, []);
+
+
 
   return (
     <>
@@ -138,31 +148,34 @@ const Frontpage = () => {
             </Card>
           </Col>
 
-          <Col md={6} xs={12} lg={4} xl={3} className="">
-            <Card className="d-flex flex-column ms-md-1 ms-lg-0 me-lg-1 my-2  ">
-              <Card.Body className="d-flex flex-row justify-content-between  ">
-                <div>
-                  {" "}
-                  <h2>Rs . {ThisMonthSandhaSum}</h2>
-                  <Card.Title>{thismonth} - Sandha </Card.Title>
-                </div>
-                <CurrencyExchangeIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
-              </Card.Body>
-            </Card>
-          </Col>
+          {ThisMonthSandhaDetails && ThisMonthSandhaDetails.SandhaSum && ThisMonthSandhaDetails.SandhaSum.length > 0 ? (
+            <Col md={6} xs={12} lg={4} xl={3} className="">
+              <Card className="d-flex flex-column ms-md-1 ms-lg-0 me-lg-1 my-2  ">
+                <Card.Body className="d-flex flex-row justify-content-between  ">
+                  <div>
+                    <h2>Rs . {ThisMonthSandhaDetails.SandhaSum[0].TotalAmount}</h2>
+                    <Card.Title>{thismonth} - Sandha </Card.Title>
+                  </div>
+                  <CurrencyExchangeIcon sx={{ fontSize: "50px", justifyContent: "center" }} />
+                </Card.Body>
+              </Card>
+            </Col>
+          ) : <h1>Loading ...</h1>}
 
-          <Col md={6} xs={12} lg={4} xl={3} className="">
+          {LastMonthSandhaDetails && LastMonthSandhaDetails.SandhaSum && LastMonthSandhaDetails.SandhaSum.length >0 &&(
+            <Col md={6} xs={12} lg={4} xl={3} className="">
             <Card className="d-flex flex-column me-md-1 ms-lg-1 ms-xl-0 me-xl-1 my-2">
               <Card.Body className="d-flex flex-row justify-content-between  ">
                 <div>
                   {" "}
-                  <h2>Rs . {LastMonthSandhaSum}</h2>
+                  <h2>Rs . {LastMonthSandhaDetails.SandhaSum[0].TotalAmount}</h2>
                   <Card.Title>{lastMonth} - Sandha </Card.Title>
                 </div>
                 <TollIcon sx={{fontSize:"50px", justifyContent:"center"}}/>
               </Card.Body>
             </Card>
           </Col>
+          )}
          
 
           
@@ -191,7 +204,7 @@ const Frontpage = () => {
   );
 };
 
-export default Frontpage;
+
 
 // Sandha List
 
@@ -246,3 +259,5 @@ const RecentPurchase = () => {
     </>
   );
 };
+
+export default Frontpage;

@@ -50,48 +50,7 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
           },
         },
       ]);
-      console.log(AllSandhaDetails);
-      res.status(200).json({
-        Success: true,
-        Message: "Sandha Details Fetching Successful",
-        AllSandhaDetails,
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({
-        Success: false,
-        Message: "Internal Server Error",
-      });
-    }
-  } else {
-    res.status(400).json({
-      Success: false,
-      Message: "Bad Request",
-    });
-  }
-};
-
-// Sandha/:Month/Sum
-exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
-  const MonthList = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const { Month } = req.params;
-
-  if (MonthList.includes(Month)) {
-    try {
-      const AllSandhaDetails = await SandhaModel.aggregate([
+      const SandhaSum = await SandhaModel.aggregate([
         {
           $match: { PaidMonths: Month },
         },
@@ -102,11 +61,13 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
           },
         },
       ]);
+
       console.log(AllSandhaDetails);
       res.status(200).json({
         Success: true,
-        Message: "Sandha Sum  Successful",
+        Message: "Sandha Details Fetching Successful",
         AllSandhaDetails,
+        SandhaSum
       });
     } catch (error) {
       console.error("Error:", error);
@@ -122,6 +83,7 @@ exports.FetchSpecicMonthSandhaSum = async (req, res, next) => {
     });
   }
 };
+
 
 // Sandha/Add
 exports.AddSandha = async (req, res, next) => {

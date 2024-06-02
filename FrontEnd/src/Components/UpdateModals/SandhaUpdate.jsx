@@ -94,7 +94,7 @@ console.log(PaidMonths);
       });
   };
 
-  console.log(PaidMonths);
+
 
   const toggleMonth = (option) => {
     if (PaidMonths.includes(option)) {

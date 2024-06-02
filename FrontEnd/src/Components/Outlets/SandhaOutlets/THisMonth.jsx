@@ -45,14 +45,14 @@ const ThisMonth = () => {
 
   const handleEdit = (id, Name, PaidMonths, Status, Amount) => {
     setModalShow(true);
-    
     setselectedRow({ id, Name, PaidMonths, Status, Amount });
   };
 
  
 
-  const handleDelete = (id) => {
-    console.log("Deleting member with ID:", id);
+  const handleDelete = async(id) => {
+    await axios.delete(`http://localhost:8000/Sandha/Delete/${id}`)
+    
   };
 
   const columns = [
@@ -126,10 +126,11 @@ const ThisMonth = () => {
     <div>
       <ThemeProvider theme={darkTheme}>
         <div style={{ width: "100%" }}>
+        {ThisMonthSandhaDetails && ThisMonthSandhaDetails.AllSandhaDetails  && (
           <DataGrid
             autoHeight
             getRowId={getRowId}
-            rows={ThisMonthSandhaDetails}
+            rows={ThisMonthSandhaDetails.AllSandhaDetails}
             columns={columns}
             initialState={{
               pagination: {
@@ -142,6 +143,7 @@ const ThisMonth = () => {
             sx={{ "--DataGrid-overlayHeight": "100px" }}
             loading={loading}
           />
+        )}
         </div>
       </ThemeProvider>
       <SandhaUpdateModal
