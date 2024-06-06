@@ -28,12 +28,12 @@ const SandhaMainPage = () => {
   const thismonth = MonthList[currentDate.getMonth()];
 
   const [loading, setLoading] = useState(true);
-
+  const [ModalShow, setModalShow] = useState(false);
   const [ThisMonthSandhaDetails, setThisMonthSandhaDetails] = useState([]);
   const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState();
   const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
   const [LastMonthSandhaDetails, setLastMonthSandhaDetails] = useState([]);
- //fetchLastMonthSandhaSum
+  //fetchLastMonthSandhaSum
 
   useEffect(() => {
     const fetchLastMonthSandhaDetails = async () => {
@@ -52,13 +52,13 @@ const SandhaMainPage = () => {
 
           // setThisMonthSandhaDetails(allSandhaDetails);
           // setThisMonthSandhaSum(sandhaSum);
-          setLastMonthSandhaDetails(response.data?.AllSandhaDetails );
-          setLastMonthSandhaSum(response.data.SandhaSum[0]?.TotalAmount );
+          setLastMonthSandhaDetails(response.data?.AllSandhaDetails);
+          setLastMonthSandhaSum(response.data.SandhaSum[0]?.TotalAmount);
         }
       } catch (err) {
         alert(err);
-      setThisMonthSandhaDetails([]);
-      setThisMonthSandhaSum(0);
+        setThisMonthSandhaDetails([]);
+        setThisMonthSandhaSum(0);
       } finally {
         setLoading(false);
       }
@@ -81,98 +81,90 @@ const SandhaMainPage = () => {
 
     fetchThisMonthSandhaDetails();
     fetchLastMonthSandhaDetails();
-  }, [ThisMonthSandhaSum,LastMonthSandhaSum]);
+  }, [ThisMonthSandhaSum, LastMonthSandhaSum]);
 
-  console.log(ThisMonthSandhaSum);
-
-  const [ModalShow, setModalShow] = useState(false);
+  const sandha = [
+    {
+      name: thismonth,
+      amount: ThisMonthSandhaSum,
+      details: ThisMonthSandhaDetails,
+      url: "this-month",
+    },
+    {
+      name: lastMonth,
+      amount: LastMonthSandhaSum,
+      details: LastMonthSandhaDetails,
+      url: "last-month",
+    },
+  ];
   return (
     <Fragment>
       <Container fluid>
-       
-          <div className="Front-cards-Background-card  mt-3 ">
-            <Col className="d-flex">
-              <h3 className="text-white">Sandha Details</h3>
+        <div className="Front-cards-Background-card  mt-3 ">
+          <Col className="d-flex">
+            <h3 className="text-white">Sandha Details</h3>
 
-              <div className="ms-auto">
-                <Button className="me-2" onClick={() => setModalShow(true)}>
-                  Print Sandha
-                </Button>
-                <Button onClick={() => setModalShow(true)}>Add Sandha</Button>
-                <SandhaAddModal
-                  show={ModalShow}
-                  onHide={() => setModalShow(false)}
-                />
-              </div>
-            </Col>
-          </div>
-      
-
+            <div className="ms-auto">
+              <Button className="me-2" onClick={() => setModalShow(true)}>
+                Print Sandha
+              </Button>
+              <Button onClick={() => setModalShow(true)}>Add Sandha</Button>
+              <SandhaAddModal
+                show={ModalShow}
+                onHide={() => setModalShow(false)}
+              />
+            </div>
+          </Col>
+        </div>
         {loading ? (
-           <Skeleton variant="rectangular" width="100%" sx={{ bgcolor: '#3D3D3D' }} animation="wave" height={100} className="mt-3" style={{borderRadius:"10px"}}/>
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            sx={{ bgcolor: "#3D3D3D" }}
+            animation="wave"
+            height={100}
+            className="mt-3"
+            style={{ borderRadius: "7px" }}
+          />
         ) : (
           <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
-            <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="this-month">
-                <Card className="d-flex flex-column me-md-1 my-2">
-                  <Card.Body className="d-flex flex-row justify-content-between">
-                    <div>
-                      {" "}
-                      <h2>Rs.{ThisMonthSandhaSum} </h2>
-                      <Card.Title>{thismonth} - Income </Card.Title>
-                    </div>
-                    <span>Icon</span>
-                  </Card.Body>
-                </Card>{" "}
-              </Link>
-            </Col>
+            {sandha.map((item, key) => {
+              return (
+                <Col md={6} xs={12} lg={4} xl={3} className="" key={key}>
+                  <Link to={item.url}>
+                    <Card className="d-flex flex-column me-md-1 my-2">
+                      <Card.Body className="d-flex flex-row justify-content-between">
+                        <div>
+                          {" "}
+                          <h2>Rs.{item.amount} </h2>
+                          <Card.Title>{item.name} - Income </Card.Title>
+                        </div>
+                        <span>Icon</span>
+                      </Card.Body>
+                    </Card>{" "}
+                  </Link>
+                </Col>
+              );
+            })}
 
-            <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="last-month">
-                <Card className="d-flex flex-column me-md-1 my-2">
-                  <Card.Body className="d-flex flex-row justify-content-between">
-                    <div>
-                      {" "}
-                      <h2>Rs. {LastMonthSandhaSum}</h2>
-                      <Card.Title style={{ fontSize: "18px" }}>
-                        {lastMonth} - Income
-                      </Card.Title>
-                    </div>
-                    <span>Icon</span>
-                  </Card.Body>
-                </Card>{" "}
-              </Link>
-            </Col>
-
-            <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="#">
-                <Card className="d-flex flex-column me-md-1 my-2">
-                  <Card.Body className="d-flex flex-row justify-content-between">
-                    <div>
-                      {" "}
-                      <h2>{ThisMonthSandhaDetails.length}</h2>
-                      <Card.Title>{thismonth} - Paid Members </Card.Title>
-                    </div>
-                    <span>Icon</span>
-                  </Card.Body>
-                </Card>{" "}
-              </Link>
-            </Col>
-
-            <Col md={6} xs={12} lg={4} xl={3} className="">
-              <Link to="#">
-                <Card className="d-flex flex-column me-md-1 my-2">
-                  <Card.Body className="d-flex flex-row justify-content-between">
-                    <div>
-                      {" "}
-                      <h2>{LastMonthSandhaDetails.length}</h2>
-                      <Card.Title>{lastMonth}-Paid Members </Card.Title>
-                    </div>
-                    <span>Icon</span>
-                  </Card.Body>
-                </Card>{" "}
-              </Link>
-            </Col>
+            {sandha.map((paidmembers, key) => {
+              return (
+                <Col md={6} xs={12} lg={4} xl={3} className="" key={key}>
+                  <Card className="d-flex flex-column me-md-1 my-2">
+                    <Card.Body className="d-flex flex-row justify-content-between">
+                      <div>
+                        {" "}
+                        <h2>{paidmembers.details.length}</h2>
+                        <Card.Title>
+                          {paidmembers.name} - Paid Members{" "}
+                        </Card.Title>
+                      </div>
+                      <span>Icon</span>
+                    </Card.Body>
+                  </Card>{" "}
+                </Col>
+              );
+            })}
           </div>
         )}
       </Container>
