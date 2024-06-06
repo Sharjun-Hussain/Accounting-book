@@ -207,6 +207,9 @@ a:hover {
   margin-top: 39px ;
   background-color: #00728B !important ;
   width: 100%;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
   
 
 }
@@ -221,4 +224,27 @@ a:hover {
   position: absolute !important; 
   inset: 0px auto auto 0px !important;
    transform: translate3d(655.5px, 64px, 0px) !important;
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 25px;
+  height: 25px;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(#ffffff 0 0);
+  background: 
+    var(--c) 0%   50%,
+    var(--c) 50%  50%,
+    var(--c) 100% 50%;
+  background-size: 20% 100%;
+  animation: l1 1s infinite linear;
+  align-self: center;
+}
+@keyframes l1 {
+  0%  {background-size: 20% 100%,20% 100%,20% 100%}
+  33% {background-size: 20% 10% ,20% 100%,20% 100%}
+  50% {background-size: 20% 100%,20% 10% ,20% 100%}
+  66% {background-size: 20% 100%,20% 100%,20% 10% }
+  100%{background-size: 20% 100%,20% 100%,20% 100%}
 }

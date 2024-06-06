@@ -10,8 +10,7 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
-import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
+
 import MemberUpdateModal from "../UpdateModals/MemberUpdate";
 
 const MembersTable = () => {
@@ -36,17 +35,6 @@ const MembersTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const LoadingSkeleton = () => (
-    <Box
-      sx={{
-        height: 'max-content',
-      }}
-    >
-      {[...Array(10)].map((_, index) => (
-        <Skeleton variant="rectangular" sx={{ my: 4, mx: 1 }} key={index} />
-      ))}
-    </Box>
-  );
   
   const darkTheme = createTheme({
     palette: {
@@ -56,18 +44,14 @@ const MembersTable = () => {
   
   
   const handleEdit = (id,Name,Address,Phone,Amount,Email) => {
-    
     setModalShow(true);
     setselectedRow({id,Name,Address,Phone,Amount,Email});
-    console.log(selectedRow.id);
+
   };
   
   const handleDelete = async (id) => {
-    
-    await axios.post( `http://localhost:8000/Sandha-members/Delete/${id}`)
-    console.log("Deleting member with ID:", id);
+    await axios.delete( `http://localhost:8000/Sandha-members/Delete/${id}`)
     setMembers(Members.filter((member) =>  member._id !== id))
-     console.log(Members);
   };
 
   const columns = [
@@ -123,8 +107,10 @@ const MembersTable = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+
       <div style={{  width: "100%" }}>
         <DataGrid
+        autoHeight
           getRowId={getRowId}
           rows={Members}
           columns={columns}
@@ -136,10 +122,8 @@ const MembersTable = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
-          components={{
-            LoadingOverlay: LoadingSkeleton,
-          }}
-          loading={loading}
+          sx={{ "--DataGrid-overlayHeight": "100px" }}
+            loading={loading}
         />
       </div>
       <MemberUpdateModal data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />

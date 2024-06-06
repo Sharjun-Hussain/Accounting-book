@@ -6,7 +6,7 @@ import bg4 from "./assets/images/bg3.jpg";
 import { Link} from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import   content  from './Components/Content'
 
 const Login = () => {
   
@@ -38,6 +38,7 @@ const Login = () => {
           <div className="login-card">
             <div className="d-flex justify-content-center flex-column ">
               <Image className="login-logo" src={hadhiLogo} />
+              {content.Name.FullName}
               <h2 className="text-center">Masjidhul Haadhi</h2>
               <h4
                 style={{ marginTop: "-13px", color: "#00728B" }}
@@ -86,7 +87,7 @@ const Login = () => {
                 className="login-btn"
                 disabled={loading}
               >
-                {loading? "Loading" : "Login"}
+                {loading? <div className="loader"></div> : "Login"}
               </Button>
               <p className="text-center text-white mt-3">Don't have an account&nbsp; <Link to="/register" >Signup Here</Link></p>
             </Form>
