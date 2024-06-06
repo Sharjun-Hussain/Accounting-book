@@ -6,6 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 import SandhaAddModal from "../AddModals/SandhaAdd";
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
+import { Skeleton } from "@mui/material";
 
 const SandhaMainPage = () => {
   const currentDate = new Date();
@@ -88,9 +89,7 @@ const SandhaMainPage = () => {
   return (
     <Fragment>
       <Container fluid>
-        {loading ? (
-          <h1>Loading</h1>
-        ) : (
+       
           <div className="Front-cards-Background-card  mt-3 ">
             <Col className="d-flex">
               <h3 className="text-white">Sandha Details</h3>
@@ -107,10 +106,10 @@ const SandhaMainPage = () => {
               </div>
             </Col>
           </div>
-        )}
+      
 
         {loading ? (
-          <h1>Loading</h1>
+           <Skeleton variant="rectangular" width="100%" sx={{ bgcolor: '#3D3D3D' }} animation="wave" height={100} className="mt-3" style={{borderRadius:"10px"}}/>
         ) : (
           <div className="d-flex flex-wrap  mt-3 Front-cards-Background-card   ">
             <Col md={6} xs={12} lg={4} xl={3} className="">

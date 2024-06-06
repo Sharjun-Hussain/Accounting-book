@@ -152,7 +152,7 @@ const Register = () => {
                       className="login-btn "
                     >
                       {" "}
-                      Register{" "}
+                      {loading? <div className="loader"></div> : "Register"}
                     </Button>
                   </Col>
                   <h6 className="text-white text-center mt-3">

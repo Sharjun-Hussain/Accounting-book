@@ -1,8 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getCookie } from 'react-use-cookie';
+import { lazy } from "react";
 
 import "./App.css";
-import Dashboard from "./Components/Dashboard";
+
+
+const Dashboard = lazy(() => import('./Components/Dashboard'))
+// import Dashboard from "./Components/Dashboard";
 import Report from "./Components/Outlets/Report";
 import Accounts from "./Components/Outlets/Accounts";
 import Members from "./Components/Outlets/Members";
