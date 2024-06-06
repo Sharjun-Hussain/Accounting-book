@@ -11,7 +11,11 @@ import {
 } from "../Slices/authSlice";
 import Swal from "sweetalert2";
 
+
+
+
 export const login = (Email, Password) => async (dispatch) => {
+
 
   try {
     dispatch(loginRequest());
@@ -41,8 +45,7 @@ export const login = (Email, Password) => async (dispatch) => {
       timer: 1000,
       timerProgressBar: true,
     });
-    setTimeout(() => {
-      window.location.href = "/"; }, 2000);
+    
   } catch (e) {
     dispatch(loginfailed(e.response?.data?.message));
     Swal.fire({

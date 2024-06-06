@@ -3,12 +3,14 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
 import bg4 from "./assets/images/bg3.jpg";
-import { Link} from "react-router-dom";
+import { Link, Navigate, useNavigate} from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import   content  from './Components/Content'
 
 const Login = () => {
+
+  const Navigate = useNavigate()
   
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -24,6 +26,8 @@ const Login = () => {
   const HandleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(Email,Password))
+    setTimeout(() => {
+      Navigate("/") }, 2000);
     
   };
 

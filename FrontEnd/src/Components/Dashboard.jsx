@@ -1,12 +1,16 @@
-import { Col, Container, Row, Offcanvas } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Offcanvas,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import logoWhite from "../assets/Icons/logo-white.svg";
 import SideBar from "./SideBar";
-import { Outlet } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import {  useState } from "react";
+import { Outlet, NavLink } from "react-router-dom";
+import { Suspense, useState } from "react";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { NavLink } from "react-router-dom";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
@@ -25,23 +29,16 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/actions/UserActions";
-import { getCookie } from "react-use-cookie";
 const Dashboard = (props) => {
-  // const [date, setDate] = useState(new Date().toISOString().substr(0, 10)); --> Date
-  // const [DropDown, setDropDown] = useState(false);
+  const date = new Date().toISOString().substring(0, 10);
   const [show, setshow] = useState(false); //offcanvas state
   const handleOffcanvasClose = () => setshow(false);
   const handleOffcanvasOpen = () => setshow(true);
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.authState.user);
-
-  // const HandleDropDown = () => {
-  //   setDropDown((prev) => !prev);
-  // };
 
   const HandleSignOut = async () => {
     dispatch(logout);
-
   };
   return (
     <>
@@ -186,7 +183,7 @@ const dispatch = useDispatch()
               />
               <div className="d-flex mx-auto mx-md-0">
                 <img src={logoWhite} width={30} className="ms-3 me-1" />
-                <div className="my-auto ">Dashboard </div>
+                <div className="my-auto ">Dashboard -{date} </div>
               </div>
 
               <div className="ms-auto me-3">
@@ -195,7 +192,6 @@ const dispatch = useDispatch()
                   <Dropdown.Item onClick={HandleSignOut}>SignOut</Dropdown.Item>
                 </DropdownButton>
               </div>
-              
             </div>
           </Col>
         </Row>
@@ -204,7 +200,9 @@ const dispatch = useDispatch()
             <SideBar />
           </Col>
           <Col md={10} className="dashboard-wrapper  ">
-            <Outlet />
+            <Suspense fallback="Loading">
+              <Outlet />
+            </Suspense>
           </Col>
         </Row>
       </Container>

@@ -1,12 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { getCookie } from 'react-use-cookie';
-import { lazy } from "react";
-
+import { getCookie } from 'react-use-cookie'
 import "./App.css";
-
-
-const Dashboard = lazy(() => import('./Components/Dashboard'))
-// import Dashboard from "./Components/Dashboard";
+import Dashboard from "./Components/Dashboard";
 import Report from "./Components/Outlets/Report";
 import Accounts from "./Components/Outlets/Accounts";
 import Members from "./Components/Outlets/Members";
@@ -39,7 +34,7 @@ function App() {
          { !token && <Route path="/login" element={<Login />} />}
          { !token && <Route path="/register" element={<Register />} />}
 
-          <Route path="/" element={token ? <Dashboard /> : <Navigate to="/login" />} > 
+          <Route path="/App" element={ <Dashboard /> } > 
             <Route index element={<Frontpage />} />
             <Route path="report" element={<Report />} />
             <Route path="Accounts" element={<Accounts />} />
@@ -58,7 +53,7 @@ function App() {
             />
             <Route path="print/user/:id" element={<SandhaPrint />} /> */}
           </Route>
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/App" />} />
         </Routes>
       </BrowserRouter>
     </>
