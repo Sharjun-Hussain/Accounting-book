@@ -12,16 +12,17 @@ import {
 import Swal from "sweetalert2";
 
 
-
+var BaseURL = import.meta.env.VITE_BACKEND_URL
 
 export const login = (Email, Password) => async (dispatch) => {
+
+
 
 
   try {
     dispatch(loginRequest());
 
-    const response = await axios.post(
-      "http://localhost:8000/api/user/login",
+    const response = await axios.post(`${BaseURL}/api/user/login`,
       { Email, Password },
       { withCredentials: true }
     );
@@ -64,7 +65,7 @@ export const register =
     try {
       dispatch(RegisterRequest());
       const response = await axios.post(
-        "http://localhost:8000/api/user/register",
+        `${BaseURL}/api/user/register`,
         { Email, Password, OrganizationName, Phone, Name },
         { withCredentials: true }
       );
@@ -78,6 +79,7 @@ export const register =
       document.cookie = userPhone;
       document.cookie = userOrganizationName;
       document.cookie = userEmail
+
       Swal.fire({
         icon: "success",
         title: "User Registration Successful!",
