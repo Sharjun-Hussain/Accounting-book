@@ -23,23 +23,27 @@ const TransactionTable = () => {
           "http://localhost:8000/Transactions/All"
         );
         setTransactions(response.data.TransactionDetails);
-        console.log(response.data.TransactionDetails);
-        // setTransactions(response.data.TransactionDetails[0].AccountDetails[0].Name);
         setLoading(false);
       } catch (err) {
         console.log(err);
-        // setError(err);
       }
     };
     fetchData();
-    console.log(Transactions);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const formatTime = (dateString) => {
+    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    return new Date(dateString).toLocaleTimeString(undefined, options);
+  };
 
   const columns = [
     {
-      field: "Transactio",
+      field: "Description",
       headerName: "Description",
       width: 200,
       renderCell: (params) => {
@@ -53,13 +57,25 @@ const TransactionTable = () => {
 
     { field: "Amount", headerName: "Amount", width: 200 },
     {
-      field: "Transaction",
+      field: "Date",
       headerName: "Date",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="rowitem" key={params.row.Transaction[0].Date}>
-            {params.row.Transaction[0].Date}
+            {formatDate(params.row.Transaction[0].Date)}
+          </div>
+        );
+      },
+    },
+    {
+      field: "Time",
+      headerName: "Time",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="rowitem" key={params.row.Transaction[0].Date}>
+            {formatTime(params.row.Transaction[0].Date)}
           </div>
         );
       },

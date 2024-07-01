@@ -52,24 +52,24 @@ const AccountsTable = () => {
     console.log(Accounts);
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
-    { field: "Name", headerName: "Account Name", width: 230 },
+    // { field: "_id", headerName: "ID", width: 200 },
+    { field: "Name", headerName: "Account Name", width: 300 },
     { field: "Description", headerName: "Description", width: 250 },
 
     {
       field: "Balance",
       headerName: "Balance",
-      type: "number",
+      
       description: "This column has a value getter and is not sortable.",
       sortable: true,
-      width: 180,
+      width: 250,
     },
     {
       headerName: "Actions",
       type: "textfield",
       description: "This column has a value getter and is not sortable.",
 
-      width: 120,
+      width: 200,
       renderCell: (params) => (
         <div>
           <IconButton

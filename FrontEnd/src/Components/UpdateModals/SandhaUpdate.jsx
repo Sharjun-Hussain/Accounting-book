@@ -117,7 +117,7 @@ console.log(PaidMonths);
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Update Sandha
+                Update Subscription
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -159,7 +159,7 @@ console.log(PaidMonths);
 
                 <Row>
                   <Form.Group as={Col} className="mb-3" controlId="Amount">
-                    <Form.Label>Sandha Amount</Form.Label>
+                    <Form.Label>Subscription Amount</Form.Label>
                     <Form.Control
                       type="number"
                       value={Amount}

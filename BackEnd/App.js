@@ -36,6 +36,8 @@ App.use(
     credentials: true,
   })
 );
+
+// App.use(cors({origin: "http://192.168.1.3:8081",credentials: true,})); //For Mobile App
 App.use("/Sandha-members", SandhaMembersRoute);
 App.use("/Sandha", SandhaRoute);
 App.use("/Category", CategoryRoute);

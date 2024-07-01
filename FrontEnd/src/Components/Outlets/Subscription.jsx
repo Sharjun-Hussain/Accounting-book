@@ -6,7 +6,9 @@ import { Link, Outlet } from "react-router-dom";
 import SandhaAddModal from "../AddModals/SandhaAdd";
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
+import PaidIcon from "@mui/icons-material/Paid";
 import { Skeleton } from "@mui/material";
+import SellIcon from "@mui/icons-material/Sell";
 
 const SandhaMainPage = () => {
   const currentDate = new Date();
@@ -33,7 +35,7 @@ const SandhaMainPage = () => {
   const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState();
   const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState(); //fetchThisMonthSandhaSum
   const [LastMonthSandhaDetails, setLastMonthSandhaDetails] = useState([]);
-  //fetchLastMonthSandhaSum
+  const [AllSandhaDetails, setAllSandhaDetails] = useState([]);
 
   useEffect(() => {
     const fetchLastMonthSandhaDetails = async () => {
@@ -44,21 +46,14 @@ const SandhaMainPage = () => {
         );
 
         if (response.data) {
-          // const allSandhaDetails = response.data.AllSandhaDetails || [];
-          // const sandhaSum =
-          //   response.data.SandhaSum && response.data.SandhaSum.length > 0
-          //     ? response.data.SandhaSum[0].TotalAmount
-          //     : 0;
-
-          // setThisMonthSandhaDetails(allSandhaDetails);
-          // setThisMonthSandhaSum(sandhaSum);
+          
           setLastMonthSandhaDetails(response.data?.AllSandhaDetails);
           setLastMonthSandhaSum(response.data.SandhaSum[0]?.TotalAmount);
         }
       } catch (err) {
         alert(err);
-        setThisMonthSandhaDetails([]);
-        setThisMonthSandhaSum(0);
+        setLastMonthSandhaDetails([]);
+        setLastMonthSandhaSum(0);
       } finally {
         setLoading(false);
       }
@@ -76,12 +71,37 @@ const SandhaMainPage = () => {
       } catch (err) {
         console.log(err);
         alert(err);
+        setThisMonthSandhaDetails([]);
+        setThisMonthSandhaSum(0);
       }
     };
 
+
+    const fetchAllSandhaDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/Sandha/All`
+        );
+
+        if (response.data) {
+          
+          setAllSandhaDetails(response.data?.AllSandhaDetails);
+          
+        }
+      } catch (err) {
+        alert(err);
+        setAllSandhaDetails([]);
+        
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllSandhaDetails()
     fetchThisMonthSandhaDetails();
     fetchLastMonthSandhaDetails();
-  }, [ThisMonthSandhaSum, LastMonthSandhaSum]);
+  }, []);
 
   const sandha = [
     {
@@ -102,13 +122,16 @@ const SandhaMainPage = () => {
       <Container fluid>
         <div className="Front-cards-Background-card  mt-3 ">
           <Col className="d-flex">
-            <h3 className="text-white">Sandha Details</h3>
+            <h3 className="text-white">Subscription Details</h3>
 
             <div className="ms-auto">
+              <div>{}</div>
               <Button className="me-2" onClick={() => setModalShow(true)}>
-                Print Sandha
+                Print Subscription
               </Button>
-              <Button onClick={() => setModalShow(true)}>Add Sandha</Button>
+              <Button onClick={() => setModalShow(true)}>
+                Add Subscription
+              </Button>
               <SandhaAddModal
                 show={ModalShow}
                 onHide={() => setModalShow(false)}
@@ -139,7 +162,9 @@ const SandhaMainPage = () => {
                           <h2>Rs.{item.amount} </h2>
                           <Card.Title>{item.name} - Income </Card.Title>
                         </div>
-                        <span>Icon</span>
+                        <SellIcon
+                          sx={{ fontSize: "50px", justifyContent: "center" }}
+                        />
                       </Card.Body>
                     </Card>{" "}
                   </Link>
@@ -159,7 +184,9 @@ const SandhaMainPage = () => {
                           {paidmembers.name} - Paid Members{" "}
                         </Card.Title>
                       </div>
-                      <span>Icon</span>
+                      <PaidIcon
+                      sx={{ fontSize: "50px", justifyContent: "center" }}
+                    />
                     </Card.Body>
                   </Card>{" "}
                 </Col>

@@ -115,6 +115,7 @@ exports.AddTransaction = async function (req, res, next) {
   });
 
   await Log.create({
+    Title:'Transaction',
     TransactionID: SavedTransactionID,
     Action: "Create",
   });

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Card, Col, Container, Row, Table } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import SellIcon from "@mui/icons-material/Sell";
@@ -7,6 +7,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import TollIcon from "@mui/icons-material/Toll";
+import AllSandha from "./FrontPageComponents/AllSandha";
 
 const currentDate = new Date();
 const MonthList = [
@@ -32,10 +33,12 @@ const Frontpage = () => {
 
 
   const [ThisMonthSandhaSum, setThisMonthSandhaSum] = useState();
+  const [AllSandhaDetails, setAllSandhaDetails] = useState([]);
   const [LastMonthSandhaSum, setLastMonthSandhaSum] = useState();
   const [cashAmount, setcashAmount] = useState(); //fetchCashTotalAmount
   const [TotalMembers, setTotalMembers] = useState(); //fetchTotalMembers
   const [bankAmount, setbankAmount] = useState(); //fetchBankTotalAmount
+
   useEffect(() => {
     setLoading(true);
     try {
@@ -96,6 +99,28 @@ const Frontpage = () => {
         }
       };
 
+      const fetchAllSandhaDetails = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(
+            `http://localhost:8000/Sandha/All`
+          );
+  
+          if (response.data) {
+            
+            setAllSandhaDetails(response.data?.AllSandhaDetails);
+            
+          }
+        } catch (err) {
+          alert(err);
+          setAllSandhaDetails([]);
+          
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchAllSandhaDetails()
       FetchCashAccountTotal();
       fetchTotalMembers();
       FetchBankAccountTotal();
@@ -155,7 +180,7 @@ const Frontpage = () => {
                     <div>
                       {" "}
                       <h2>{TotalMembers}</h2>
-                      <Card.Title>Sandha Members </Card.Title>
+                      <Card.Title className="my-0">Subscription Members </Card.Title>
                     </div>
                     <RequestQuoteIcon
                       sx={{ fontSize: "50px", justifyContent: "center" }}
@@ -171,7 +196,7 @@ const Frontpage = () => {
                       <h2>
                         Rs . {ThisMonthSandhaSum}
                       </h2>
-                      <Card.Title>{thismonth} - Sandha </Card.Title>
+                      <Card.Title>{thismonth} - Subscription </Card.Title>
                     </div>
                     <CurrencyExchangeIcon
                       sx={{ fontSize: "50px", justifyContent: "center" }}
@@ -188,7 +213,7 @@ const Frontpage = () => {
                       <h2>
                         Rs . {LastMonthSandhaSum}
                       </h2>
-                      <Card.Title>{lastMonth} - Sandha </Card.Title>
+                      <Card.Title>{lastMonth} - Subscription </Card.Title>
                     </div>
                     <TollIcon
                       sx={{ fontSize: "50px", justifyContent: "center" }}
@@ -200,19 +225,19 @@ const Frontpage = () => {
           </Container>
           <Container fluid className="">
             <Row>
-              <Col md={8} className=" my-3   pe-md-3">
+              <Col md={12} className=" my-3   pe-md-3">
                 <div className="Front-cards-Background-card ">
                   {" "}
-                  <Sandha />
+                  <AllSandha />
                 </div>
               </Col>
 
-              <Col md={4} className=" my-3">
+              {/* <Col md={4} className=" my-3">
                 <div className="Front-cards-Background-card  ">
                   {" "}
                   <RecentPurchase />{" "}
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </Fragment>
@@ -223,54 +248,54 @@ const Frontpage = () => {
 
 // Sandha List
 
-const Sandha = () => {
-  return (
-    <>
-      <h5 className="text-start text-white mb-3">{thismonth} - Month Income</h5>
-      <Table striped hover bordered variant="dark">
-        <thead>
-          <tr>
-            <th>Memebers</th>
-            <th>Month</th>
-          </tr>
-          <tr>
-            <td>Sharjun</td>
-            <td>Month</td>
-          </tr>
-          <tr>
-            <td>Sharjun</td>
-            <td>Month</td>
-          </tr>
-        </thead>
-      </Table>
-    </>
-  );
-};
+// const Sandha = () => {
+//   return (
+//     <>
+//       <h5 className="text-start text-white mb-3">{thismonth} - Month Income</h5>
+//       <Table striped hover bordered variant="dark">
+//         <thead>
+//           <tr>
+//             <th>Memebers</th>
+//             <th>Month</th>
+//           </tr>
+//           <tr>
+//             <td>Sharjun</td>
+//             <td>Month</td>
+//           </tr>
+//           <tr>
+//             <td>Sharjun</td>
+//             <td>Month</td>
+//           </tr>
+//         </thead>
+//       </Table>
+//     </>
+//   );
+// };
 
 // Recent Purchases
 
-const RecentPurchase = () => {
-  return (
-    <>
-      <h5 className="text-start text-white mb-3">{thismonth} - Outgoing </h5>
-      <Table striped hover bordered variant="dark">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Amount</th>
-          </tr>
-          <tr>
-            <td>Sharjun</td>
-            <td>Month</td>
-          </tr>
-          <tr>
-            <td>Sharjun</td>
-            <td>Month</td>
-          </tr>
-        </thead>
-      </Table>
-    </>
-  );
-};
+// const RecentPurchase = () => {
+//   return (
+//     <>
+//       <h5 className="text-start text-white mb-3">{thismonth} - Outgoing </h5>
+//       <Table striped hover bordered variant="dark">
+//         <thead>
+//           <tr>
+//             <th>Item</th>
+//             <th>Amount</th>
+//           </tr>
+//           <tr>
+//             <td>Sharjun</td>
+//             <td>Month</td>
+//           </tr>
+//           <tr>
+//             <td>Sharjun</td>
+//             <td>Month</td>
+//           </tr>
+//         </thead>
+//       </Table>
+//     </>
+//   );
+// };
 
 export default Frontpage;

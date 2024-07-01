@@ -92,9 +92,11 @@ a:hover {
   background: #606060;
   color: black;
   border-radius: 3px;
+  border-left: 5px solid greenyellow !important;
 }
 .active {
   background-color: #303030;
+  border-left: 5px solid greenyellow !important;
 }
 
 /* Front page */
@@ -247,4 +249,33 @@ a:hover {
   50% {background-size: 20% 100%,20% 10% ,20% 100%}
   66% {background-size: 20% 100%,20% 100%,20% 10% }
   100%{background-size: 20% 100%,20% 100%,20% 100%}
+}
+
+.dropdown-toggle  {
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-toggle:hover{
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.offcanvas-header .btn-close{
+  color: white !important;
+
+}
+
+.Header-design{
+  border-bottom: 1px solid white !important;
+  margin-bottom: 10px;
 }

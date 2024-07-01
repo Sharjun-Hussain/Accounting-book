@@ -7,6 +7,7 @@ import { Link, useNavigate} from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import   content  from './Components/Content'
+import { getCookie } from "react-use-cookie";
 
 
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
   const inputref = useRef(null);
   const dispatch = useDispatch();
   const {loading,user}  =  useSelector(state => state.authState)
+  const organizationName = getCookie('OrganizationName')
 
   useEffect(() => {
     inputref.current.focus();
@@ -45,8 +47,8 @@ const Login = () => {
           <div className="login-card">
             <div className="d-flex justify-content-center flex-column ">
               <Image className="login-logo" src={hadhiLogo} />
-              {content.Name.FullName}
-              <h2 className="text-center">Masjidhul Haadhi</h2>
+             
+              <h2 className="text-center">Majidhul Haadhi</h2>
               <h4
                 style={{ marginTop: "-13px", color: "#00728B" }}
                 className="text-center "

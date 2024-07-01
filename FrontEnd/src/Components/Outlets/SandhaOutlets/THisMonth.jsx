@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
+import axios from "axios";
 import { useState, useEffect } from "react";
-//From MUI
+// React Bootstrap
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-
-import axios from "axios";
 import SandhaUpdateModal from "../../UpdateModals/SandhaUpdate";
 
 const darkTheme = createTheme({
@@ -19,25 +18,17 @@ const darkTheme = createTheme({
 const ThisMonth = () => {
   const currentDate = new Date();
   const MonthList = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
   ];
   const thismonth = MonthList[currentDate.getMonth()];
+  
   const [loading, setLoading] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
-  const [selectedRow, setselectedRow] = useState([]);
+  const [selectedRow, setSelectedRow] = useState([]);
   const [ThisMonthSandhaDetails, setThisMonthSandhaDetails] = useState([]);
-
+  const [selectedRows, setSelectedRows] = useState([]); // For Print
+  
   useEffect(() => {
     const fetchThisMonthSandhaDetails = async () => {
       setLoading(true);
@@ -47,20 +38,19 @@ const ThisMonth = () => {
         );
 
         setThisMonthSandhaDetails(response.data.AllSandhaDetails);
-
         setLoading(false);
       } catch (err) {
         console.log(err);
-        loading(false);
+        setLoading(false);
       }
     };
 
     fetchThisMonthSandhaDetails();
-  }, []);
+  }, [thismonth]);
 
   const handleEdit = (id, Name, PaidMonths, Status, Amount) => {
     setModalShow(true);
-    setselectedRow({ id, Name, PaidMonths, Status, Amount });
+    setSelectedRow({ id, Name, PaidMonths, Status, Amount });
   };
 
   const handleDelete = async (id) => {
@@ -72,14 +62,21 @@ const ThisMonth = () => {
     } catch (err) {
       console.log(err);
     }
+  };
 
-    // ThisMonthSandhaDetails.AllSandhaDetails[0].filter((donation) =>  donation._id !== id)
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const formatTime = (dateString) => {
+    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    return new Date(dateString).toLocaleTimeString(undefined, options);
   };
 
   const columns = [
-    { field: "_id", headerName: "_id", width: 50 },
     {
-      field: `Data`,
+      field: "Data",
       headerName: "Name",
       width: 230,
       renderCell: (params) => {
@@ -103,12 +100,22 @@ const ThisMonth = () => {
       sortable: true,
       width: 160,
     },
-    { field: "createdAt", headerName: "Date", width: 250 },
+    {
+      field: "Date",
+      headerName: "Date",
+      width: 130,
+      valueGetter: (params) => formatDate(params.row.createdAt),
+    },
+    {
+      field: "Time",
+      headerName: "Time",
+      width: 130,
+      valueGetter: (params) => formatTime(params.row.createdAt),
+    },
     {
       headerName: "Actions",
       type: "textfield",
       description: "This column has a value getter and is not sortable.",
-
       width: 120,
       renderCell: (params) => (
         <div>
@@ -160,6 +167,13 @@ const ThisMonth = () => {
             pageSizeOptions={[5, 10]}
             checkboxSelection
             disableRowSelectionOnClick
+            onRowSelectionModelChange={(ids) => {
+              const selectedIDs = new Set(ids);
+              const selected = ThisMonthSandhaDetails.filter((row) =>
+                selectedIDs.has(row._id)
+              );
+              setSelectedRows(selected);
+            }}
             sx={{ "--DataGrid-overlayHeight": "100px" }}
             loading={loading}
           />

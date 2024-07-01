@@ -5,11 +5,12 @@ import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const MemberUpdateModal = (props) => {
-  const [Name, setName] = useState(props.data.Name); // For Post Data
-  const [Address, setAddress] = useState(props.data.Address); // For Post Data
-  const [Phone, setPhone] = useState(props.data.Phone); // For Post Data
-  const [Amount, setAmount] = useState(props.data.Amount); // For Post Data
-  const [Email, setEmail] = useState(props.data.Email); // For Post Data
+  const {data} = props
+  const [Name, setName] = useState(data.Name); // For Post Data
+  const [Address, setAddress] = useState(data.Address); // For Post Data
+  const [Phone, setPhone] = useState(data.Phone); // For Post Data
+  const [Amount, setAmount] = useState(data.Amount); // For Post Data
+  const [Email, setEmail] = useState(data.Email); // For Post Data
 
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const MemberUpdateModal = (props) => {
     try {
       await axios
         .put(
-          `http://localhost:8000/Sandha-members/Update/${props.data.id}`,
+          `http://localhost:8000/Sandha-members/Update/${data.id}`,
           { Name, Address, Phone, Amount, Email },
           {
             headers: {
@@ -117,7 +118,7 @@ const MemberUpdateModal = (props) => {
                     className="mb-3"
                     controlId="formGridPhone"
                   >
-                    <Form.Label>Sandha Amount</Form.Label>
+                    <Form.Label>Subscription Amount</Form.Label>
                     <Form.Control
                       type="number"
                       value={Amount}

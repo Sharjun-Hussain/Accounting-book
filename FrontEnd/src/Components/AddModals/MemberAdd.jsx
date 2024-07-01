@@ -121,7 +121,7 @@ const MemberAddModal = (props) => {
                     className="mb-3"
                     controlId="formGridPhone"
                   >
-                    <Form.Label>Sandha Amount</Form.Label>
+                    <Form.Label>Subscription Amount</Form.Label>
                     <Form.Control
                       type="number"
                       value={Amount}

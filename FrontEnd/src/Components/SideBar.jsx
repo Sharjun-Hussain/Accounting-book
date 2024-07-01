@@ -6,9 +6,9 @@ import {item} from '../Data/Navigation'
 const SideBar = () => {
   return (
     <ul className="d-none d-md-block ">
-      {item.map((navitem, key) => {
+      {item.map((navitem) => {
         return (
-          <NavLink to={navitem.path} className="d-flex ps-3 ps-3" key={key}>
+          <NavLink to={navitem.path} className="d-flex ps-3 ps-3" key={navitem.id}>
             {({ isActive }) => (
               <>
                 {isActive ? <navitem.activeIcon/> : <navitem.icon />}

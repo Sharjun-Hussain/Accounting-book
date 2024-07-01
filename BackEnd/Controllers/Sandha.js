@@ -1,12 +1,14 @@
 const SandhaModel = require("../Models/Sandha");
 const AccountsModel = require("../Models/Accounts");
 const Log = require("../Models/Log");
+const AllLogs = require('../Models/AllLogs')
+const MemberModel = require('../Models/SandhaMembers')
 
 // Sandha/All
 exports.FetchAllSandha = async (req, res, next) => {
   const AllSandhaDetails = await SandhaModel.find().populate({
     path: "MemberID",
-    select: "Name",
+    select: "Name , Phone , Address ",
   });
 
   res.status(200).json({
@@ -97,6 +99,7 @@ exports.AddSandha = async (req, res, next) => {
         PaidMonths,
       });
 
+      const Member = await MemberModel.findById(MemberID);
       await AccountsModel.findOneAndUpdate(
         { Name: "cash" },
         { $inc: { Balance: Amount } }
@@ -106,6 +109,14 @@ exports.AddSandha = async (req, res, next) => {
         SandhaID: Sandha._id,
         Action: "Create",
       });
+
+      await AllLogs.create({
+        Title: "Sandha",
+        SandhaID: Sandha._id,
+        SandhaDetails:`Amount is : ${Amount}, Member Details are : ${Member}, Month is : ${PaidMonths}`,
+        Action: "Create",
+        Description: "Sandha Added ",
+      })
 
       res.status(201).json({
         Success: true,
@@ -138,15 +149,27 @@ exports.DeleteSandha = async (req, res, next) => {
       });
       return;
     }
+
+    const Member = await MemberModel.findById(SandhaDetail.MemberID);
     await AccountsModel.findOneAndUpdate(
       { Name: "cash" },
       { $inc: { Balance: -SandhaDetail.Amount } }
     );
     await Log.create({
       Title: "Sandha",
-      DonationID: id,
+      SandhaID: id,
       Action: "Delete",
     });
+
+    await AllLogs.create({
+      Title: "Sandha",
+      SandhaID: id,
+      SandhaDetails:`Amount is : ${SandhaDetail.Amount}, Member Details are : ${Member}, Month is : ${SandhaDetail.PaidMonths}`,
+      Action: "Delete",
+      Description: "Sandha Deleted ",
+    })
+
+
     await SandhaModel.deleteOne({ _id: id });
 
     res.status(200).json({
@@ -175,6 +198,8 @@ exports.UpdateSandha = async (req, res) => {
     });
   }
 
+  const Member = await MemberModel.findById(SandhaDetail.MemberID);
+
   const UpdatedSandha = await SandhaModel.findByIdAndUpdate(id, {
     Amount: Amount,
     Description: Description,
@@ -202,10 +227,18 @@ exports.UpdateSandha = async (req, res) => {
     Action: "Update",
   });
 
+  await AllLogs.create({
+    Title: "Sandha",
+    SandhaID: id,
+    SandhaDetails:`Previous Amount is : ${SandhaDetail.Amount}, Update Amount is : ${Amount} , Member Details are : ${Member}, Previous Month is : ${SandhaDetail.PaidMonths}, Updated Paid Month is : ${PaidMonths}`,
+    Action: "Update",
+    Description: "Sandha Updated ",
+  })
+
 
   res.status(200).json({
     Success: true,
-    Message: "Member Deleted Succefully",
+    Message: "Sandha Updated Succefully",
     UpdatedSandha,
   });
 };

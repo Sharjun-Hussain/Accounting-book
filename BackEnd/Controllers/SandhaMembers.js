@@ -1,4 +1,5 @@
 const SandhaMembers = require("../Models/SandhaMembers");
+const Sandha = require("../Models/Sandha");
 
 exports.FetchAllSandhaMembers = async (req, res, next) => {
   const Members = await SandhaMembers.find();
@@ -6,18 +7,17 @@ exports.FetchAllSandhaMembers = async (req, res, next) => {
 
   res.status(200).json({
     Success: true,
-    Message: "Fetching Succesfull",
+    Message: "Members Fetching Succesfull",
     Members,
     TotalMembers,
-    
   });
 };
 
-
 exports.SearchSandhaMembers = async (req, res, next) => {
-
   var SearchValue = req.query.user;
-  const Members = await SandhaMembers.find({ $text: { $search: SearchValue, $caseSensitive:true } })
+  const Members = await SandhaMembers.find({
+    $text: { $search: SearchValue, $caseSensitive: true },
+  });
   console.log(req.query.user);
   res.status(200).json({
     Success: true,
@@ -36,7 +36,7 @@ exports.AddSandhaMembers = async (req, res, next) => {
         Address,
         Phone,
         Amount,
-        Email
+        Email,
       });
 
       res.status(201).json({
@@ -61,7 +61,7 @@ exports.AddSandhaMembers = async (req, res, next) => {
 
 exports.DeleteSandhaMembers = async (req, res, next) => {
   try {
-    const {id} = req.params
+    const { id } = req.params;
     const Member = await SandhaMembers.findById(id);
     if (!Member) {
       res.status(400).json({
@@ -70,15 +70,15 @@ exports.DeleteSandhaMembers = async (req, res, next) => {
       });
       return;
     }
+    await Sandha.find({ MemberID: id }).deleteMany({ MemberID: id });
+
     await SandhaMembers.deleteOne({ _id: id });
 
     res.status(200).json({
       Success: true,
       Message: "Member Deleted Succefully",
-      Member,
     });
     return;
-
   } catch (err) {
     res.status(500).json({
       Success: false,
@@ -89,6 +89,7 @@ exports.DeleteSandhaMembers = async (req, res, next) => {
 
 exports.UpdateSandhaMembers = async (req, res, next) => {
   const { id } = req.params;
+  const { Name, Address, Phone, Amount, Email } = req.body;
 
   const Member = await SandhaMembers.findById(id);
 
@@ -98,11 +99,16 @@ exports.UpdateSandhaMembers = async (req, res, next) => {
       Message: "Member Not Found",
     });
   }
-  await SandhaMembers.findByIdAndUpdate(id, { re });
+  const UpdatedMember = await SandhaMembers.findByIdAndUpdate(id, {
+    Name: Name,
+    Address: Address,
+    Phone: Phone,
+    Email: Email,
+  });
 
   res.status(200).json({
     Success: true,
-    Message: "Member Deleted Succefully",
-    Member,
+    Message: "Member Details are Updated Succefully",
+    UpdatedMember,
   });
 };

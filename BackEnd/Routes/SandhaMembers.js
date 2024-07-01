@@ -12,7 +12,7 @@ const app = express.Router();
 app.route("/All").get(FetchAllSandhaMembers);
 app.route("/Search").get(SearchSandhaMembers);
 app.route("/Add").post(AddSandhaMembers);
-app.route("/Delete/:id").post(DeleteSandhaMembers);
-app.route("/Update/:id").post(UpdateSandhaMembers);
+app.route("/Delete/:id").delete(DeleteSandhaMembers);
+app.route("/Update/:id").put(UpdateSandhaMembers);
 
 module.exports = app
