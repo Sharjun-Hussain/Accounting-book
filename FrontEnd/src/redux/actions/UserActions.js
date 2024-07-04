@@ -29,7 +29,6 @@ export const login = (Email, Password) => async (dispatch) => {
 
     dispatch(loginSuccess(response.data.user));
     const expirationDate = new Date();
-    sessionStorage.setItem('token',response.data.generatedToken)
     expirationDate.setDate(expirationDate.getDate() + "days");
     const userName = `Name=${response.data.user.Name };expires=${expirationDate.toUTCString()};path=/`;
     const userPhone = `Phone=${response.data.user.Phone };expires=${expirationDate.toUTCString()};path=/`;
@@ -39,6 +38,8 @@ export const login = (Email, Password) => async (dispatch) => {
     document.cookie = userPhone;
     document.cookie = userOrganizationName;
     document.cookie = userEmail
+    sessionStorage.setItem("user", JSON.stringify(response.data.user))
+
    
     Swal.fire({
       icon: "success",

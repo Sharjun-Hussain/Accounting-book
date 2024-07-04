@@ -58,7 +58,7 @@ exports.login = async function (req, res, next) {
 
 exports.register = async function (req, res) {
   const { Email, Password, OrganizationName, Phone, Name } = req.body;
-  console.log(Name, Password, Phone, Email, OrganizationName);
+
 
   if (!Email || !Password || !OrganizationName || !Phone || !Name) {
     return res.status(400).json({
@@ -106,3 +106,23 @@ exports.signout = function (req, res, next) {
     Message: "Sign Out Successfull",
   });
 };
+
+
+exports.getuserprofile = async function (req, res, next) {
+  const userID = req.id
+  console.log(userID);
+
+  if (!userID) {
+    return res.status(401).json({
+      message: "Unauthorized Access",
+    })
+  }
+  const user = await userModel.findById(userID);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "User Not Found",
+    });
+  }
+  res.json(user);
+}

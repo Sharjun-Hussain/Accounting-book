@@ -6,8 +6,8 @@ import bg4 from "./assets/images/bg3.jpg";
 import { Link, useNavigate} from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
-import   content  from './Components/Content'
-import { getCookie } from "react-use-cookie";
+// import   content  from './Components/Content'
+// import { getCookie } from "react-use-cookie";
 
 
 const Login = () => {

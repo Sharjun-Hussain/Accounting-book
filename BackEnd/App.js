@@ -16,6 +16,7 @@ const AccountsRoute = require("./Routes/Accounts");
 const TransactionsRoute = require("./Routes/Transaction");
 const UsersRoute = require("./Routes/user");
 const DonationRoute = require('./Routes/Donation');
+const { authentication } = require("./Middlewares/Authentication");
 
 async function ConnectDB() {
   await mongoose
@@ -49,7 +50,7 @@ App.use(
 );
 
 // App.use(cors({origin: "http://192.168.1.3:8081",credentials: true,})); //For Mobile App
-App.use("/Sandha-members", SandhaMembersRoute);
+App.use("/Sandha-members", authentication, SandhaMembersRoute);
 App.use("/Sandha", SandhaRoute);
 App.use("/Category", CategoryRoute);
 App.use("/Accounts", AccountsRoute);

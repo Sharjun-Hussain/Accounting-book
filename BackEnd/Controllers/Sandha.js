@@ -64,7 +64,7 @@ exports.FetchSpecicMonthSandhaDetails = async (req, res, next) => {
         },
       ]);
 
-      console.log(AllSandhaDetails);
+     
       res.status(200).json({
         Success: true,
         Message: "Sandha Details Fetching Successful",

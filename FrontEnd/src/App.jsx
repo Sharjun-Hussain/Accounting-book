@@ -17,6 +17,8 @@ import Register from "./Register";
 import PrivateRoutes from "./PrivateRoute";
 
 function App() {
+
+  
   const token = getCookie("token");
   return (
     <>
