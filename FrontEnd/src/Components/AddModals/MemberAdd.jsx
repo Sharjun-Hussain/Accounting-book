@@ -9,6 +9,7 @@ const MemberAddModal = (props) => {
   const [Phone, setPhone] = useState(); // For Post Data
   const [Amount, setAmount] = useState(); // For Post Data
   const [Email, setEmail] = useState(""); // For Post Data
+  const [loading, setloading] = useState(false); // For Post Data
 
 
 
@@ -17,6 +18,7 @@ const MemberAddModal = (props) => {
  
 
   const handleSubmit = async (e) => {
+    setloading(true);
     //Member Add Function Submit Button Triggers
     e.preventDefault();
 
@@ -32,10 +34,12 @@ const MemberAddModal = (props) => {
           }
         )
         .then((response) => {
+          setloading(false)
           console.log(response.data);
           navigate(0);
         })
         .catch((error) => {
+          setloading(false)
           console.log(error);
         });
     } catch (err) {
@@ -138,8 +142,10 @@ const MemberAddModal = (props) => {
                   style={{ alignSelf: "end", width: "100%" }}
                   variant="primary"
                   type="submit"
+                  className="text-center"
+                  disabled={loading}
                 >
-                  Submit
+                 {loading? <div className="loader"></div> : "Submit"} 
                 </Button>
               </Form>
             </Modal.Body>

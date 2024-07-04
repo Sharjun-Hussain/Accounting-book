@@ -17,20 +17,9 @@ const TransactionsRoute = require("./Routes/Transaction");
 const UsersRoute = require("./Routes/user");
 const DonationRoute = require('./Routes/Donation');
 
-async function ConnectDB() {
-  await mongoose
-    .connect("mongodb://127.0.0.1:27017/HaadhiAccountingBook")
-    .then((con) => {
-      console.log(`Database Connected ${con.Connection.name} `);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
 // async function ConnectDB() {
 //   await mongoose
-//     .connect("mongodb+srv://Joon:Joon@haadhiaccountingbook.x1byt6c.mongodb.net/?retryWrites=true&w=majority&appName=HaadhiAccountingBook")
+//     .connect("mongodb://127.0.0.1:27017/HaadhiAccountingBook")
 //     .then((con) => {
 //       console.log(`Database Connected ${con.Connection.name} `);
 //     })
@@ -38,12 +27,23 @@ async function ConnectDB() {
 //       console.log(err);
 //     });
 // }
+
+async function ConnectDB() {
+  await mongoose
+    .connect("mongodb+srv://Joon:Joon@haadhiaccountingbook.x1byt6c.mongodb.net/?retryWrites=true&w=majority&appName=HaadhiAccountingBook")
+    .then((con) => {
+      console.log(`Database Connected ${con.Connection.name} `);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 ConnectDB();
 App.use(express.json());
 App.use(cookieParcer());
 App.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://accounting.inzeedo.com",
     credentials: true,
   })
 );
@@ -56,7 +56,6 @@ App.use("/Accounts", AccountsRoute);
 App.use("/Donations", DonationRoute);
 App.use("/Transactions", TransactionsRoute);
 App.use("/api", UsersRoute);
-
 
 App.listen(8000, () => {
   console.log(`Server started on 8000`);

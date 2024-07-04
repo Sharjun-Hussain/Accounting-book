@@ -8,7 +8,7 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import TollIcon from "@mui/icons-material/Toll";
 import AllSandha from "./FrontPageComponents/AllSandha";
-
+axios.defaults.withCredentials = true
 const currentDate = new Date();
 const MonthList = [
   "January",
@@ -45,7 +45,7 @@ const Frontpage = () => {
       const FetchCashAccountTotal = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8000/Accounts/cash/sum`
+            `http://localhost:8000/Accounts/cash/sum`, {withCredentials: true}
           );
           setcashAmount(response.data.FetchedAccount.Balance);
         } catch (err) {

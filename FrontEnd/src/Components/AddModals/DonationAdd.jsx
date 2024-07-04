@@ -7,19 +7,19 @@ import axios from "axios";
 
 const DonationAddModal = (props) => {
   const [Description, setDescription] = useState("");
- const [Amount, setAmount] = useState();
+  const [Amount, setAmount] = useState();
+  const [loading, setLoading] = useState(false);
   const [Name, setName] = useState("");
   const navigate = useNavigate();
 
-
-
   const HandleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     await axios
       .post(
         "http://localhost:8000/Donations/Add",
 
-        { Name,  Description, Amount },
+        { Name, Description, Amount },
         {
           headers: {
             "Content-Type": "application/json",
@@ -27,10 +27,12 @@ const DonationAddModal = (props) => {
         }
       )
       .then((res) => {
+        setLoading(false);
         console.log(res.data);
         navigate(0);
       })
       .catch((error) => {
+        setLoading(false);
         console.error("Error:", error);
       });
   };
@@ -71,17 +73,16 @@ const DonationAddModal = (props) => {
                     className="mb-3"
                     controlId="formGridAddress1"
                   >
-                    
                     <Form.Label>Amount</Form.Label>
-                  <Form.Control
-                    type="number"
-                    value={Amount}
-                    required
-                    onChange={(e) => {
-                      setAmount(e.target.value);
-                    }}
-                    placeholder="Amount"
-                  /> 
+                    <Form.Control
+                      type="number"
+                      value={Amount}
+                      required
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                      }}
+                      placeholder="Amount"
+                    />
                   </Form.Group>
                 </Row>
                 <Form.Group as={Col} controlId="formGridName">
@@ -102,8 +103,10 @@ const DonationAddModal = (props) => {
                   variant="primary"
                   type="submit"
                   onClick={HandleSubmit}
+                  className="text-center"
+                  disabled={loading}
                 >
-                  Submit
+                  {loading ? <div className="loader"></div> : "Submit"}
                 </Button>
               </Form>
             </Modal.Body>

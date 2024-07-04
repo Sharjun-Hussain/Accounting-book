@@ -8,7 +8,9 @@ import axios from "axios";
 const AccountAddModal = (props) => {
   const [Description, setDescription] = useState("");
   const [FetchCategory, setFetchCategory] = useState([]);
+  
   const [Category, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
   const [Name, setName] = useState("");
   const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ const AccountAddModal = (props) => {
   }, []);
 
   const HandleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     await axios
       .post(
@@ -38,11 +41,13 @@ const AccountAddModal = (props) => {
         }
       )
       .then((res) => {
+        setLoading(false)
         console.log(res.data);
         navigate(0);
       })
       .catch((error) => {
         console.error("Error:", error);
+        setLoading(false)
       });
   };
 
@@ -126,8 +131,10 @@ const AccountAddModal = (props) => {
                     variant="primary"
                     type="submit"
                     onClick={HandleSubmit}
+                    disabled={loading}
+                    className="text-center"
                   >
-                    Submit
+                    {loading? <div className="loader"></div> : "Submit"}
                   </Button>
                   </Col>
                 </Row>

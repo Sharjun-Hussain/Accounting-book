@@ -12,7 +12,7 @@ exports.login = async function (req, res, next) {
   }
 
   try {
-    const user = await userModel.findOne({ Email: Email });
+    const user = await userModel.findOne({ Email: Email },{ password:0});
     if (!user) {
       return res.status(400).json({
         Message: "User OR Password Incorrect",
@@ -28,26 +28,20 @@ exports.login = async function (req, res, next) {
         }
 
         const generatedToken = user.generatejwtToken();
-
         res
           .status(200)
           .cookie("token", generatedToken, {
-            httpOnly: true,
-            sameSite: "lax",
-            secure: true, // true if using HTTPS
+            httponly: true,
+            sameSite: "strict",
             path: "/",
-            expires: new Date(Date.now() + 1000 * 24 * 60 * 60),
+            
           })
           .json({
             Message: "Login SuccessFull",
             generatedToken,
             user,
           });
-      } catch (err) {
-        return res.status(500).json({
-          Message: "Something went wrong with our site ",
-        });
-      }
+      } catch (err) {}
     }
   } catch (err) {
     return res.status(500).json({
@@ -84,24 +78,24 @@ exports.register = async function (req, res) {
       res
         .status(201)
         .cookie("token", generatedToken, {
-          httpOnly: true,
+          httponly: true,
           sameSite: "strict",
           path: "/",
-        })
-        .json({ message: " Your Account Creation SuccessFull! ", user });
+        }).json({ message: " Your Account Creation SuccessFull! ",
+          user
+         });
     }
   }
 
   if (ExistingUser) {
     return res.status(404).json({
-      Message:
-        "OOPS! You already have an account with that Email address please sign in",
+      Message: " User Already Found Please Sign In",
     });
   }
 };
 
 exports.signout = function (req, res, next) {
-  res.status(200).cookie("token", "").json({
+  res.status(200).cookie("token", "", { sameSite: "strict", path: "/" }).json({
     Success: true,
     Message: "Sign Out Successfull",
   });

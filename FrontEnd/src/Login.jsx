@@ -19,7 +19,7 @@ const Login = () => {
   const inputref = useRef(null);
   const dispatch = useDispatch();
   const {loading,user}  =  useSelector(state => state.authState)
-  const organizationName = getCookie('OrganizationName')
+ 
 
   useEffect(() => {
     inputref.current.focus();

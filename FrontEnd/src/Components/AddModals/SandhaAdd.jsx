@@ -24,6 +24,7 @@ const SandhaAddModal = (props) => {
   const [AlluserData, setAlluserData] = useState([]); // All UserData from UseEffect
   const [Item, setItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [loading, setloading] = useState(false);
 
   const [MemberID, setMemberID] = useState("");
   const [Amount, setAmount] = useState();
@@ -60,6 +61,7 @@ const SandhaAddModal = (props) => {
   };
 
   const HandleSubmit = async (e) => {
+    setloading(true)
     e.preventDefault();
     await axios
       .post(
@@ -72,6 +74,7 @@ const SandhaAddModal = (props) => {
         }
       )
       .then((res) => {
+        setloading(false)
         Swal.fire({
           icon: "success",
           title: res.data.Message,
@@ -84,6 +87,7 @@ const SandhaAddModal = (props) => {
         }, 2000);
       })
       .catch((error) => {
+        setloading(false)
         Swal.fire({
           icon: "error",
           title: "Transaction Failed",
@@ -219,8 +223,8 @@ const SandhaAddModal = (props) => {
                   </Form.Group>
                 </Row>
 
-                <Button style={{ width: "100%" }} variant="primary" type="submit">
-                  Submit
+                <Button style={{ width: "100%" }} className="text-center" variant="primary" type="submit" disabled={loading}>
+                {loading? <div className="loader"></div> : "Submit"} 
                 </Button>
               </Form>
             </Modal.Body>

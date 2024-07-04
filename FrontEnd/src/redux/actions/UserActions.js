@@ -12,7 +12,7 @@ import {
 import Swal from "sweetalert2";
 
 
-var BaseURL = import.meta.env.VITE_BACKEND_URL
+// var BaseURL = import.meta.env.VITE_BACKEND_URL
 
 export const login = (Email, Password) => async (dispatch) => {
 
@@ -22,13 +22,14 @@ export const login = (Email, Password) => async (dispatch) => {
   try {
     dispatch(loginRequest());
 
-    const response = await axios.post(`${BaseURL}/api/user/login`,
+    const response = await axios.post(`http://localhost:8000/api/user/login`,
       { Email, Password },
       { withCredentials: true }
     );
 
     dispatch(loginSuccess(response.data.user));
     const expirationDate = new Date();
+    sessionStorage.setItem('token',response.data.generatedToken)
     expirationDate.setDate(expirationDate.getDate() + "days");
     const userName = `Name=${response.data.user.Name };expires=${expirationDate.toUTCString()};path=/`;
     const userPhone = `Phone=${response.data.user.Phone };expires=${expirationDate.toUTCString()};path=/`;
@@ -65,7 +66,7 @@ export const register =
     try {
       dispatch(RegisterRequest());
       const response = await axios.post(
-        `${BaseURL}/api/user/register`,
+        `http://localhost:8000/api/user/register`,
         { Email, Password, OrganizationName, Phone, Name },
         { withCredentials: true }
       );

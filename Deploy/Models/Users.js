@@ -9,7 +9,7 @@ const AdminSchema = new mongoose.Schema({
   Password: {
     type: String,
     required: true,
-    
+    Select: false,
   },
   Phone: {
     type: Number,
@@ -21,10 +21,6 @@ const AdminSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-  },
-  Verified :{
-    type: Boolean,
-    default: false,
   },
 
  OrganizationName: {

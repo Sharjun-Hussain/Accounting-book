@@ -14,6 +14,7 @@ const TransactionAddModal = (props) => {
   const [AllAccounts, setAllAccounts] = useState([]); // All Accounts from UseEffect
   const [FromAccount, setFromAccount] = useState(""); // All Accounts from UseEffect
   const [ToAccount, setToAccount] = useState(""); // All Accounts from UseEffect
+  const [loading, setloading] = useState(false); // All Accounts from UseEffect
   const [Amount, setAmount] = useState(); // All Accounts from UseEffect
   const [Description, setDescription] = useState(""); // All Accounts from UseEffect
   // const [Files, setFiles] = useState([]); // All Accounts from UseEffect
@@ -36,6 +37,7 @@ const TransactionAddModal = (props) => {
 
 
   const HandleSubmit = async (e) => {
+    setloading(true)
     e.preventDefault();
     await axios
       .post(
@@ -50,6 +52,7 @@ const TransactionAddModal = (props) => {
         
       )
       .then((res) => {
+        setloading(false)
         Swal.fire({
           icon: "success",
           title: res.data.Message,
@@ -63,6 +66,7 @@ const TransactionAddModal = (props) => {
         
       })
       .catch((error) => {
+        setloading(false)
         Swal.fire({
           icon: "error",
           title: "Transaction Failed",
@@ -167,8 +171,8 @@ const TransactionAddModal = (props) => {
                   <Form.Label>Upload Files</Form.Label>
                   <Form.Control type="file" multiple />
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={HandleSubmit}>
-                  Create
+                <Button variant="primary" type="submit" disabled={loading} className="text-center" onClick={HandleSubmit}>
+                {loading? <div className="loader "></div> : "Create"}
                 </Button>
               </Form>
             </Modal.Body>
