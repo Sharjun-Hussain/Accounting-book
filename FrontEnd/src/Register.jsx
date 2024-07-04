@@ -157,7 +157,7 @@ const Register = () => {
                   </Col>
                   <h6 className="text-white text-center mt-3">
                     Already have an account&nbsp;
-                    <Link to="/login" style={{ color: "red" }}>
+                    <Link className="login-signup-signin-btn" to="/login" style={{ color: "red" }}>
                       Sign In
                     </Link>
                   </h6>

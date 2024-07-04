@@ -13,8 +13,8 @@ import SideBar from "./SideBar";
 import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { useDispatch } from "react-redux";
-import { logout } from "../redux/actions/UserActions";
+// import { useDispatch } from "react-redux";
+// import { logout } from "../redux/actions/UserActions";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import axios from "axios";
 const Dashboard = (props) => {
@@ -27,7 +27,7 @@ const Dashboard = (props) => {
 
   const HandleSignOut =  () => {
 
-    window.prompt("Are you sure you want to sign out?" )
+  
    axios.get('http://localhost:8000/api/user/signout',{ withCredentials: true}).then(() =>{
      
      window.location.href = '/'

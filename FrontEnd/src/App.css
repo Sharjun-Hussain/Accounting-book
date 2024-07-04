@@ -297,3 +297,19 @@ a:hover {
   background-color: #99a1d4 !important;
   color: #000000 !important;
 }
+
+.login-signup-signin-btn{
+   
+}
+
+.login-signup-signin-btn:hover{
+  border:none !important;
+  background-color: transparent !important;
+  color:#00728B !important;
+  -webkit-text-stroke: #ffffff !important;
+  stroke: #ffffff !important;
+ 
+  -webkit-text-stroke-width: 1px !important;
+
+
+}
