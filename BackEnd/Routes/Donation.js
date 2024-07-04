@@ -2,13 +2,14 @@ const { FetchAllDonation, AddDonation, DeleteDonation, UpdateDonation, FetchSpec
 
 
 const express = require('express');
+const { authentication } = require('../Middlewares/Authentication');
 const app =express.Router();
 
-app.route("/All").get(FetchAllDonation);
-app.route("/Month/:Month").get(FetchSpecicMonthDonationDetails);
-app.route("/Month/:Month/Sum").get(FetchSpecicMonthDonationSum);
-app.route("/Add").post(AddDonation);
-app.route("/Delete/:id").delete(DeleteDonation);
-app.route("/Update/:id").put(UpdateDonation);
+app.route("/All").get(authentication, FetchAllDonation);
+app.route("/Month/:Month").get(authentication, FetchSpecicMonthDonationDetails);
+app.route("/Month/:Month/Sum").get(authentication, FetchSpecicMonthDonationSum);
+app.route("/Add").post(authentication, AddDonation);
+app.route("/Delete/:id").delete(authentication, DeleteDonation);
+app.route("/Update/:id").put(authentication, UpdateDonation);
 
-module.exports = app
+module.exports = app 
