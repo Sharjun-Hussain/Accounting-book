@@ -16,16 +16,23 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/UserActions";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import axios from "axios";
 const Dashboard = (props) => {
-  const date = new Date().toISOString().substring(0, 10);
+  // const date = new Date().toISOString().substring(0, 10);
   const [show, setshow] = useState(false); //offcanvas state
   const handleOffcanvasClose = () => setshow(false);
   const handleOffcanvasOpen = () => setshow(true);
-  const dispatch = useDispatch();
+
   // const user = useSelector((state) => state.authState.user);
 
-  const HandleSignOut = async () => {
-    dispatch(logout);
+  const HandleSignOut =  () => {
+
+    window.prompt("Are you sure you want to sign out?" )
+   axios.get('http://localhost:8000/api/user/signout',{ withCredentials: true}).then(() =>{
+     
+     window.location.href = '/'
+     sessionStorage.removeItem('user')
+   })
   };
   return (
     <>

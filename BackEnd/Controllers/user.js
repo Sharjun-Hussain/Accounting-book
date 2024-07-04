@@ -101,16 +101,16 @@ exports.register = async function (req, res) {
 };
 
 exports.signout = function (req, res, next) {
-  res.status(200).cookie("token", "").json({
+  res.status(200).clearCookie("token").json({
     Success: true,
-    Message: "Sign Out Successfull",
+    Message: "SignOut Successfull",
   });
 };
 
 
 exports.getuserprofile = async function (req, res, next) {
   const userID = req.id
-  console.log(userID);
+ 
 
   if (!userID) {
     return res.status(401).json({
