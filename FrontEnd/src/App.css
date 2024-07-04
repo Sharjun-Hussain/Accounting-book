@@ -313,3 +313,16 @@ a:hover {
 
 
 }
+
+
+.email-verify-card{
+
+  background-color: #000000 !important;
+  color: rgb(15, 232, 0) !important;
+  transition: 200ms ease-in-out !important;
+}
+
+.email-verify-card:hover{
+  background-color: #382c2c  !important;;
+  color: rgb(15, 232, 0) !important;
+}

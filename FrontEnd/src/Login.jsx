@@ -16,6 +16,7 @@ const Login = () => {
   const Navigate = useNavigate()
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [error, seterror] = useState(null);
   const inputref = useRef(null);
   const dispatch = useDispatch();
   const {loading,user}  =  useSelector(state => state.authState)

@@ -15,6 +15,7 @@ import Donations from "./Components/Outlets/Donations";
 import Login from "./Login";
 import Register from "./Register";
 import PrivateRoutes from "./PrivateRoute";
+import VerifyEmail from "./Components/Utilities/VerifyEmail";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           {!token && <Route path="/login" element={<Login />} />}
           {!token && <Route path="/register" element={<Register />} />}
+          {!token && <Route path="/verify/:Token" element={<VerifyEmail />} />}
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Dashboard />}>
               <Route index element={<Frontpage />} />

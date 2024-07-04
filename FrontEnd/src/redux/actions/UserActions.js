@@ -54,7 +54,7 @@ export const login = (Email, Password) => async (dispatch) => {
     Swal.fire({
       icon: "error",
       title: `Login Failed! <br/> `,
-      text: `${e.response?.data?.message}`,
+      text: `Make Sure Entered Verified Email Address `,
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,

@@ -3,18 +3,20 @@ import { Col, Container, Form, Image, Row, Button } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "./redux/actions/UserActions";
+import bg4 from "./assets/images/bg3.jpg";
+import {  useSelector } from "react-redux";
+import Swal from "sweetalert2";
+// import { register } from "./redux/actions/UserActions";
+import axios from "axios";
 
 const Register = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [Phone, setPhone] = useState("");
   const [Name, setName] = useState("");
-  const [OrganizationName, setOrganizationName] = useState("");
   const inputref = useRef(null);
   const { loading } = useSelector((state) => state.authState);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     inputref.current.focus();
@@ -22,12 +24,27 @@ const Register = () => {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(register(Email, Password, Phone, Name, OrganizationName));
+    // dispatch(register(Email, Password, Phone, Name, OrganizationName));
+    await axios.post(
+      `http://localhost:8000/api/user/register`,
+      { Email, Password, Phone, Name },
+      { withCredentials: true }
+    );
+    // const {_id} = response.data.user
+    // Navigation(`/verify-email/${_id}`)
+    Swal.fire({
+      icon: "info",
+      title: "Verification Mail Sent",
+      text: "A verification link has been sent to your registered email. Please check your inbox.",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
   };
 
   return (
     <Container
-      //   style={{ backgroundImage: `url(${bg4})` }}
+      style={{ backgroundImage: `url(${bg4})` }}
       fluid
       className="login-Container bg-dark"
     >
@@ -88,25 +105,6 @@ const Register = () => {
                         }}
                       />
                     </Form.Group>
-                    <Form.Group className="mt-3">
-                      <Form.Label
-                        style={{ marginBottom: "-5px", color: "white" }}
-                      >
-                        Organization Name
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Organization Name"
-                        className="form-control"
-                        name="OrganizationName"
-                        required
-                        value={OrganizationName}
-                        onChange={(e) => {
-                          setOrganizationName(e.target.value);
-                        }}
-                        ref={inputref}
-                      />
-                    </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group>
@@ -152,12 +150,16 @@ const Register = () => {
                       className="login-btn "
                     >
                       {" "}
-                      {loading? <div className="loader"></div> : "Register"}
+                      {loading ? <div className="loader"></div> : "Register"}
                     </Button>
                   </Col>
                   <h6 className="text-white text-center mt-3">
                     Already have an account&nbsp;
-                    <Link className="login-signup-signin-btn" to="/login" style={{ color: "red" }}>
+                    <Link
+                      className="login-signup-signin-btn"
+                      to="/login"
+                      style={{ color: "red" }}
+                    >
                       Sign In
                     </Link>
                   </h6>
