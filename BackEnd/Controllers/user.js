@@ -22,39 +22,26 @@ exports.login = async function (req, res, next) {
     }
 
     if (user.Verified) {
-      try {
-        if (!(await bcrypt.compare(Password, user.Password))) {
-          return res.status(400).json({
-            Message: "Invalid UserName OR Password",
-          });
-        }
-
-        const generatedToken = user.generatejwtToken();
-
-        res
-          .status(200)
-          .cookie("token", generatedToken, {
-            httpOnly: true,
-            sameSite: "lax",
-            secure: true, // true if using HTTPS
-            path: "/",
-            expires: new Date(Date.now() + 1000 * 24 * 60 * 60),
-          })
-          .json({
-            Message: "Login SuccessFull",
-            generatedToken,
-            user,
-          });
-      } catch (err) {
-        return res.status(500).json({
-          Message: "Something went wrong with our site ",
+      if (!(await bcrypt.compare(Password, user.Password))) {
+        return res.status(400).json({
+          Message: "Invalid UserName OR Password",
         });
       }
+
+      const generatedToken = user.generatejwtToken();
+
+      res
+        .status(200)
+        .cookie("token", generatedToken, {
+          httpOnly: true,
+          sameSite: "lax",
+          secure: true, // true if using HTTPS
+          path: "/",
+          expires: new Date(Date.now() + 1000 * 24 * 60 * 60),
+        })
+        .json({Message: "Login SuccessFull",generatedToken,user,});
     }
 
-    return res.status(401).json({
-      Message: "Please Verify Your Email First",
-    });
   } catch (err) {
     return res.status(500).json({
       Message: "Internal server Error",
@@ -188,16 +175,19 @@ exports.verifymail = async (req, res, next) => {
     });
   }
 
-  const generatedToken= verifiedUser.generatejwtToken()
+  const generatedToken = verifiedUser.generatejwtToken();
 
-  res.status(200).cookie("token", generatedToken, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: true, // true if using HTTPS
-    path: "/",
-    expires: new Date(Date.now() + 1000 * 24 * 60 * 60),
-  }).json({
-    message: "Email Verification Successfull",
-    verifiedUser,
-  });
+  res
+    .status(200)
+    .cookie("token", generatedToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true, // true if using HTTPS
+      path: "/",
+      expires: new Date(Date.now() + 1000 * 24 * 60 * 60),
+    })
+    .json({
+      message: "Email Verification Successfull",
+      verifiedUser,
+    });
 };
