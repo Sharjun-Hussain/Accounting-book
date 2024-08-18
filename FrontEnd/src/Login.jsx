@@ -6,15 +6,16 @@ import bg4 from "./assets/images/bg3.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 
 const Login = () => {
   const Navigate = useNavigate();
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const [error, seterror] = useState(null);
   const inputref = useRef(null);
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((state) => state.authState);
+  const { loading } = useSelector((state) => state.authState);
 
   useEffect(() => {
     inputref.current.focus();
@@ -84,12 +85,31 @@ const Login = () => {
               <Button type="submit" className="login-btn" disabled={loading}>
                 {loading ? <div className="loader"></div> : "Login"}
               </Button>
-              <p className="text-center text-white mt-3">
-                Don't have an account&nbsp;{" "}
+          
+
+              <Col className="d-flex justify-content-center mt-3">
+                <div>
+                  <div className="text-white">or continue with</div>
+                  <div className="d-flex flex-xol justify-content-around my-2">
+                    <div className="social-login">
+                      <GoogleIcon className="text-white social-icon" />
+                    </div>
+                    <div className="social-login">
+                      <FacebookRoundedIcon className="text-white social-icon" />
+                    </div>
+                    <div className="social-login">
+                      <GoogleIcon className="text-white social-icon" />
+                    </div>
+                  </div>
+                </div>
+              </Col>
+
+              <div className="text-center text-white mt-3">
+                Don't have an account?&nbsp;{" "}
                 <Link to="/register" className="login-signup-signin-btn">
                   Signup Here
                 </Link>
-              </p>
+              </div>
             </Form>
           </div>
         </Col>
