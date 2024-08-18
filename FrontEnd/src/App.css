@@ -186,6 +186,12 @@ a:hover {
   margin: 0;
 }
 
+@media(min-width: 320px) and (max-width:425px) {
+  .login-Container {
+    height: 100vh !important;
+    overflow: hidden !important ;
+}}
+
 .login-card {
    /* From https://css.glass */
    background: rgba(255, 255, 255, 0.2);

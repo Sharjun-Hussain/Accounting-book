@@ -116,6 +116,7 @@ exports.AddSandha = async (req, res, next) => {
         SandhaDetails:`Amount is : ${Amount}, Member Details are : ${Member}, Month is : ${PaidMonths}`,
         Action: "Create",
         Description: "Sandha Added ",
+        AdminID:req.userid
       })
 
       res.status(201).json({
@@ -167,6 +168,7 @@ exports.DeleteSandha = async (req, res, next) => {
       SandhaDetails:`Amount is : ${SandhaDetail.Amount}, Member Details are : ${Member}, Month is : ${SandhaDetail.PaidMonths}`,
       Action: "Delete",
       Description: "Sandha Deleted ",
+      AdminID:req.userid
     })
 
 
@@ -233,6 +235,7 @@ exports.UpdateSandha = async (req, res) => {
     SandhaDetails:`Previous Amount is : ${SandhaDetail.Amount}, Update Amount is : ${Amount} , Member Details are : ${Member}, Previous Month is : ${SandhaDetail.PaidMonths}, Updated Paid Month is : ${PaidMonths}`,
     Action: "Update",
     Description: "Sandha Updated ",
+    AdminID:req.userid
   })
 
 

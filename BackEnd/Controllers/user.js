@@ -76,9 +76,9 @@ exports.register = async function (req, res) {
     const verificationtoken = await jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "30s" }
+      { expiresIn: "60s" }
     );
-    const verificationUrl = `${process.env.CLIENT_URL}/verify/${verificationtoken}`;
+    const verificationUrl = `https://accounting.inzeedo.com/verify/${verificationtoken}`;
 
     const subject = "Email Verification";
     const to = Email;
@@ -133,7 +133,7 @@ exports.signout = function (req, res, next) {
 };
 
 exports.getuserprofile = async function (req, res, next) {
-  const userID = req.id;
+  const userID = req.userid;
 
   if (!userID) {
     return res.status(401).json({
@@ -163,9 +163,9 @@ exports.verifymail = async (req, res, next) => {
       });
     }
 
-    req.id = decodedToken.id;
+    req.userid = decodedToken.id;
   });
-  const verifiedUser = await userModel.findByIdAndUpdate(req.id, {
+  const verifiedUser = await userModel.findByIdAndUpdate(req.userid, {
     Verified: true,
   });
 

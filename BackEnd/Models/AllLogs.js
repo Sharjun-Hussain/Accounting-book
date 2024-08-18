@@ -43,6 +43,11 @@ const AllLogsSchema = new mongoose.Schema({
     type: String,
     // Amount Date Who Member Details (Name Id , Address ,Phone Number)
   },
+  AdminID :{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
 
   Action: {
     type: String,

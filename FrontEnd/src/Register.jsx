@@ -4,7 +4,6 @@ import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import bg4 from "./assets/images/bg3.jpg";
-import {  useSelector } from "react-redux";
 import Swal from "sweetalert2";
 // import { register } from "./redux/actions/UserActions";
 import axios from "axios";
@@ -15,7 +14,7 @@ const Register = () => {
   const [Phone, setPhone] = useState("");
   const [Name, setName] = useState("");
   const inputref = useRef(null);
-  const { loading } = useSelector((state) => state.authState);
+const [loading, setloading] = useState(false);
   // const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,23 +22,37 @@ const Register = () => {
   }, []);
 
   const HandleSubmit = async (e) => {
+    setloading(true);
     e.preventDefault();
     // dispatch(register(Email, Password, Phone, Name, OrganizationName));
     await axios.post(
       `http://localhost:8000/api/user/register`,
       { Email, Password, Phone, Name },
       { withCredentials: true }
-    );
-    // const {_id} = response.data.user
-    // Navigation(`/verify-email/${_id}`)
-    Swal.fire({
-      icon: "info",
-      title: "Verification Mail Sent",
-      text: "A verification link has been sent to your registered email. Please check your inbox.",
-      showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: true,
-    });
+    ).then(()=>{
+      setloading(false);
+      Swal.fire({
+        icon: "info",
+        title: "Verification Mail Sent",
+        text: "A verification link has been sent to your registered email. Please check your inbox.",
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      });
+    }).catch((err)=>{
+      setloading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Do you have Account Already?",
+        text: `${err.response?.data?.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      });
+    }).finally(()=>{
+      setloading(false);
+    })
+    
   };
 
   return (

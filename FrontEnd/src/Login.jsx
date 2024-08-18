@@ -3,38 +3,29 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import hadhiLogo from "./assets/images/hadhi-logo.png";
 import { useState, useRef, useEffect } from "react";
 import bg4 from "./assets/images/bg3.jpg";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "./redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
-// import   content  from './Components/Content'
-// import { getCookie } from "react-use-cookie";
-
 
 const Login = () => {
-
-
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [error, seterror] = useState(null);
   const inputref = useRef(null);
   const dispatch = useDispatch();
-  const {loading,user}  =  useSelector(state => state.authState)
- 
+  const { loading, user } = useSelector((state) => state.authState);
 
   useEffect(() => {
     inputref.current.focus();
-    
-   
   }, []);
-
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(Email,Password))
+    dispatch(login(Email, Password));
     setTimeout(() => {
-      Navigate("/") }, 2000);
-    
+      Navigate("/");
+    }, 2000);
   };
 
   return (
@@ -48,7 +39,7 @@ const Login = () => {
           <div className="login-card">
             <div className="d-flex justify-content-center flex-column ">
               <Image className="login-logo" src={hadhiLogo} />
-             
+
               <h2 className="text-center">Majidhul Haadhi</h2>
               <h4
                 style={{ marginTop: "-13px", color: "#00728B" }}
@@ -69,7 +60,6 @@ const Login = () => {
                   placeholder="Enter Your Email Address"
                   className="form-control"
                   name="Email"
-                 
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -85,21 +75,21 @@ const Login = () => {
                   placeholder="Enter The Password"
                   className="form-control"
                   name="Password"
-
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                 />
               </Form.Group>
 
-              <Button
-                type="submit"
-                className="login-btn"
-                disabled={loading}
-              >
-                {loading? <div className="loader"></div> : "Login"}
+              <Button type="submit" className="login-btn" disabled={loading}>
+                {loading ? <div className="loader"></div> : "Login"}
               </Button>
-              <p className="text-center text-white mt-3">Don't have an account&nbsp; <Link to="/register"  className="login-signup-signin-btn" >Signup Here</Link></p>
+              <p className="text-center text-white mt-3">
+                Don't have an account&nbsp;{" "}
+                <Link to="/register" className="login-signup-signin-btn">
+                  Signup Here
+                </Link>
+              </p>
             </Form>
           </div>
         </Col>

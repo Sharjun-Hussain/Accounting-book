@@ -16,7 +16,7 @@ exports.authentication = (req, res, next) => {
       });
     }
 
-    req.id = decodedToken.id;
+    req.userid = decodedToken.id;
     next();
   });
 };
