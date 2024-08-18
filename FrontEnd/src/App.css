@@ -84,19 +84,31 @@ ul li {
 a {
   color: white !important;
   list-style: none !important;
-  padding-block: 10px;
-
   text-decoration: none !important;
 }
 a:hover {
-  background: #606060;
-  color: black;
-  border-radius: 3px;
-  /* border-left: 5px solid greenyellow !important; */
+
 }
 .active {
   background-color: #303030;
   border-left: 5px solid greenyellow !important;
+}
+
+
+.sidebar-items{
+  color: white !important;
+  list-style: none !important;
+  padding-block: 10px;
+
+  text-decoration: none !important;
+}
+
+.sidebar-items:hover{
+  background: #606060;
+  color: black;
+  border-radius: 3px;
+  border-left: 5px solid greenyellow !important;
+
 }
 
 /* Front page */
@@ -203,7 +215,7 @@ a:hover {
    border: 1px solid rgba(255, 255, 255, 0.3);
    padding: 20px;
    padding-inline: 40px;
-   padding-bottom: 40px;
+   padding-bottom: 24px;
 }
 .login-logo {
   mix-blend-mode: darken !important;

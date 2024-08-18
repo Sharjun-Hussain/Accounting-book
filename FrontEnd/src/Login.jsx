@@ -61,13 +61,15 @@ const Login = () => {
                   placeholder="Enter Your Email Address"
                   className="form-control"
                   name="Email"
+                  autoComplete="false"
+                  aria-autocomplete="false"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
                   ref={inputref}
                 />
               </Form.Group>
-              <Form.Group className="mt-3">
+              <Form.Group className="mt-2">
                 <Form.Label style={{ marginBottom: "-5px", color: "white" }}>
                   Password
                 </Form.Label>
@@ -81,13 +83,25 @@ const Login = () => {
                   }}
                 />
               </Form.Group>
+              <div className="d-flex justify-content-between">
+                <Form.Check
+                style={{fontSize:"13px"}}
+                  className="text-white mt-1"
+                  type="checkbox"
+                  id="custom-switch"
+                  label="Remember Me"
+                />
+                <Link to="/forgot-password" style={{fontSize:"13px"}}
+                  className="text-white mt-1">
+                  Forgot Password?
+                </Link>
+              </div>
 
               <Button type="submit" className="login-btn" disabled={loading}>
                 {loading ? <div className="loader"></div> : "Login"}
               </Button>
-          
 
-              <Col className="d-flex justify-content-center mt-3">
+              <Col className="d-flex justify-content-center mt-4">
                 <div>
                   <div className="text-white">or continue with</div>
                   <div className="d-flex flex-xol justify-content-around my-2">

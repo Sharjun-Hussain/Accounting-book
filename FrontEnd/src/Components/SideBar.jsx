@@ -8,7 +8,7 @@ const SideBar = () => {
     <ul className="d-none d-md-block ">
       {item.map((navitem) => {
         return (
-          <NavLink to={navitem.path} className="d-flex ps-3 ps-3" key={navitem.id}>
+          <NavLink to={navitem.path} className="d-flex sidebar-items ps-3 ps-3" key={navitem.id}>
             {({ isActive }) => (
               <>
                 {isActive ? <navitem.activeIcon/> : <navitem.icon />}

@@ -39,12 +39,11 @@ const [loading, setloading] = useState(false);
         timer: 1500,
         timerProgressBar: true,
       });
-    }).catch((err)=>{
+    }).catch(()=>{
       setloading(false);
       Swal.fire({
         icon: "error",
         title: "Do you have Account Already?",
-        text: `${err.response?.data?.message}`,
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true,
