@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { Col, Container, Row, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 const AccountAddModal = (props) => {
@@ -12,7 +13,6 @@ const AccountAddModal = (props) => {
   const [Category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [Name, setName] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const FetchAllCategory = async () => {
@@ -43,7 +43,8 @@ const AccountAddModal = (props) => {
       .then((res) => {
         setLoading(false)
         console.log(res.data);
-        navigate(0);
+        props.onAddAccount(res.data.Account)
+        props.onHide()
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -56,10 +57,11 @@ const AccountAddModal = (props) => {
       <Row>
         <Col>
           <Modal
-            {...props}
+           
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            {...props}
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">

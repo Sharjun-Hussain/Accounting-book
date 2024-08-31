@@ -3,7 +3,6 @@ import { Col, Container, Row, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AccountAddModal = (props) => {
@@ -11,7 +10,7 @@ const AccountAddModal = (props) => {
   const [FetchCategory, setFetchCategory] = useState([]);
   const [Category, setCategory] = useState("");
   const [Name, setName] = useState("");
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const FetchAllCategory = async () => {
@@ -40,7 +39,8 @@ const AccountAddModal = (props) => {
       )
       .then((res) => {
         console.log(res.data);
-        navigate(0);
+        props.onUpdateAccount(props.data._id,);
+        props.onHide()
       })
       .catch((error) => {
         console.error("Error:", error);

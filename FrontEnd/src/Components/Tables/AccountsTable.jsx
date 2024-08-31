@@ -1,6 +1,5 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import AccountUpdate from "../UpdateModals/AccountUpdate";
+/* eslint-disable react/prop-types */
+
 
 //From MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -10,28 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 
-const AccountsTable = () => {
-  const [loading, setLoading] = useState(true);
-  const [Accounts, setAccounts] = useState([]);
-  const [ModalShow, setModalShow] = useState(false);
-  const [selectedRow, setselectedRow] = useState({})
-  useEffect(() => {
-    const fetchData = async() => {
-      try {
-       const response = await fetch("http://localhost:8000/Accounts/All")
-       const data = await response.json()
-        setAccounts(data.Accounts)
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    console.log(Accounts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
+const AccountsTable = ({Accounts , onDeleteAccount , onModifyAccount, loading }) => {
 
   const darkTheme = createTheme({
     palette: {
@@ -39,18 +17,6 @@ const AccountsTable = () => {
     },
   });
 
-  const handleEdit = (id,Name,Description,Balance) => {
-    setModalShow(true);
-    setselectedRow({id,Name,Description,Balance});
-    console.log(selectedRow);
-  };
-
-  const handleDelete = async (id) => {
-    await axios.get(`http://localhost:8000/Accounts/Delete/${id}`);
-    console.log("Deleting member with ID:", id);
-    setAccounts(Accounts.filter((account) => account._id !== id));
-    console.log(Accounts);
-  };
   const columns = [
     // { field: "_id", headerName: "ID", width: 200 },
     { field: "Name", headerName: "Account Name", width: 300 },
@@ -75,14 +41,14 @@ const AccountsTable = () => {
           <IconButton
             color="primary"
             aria-label="edit"
-            onClick={() => handleEdit(params.row._id, params.row.Name,params.row.Description)}
+            onClick={() => onModifyAccount(params.row._id, params.row.Name,params.row.Description)}
           >
             <EditIcon />
           </IconButton>
           <IconButton
             color="secondary"
             aria-label="delete"
-            onClick={() => handleDelete(params.row._id)}
+            onClick={() => onDeleteAccount(params.row._id)}
           >
             <DeleteIcon />
           </IconButton>
@@ -117,7 +83,7 @@ const AccountsTable = () => {
         />
       </div>
 
-      <AccountUpdate data= {selectedRow} show={ModalShow} onHide={() => setModalShow(false)} />
+     
     </ThemeProvider>
   );
 };

@@ -158,10 +158,10 @@ a:hover {
   background-color: transparent !important;
   color: white !important;
 }
-.form-control::placeholder {
+/* .form-control::placeholder {
   color: wheat !important;
   opacity: 0.4 !important;
-}
+} */
 .form-control:focus {
   box-shadow: none !important;
 }
@@ -338,6 +338,28 @@ a:hover {
   background-color: #00728B;
 }
 
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+  height: auto !important;
+  color: black !important;
+  border: #000000 !important;
+
+}
+
+.css-19kzrtu{
+  padding: 0px !important;
+}
+
+
+.submit-btn{
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.submit-btn:hover{
+  border: 1px solid #000000 !important;
+  background-color: #00728B !important;
+  color: white !important;
+}
 .social-icon{
   border: 1px solid #00c8d6;
   border-radius: 50%;
